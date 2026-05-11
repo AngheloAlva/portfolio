@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const siteConfig = {
-  name: "Your Site Name",
+  name: "Wireframe Template",
   description:
-    "A modern, accessible landing page template built with Next.js, Tailwind CSS, and TypeScript.",
+    "A baseline for products that move quickly. Wireframe-stage scaffolding for teams that ship before the brand lands.",
   url: "https://example.com",
   ogImage: "/og-image.png",
   creator: "@yourhandle",
