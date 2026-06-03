@@ -9,6 +9,7 @@ import {
   type ProjectData,
 } from "@/lib/portfolio-data";
 import {
+  ArrowLeft,
   CircleDot,
   Flag,
   FlaskConical,
@@ -28,7 +29,7 @@ const MILESTONE_ICONS: Record<CaseStudyMilestoneIcon, LucideIcon> = {
 };
 
 function hasHeadline(
-  block: ParagraphBlock,
+  block: ParagraphBlock
 ): block is { headline: string; body: string } {
   return typeof block !== "string";
 }
@@ -43,21 +44,21 @@ function ParagraphBlocks({
       {blocks.map((block, i) =>
         hasHeadline(block) ? (
           <div key={i} className="space-y-2">
-            <h3 className="text-lg font-semibold tracking-tight text-foreground">
+            <h3 className="text-foreground text-lg font-semibold tracking-tight">
               {block.headline}
             </h3>
-            <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
+            <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
               {block.body}
             </p>
           </div>
         ) : (
           <p
             key={i}
-            className="text-sm leading-relaxed text-muted-foreground sm:text-base"
+            className="text-muted-foreground text-sm leading-relaxed sm:text-base"
           >
             {block}
           </p>
-        ),
+        )
       )}
     </div>
   );
@@ -65,7 +66,7 @@ function ParagraphBlocks({
 
 function SectionLabel({ children }: { children: ReactNode }): ReactNode {
   return (
-    <p className="font-mono text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">
+    <p className="text-muted-foreground font-mono text-xs font-medium tracking-[0.16em] uppercase">
       {children}
     </p>
   );
@@ -81,7 +82,7 @@ function EditorialSection({
 }): ReactNode {
   return (
     <Reveal>
-      <section className="relative border-b border-border p-6 sm:p-10 lg:p-14">
+      <section className="border-border relative border-b p-6 sm:p-10 lg:p-14">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-14">
           <div>
             <div className="lg:sticky lg:top-28">
@@ -96,7 +97,11 @@ function EditorialSection({
   );
 }
 
-export function CaseStudyView({ project }: { project: ProjectData }): ReactNode {
+export function CaseStudyView({
+  project,
+}: {
+  project: ProjectData;
+}): ReactNode {
   const cs = project.caseStudy;
   if (!cs) return null;
 
@@ -114,25 +119,28 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
   return (
     <main id="main-content" className="flex-1">
       {/* Hero */}
-      <section className="relative border-b border-border">
-        <div className="px-6 pt-8 sm:px-10 sm:pt-10 lg:px-14">
+      <section className="border-border relative border-b">
+        <div className="border-border border-b px-6 py-4 sm:px-10 sm:py-5 lg:px-14">
           <Link
             href="/#proyectos"
-            className="focus-ring inline-flex items-center gap-2 rounded-sm font-mono text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground transition-colors hover:text-foreground"
+            className="focus-ring text-muted-foreground hover:text-foreground flex items-center justify-start gap-2 rounded-sm font-mono text-xs font-medium tracking-[0.12em] uppercase transition-colors"
           >
-            <span aria-hidden="true">←</span> Proyectos
+            <span aria-hidden="true">
+              <ArrowLeft className="size-4" />
+            </span>{" "}
+            Proyectos
           </Link>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2">
-          <div className="flex flex-col justify-center px-6 py-12 sm:px-10 sm:py-16 lg:border-r lg:border-border lg:px-14 lg:py-20">
+          <div className="lg:border-border flex flex-col justify-center px-6 py-12 sm:px-10 sm:py-16 lg:border-r lg:px-14 lg:py-20">
             <SectionLabel>
               {cs.clientIndustry} · {CATEGORY_LABELS[project.category]}
             </SectionLabel>
-            <h1 className="mt-6 text-4xl font-medium leading-[1.05] tracking-tighter text-foreground sm:text-5xl lg:text-[4rem]">
+            <h1 className="text-foreground mt-6 text-4xl leading-[1.05] font-medium tracking-tighter sm:text-5xl lg:text-[4rem]">
               {project.title}
             </h1>
-            <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            <p className="text-muted-foreground mt-8 max-w-xl text-base leading-relaxed sm:text-lg">
               {cs.pitch}
             </p>
 
@@ -142,7 +150,7 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
                   href={project.liveUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="focus-ring inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3.5 text-xs font-semibold uppercase tracking-[0.12em] text-background transition-opacity hover:opacity-90"
+                  className="focus-ring bg-foreground text-background inline-flex items-center gap-2 rounded-full px-5 py-3.5 text-xs font-semibold tracking-[0.12em] uppercase transition-opacity hover:opacity-90"
                 >
                   Visitar sitio
                   <span aria-hidden="true">↗</span>
@@ -153,7 +161,7 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
                   href={project.githubUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="focus-ring inline-flex items-center gap-2 rounded-full border border-border px-5 py-3.5 text-xs font-semibold uppercase tracking-[0.12em] text-foreground transition-colors hover:border-muted-foreground"
+                  className="focus-ring border-border text-foreground hover:border-muted-foreground inline-flex items-center gap-2 rounded-full border px-5 py-3.5 text-xs font-semibold tracking-[0.12em] uppercase transition-colors"
                 >
                   GitHub
                   <span aria-hidden="true">↗</span>
@@ -165,7 +173,7 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
               {project.technologies.map((tech) => (
                 <span
                   key={tech}
-                  className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground"
+                  className="bg-muted text-muted-foreground rounded-full px-3 py-1 text-xs font-medium"
                 >
                   {tech}
                 </span>
@@ -173,7 +181,7 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
             </div>
           </div>
 
-          <div className="flex items-center justify-center bg-muted p-6 sm:p-10 lg:p-14">
+          <div className="bg-muted flex items-center justify-center p-6 sm:p-10 lg:p-14">
             {Hero ? (
               <Hero label={project.title} />
             ) : (
@@ -182,14 +190,16 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
           </div>
         </div>
 
-        <div className={`grid grid-cols-2 border-t border-border ${metaColsClass}`}>
+        <div
+          className={`border-border grid grid-cols-2 border-t ${metaColsClass}`}
+        >
           {meta.map((item) => (
             <div
               key={item.label}
               className="border-border px-6 py-8 sm:px-10 lg:border-l lg:px-14 lg:first:border-l-0"
             >
               <SectionLabel>{item.label}</SectionLabel>
-              <p className="mt-3 text-sm leading-snug text-foreground">
+              <p className="text-foreground mt-3 text-sm leading-snug">
                 {item.value}
               </p>
             </div>
@@ -197,17 +207,17 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
         </div>
 
         {cs.userBreakdown ? (
-          <div className="border-t border-border px-6 py-6 sm:px-10 lg:px-14">
+          <div className="border-border border-t px-6 py-6 sm:px-10 lg:px-14">
             <SectionLabel>Usuarios</SectionLabel>
-            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+            <p className="text-muted-foreground mt-2 max-w-3xl text-sm leading-relaxed">
               {cs.userBreakdown}
             </p>
           </div>
         ) : null}
 
         {cs.visualPrivacy === "confidential-ui" ? (
-          <div className="border-t border-border bg-muted px-6 py-5 sm:px-10 lg:px-14">
-            <p className="max-w-3xl text-xs leading-relaxed text-muted-foreground sm:text-sm">
+          <div className="border-border bg-muted border-t px-6 py-5 sm:px-10 lg:px-14">
+            <p className="text-muted-foreground max-w-3xl text-xs leading-relaxed sm:text-sm">
               Mockup ilustrativo. El sistema real es privado por acuerdo con el
               cliente — sin capturas ni datos reales.
             </p>
@@ -229,19 +239,19 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
       {/* Métricas */}
       {cs.metrics.length > 0 ? (
         <Reveal>
-          <section className="relative border-b border-border p-6 sm:p-10 lg:p-14">
+          <section className="border-border relative border-b p-6 sm:p-10 lg:p-14">
             <SectionLabel>En números</SectionLabel>
             <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
               {cs.metrics.map((metric) => (
                 <div key={metric.label}>
-                  <p className="text-3xl font-medium tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+                  <p className="text-foreground text-3xl font-medium tracking-tight sm:text-4xl lg:text-5xl">
                     {metric.value}
                   </p>
-                  <p className="mt-3 text-sm font-medium text-foreground">
+                  <p className="text-foreground mt-3 text-sm font-medium">
                     {metric.label}
                   </p>
                   {metric.caption ? (
-                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                    <p className="text-muted-foreground mt-1 text-xs leading-relaxed">
                       {metric.caption}
                     </p>
                   ) : null}
@@ -255,11 +265,11 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
 
       {/* Arquitectura */}
       <EditorialSection label="Arquitectura">
-        <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
+        <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
           {cs.architectureDescription}
         </p>
         {cs.techStackIntro ? (
-          <p className="mt-6 text-sm leading-relaxed text-muted-foreground sm:text-base">
+          <p className="text-muted-foreground mt-6 text-sm leading-relaxed sm:text-base">
             {cs.techStackIntro}
           </p>
         ) : null}
@@ -268,27 +278,27 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
       {/* Decisiones técnicas */}
       {cs.techStackDetailed.length > 0 ? (
         <Reveal>
-          <section className="relative border-b border-border">
+          <section className="border-border relative border-b">
             <div className="px-6 pt-6 sm:px-10 sm:pt-10 lg:px-14 lg:pt-14">
               <SectionLabel>Decisiones técnicas</SectionLabel>
             </div>
-            <div className="mt-10 border-t border-border lg:mt-14">
+            <div className="border-border mt-10 border-t lg:mt-14">
               {cs.techStackDetailed.map((item) => (
                 <div
                   key={item.name}
-                  className="grid grid-cols-1 gap-x-14 gap-y-3 border-b border-border px-6 py-7 sm:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] sm:px-10 sm:py-8 lg:px-14"
+                  className="border-border grid grid-cols-1 gap-x-14 gap-y-3 border-b px-6 py-7 sm:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] sm:px-10 sm:py-8 lg:px-14"
                 >
                   <div className="flex flex-wrap items-start gap-2">
-                    <h3 className="text-lg font-semibold leading-tight tracking-tight text-foreground">
+                    <h3 className="text-foreground text-lg leading-tight font-semibold tracking-tight">
                       {item.name}
                     </h3>
                     {item.tag ? (
-                      <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+                      <span className="bg-muted text-muted-foreground rounded-full px-2.5 py-0.5 text-xs font-medium">
                         {item.tag}
                       </span>
                     ) : null}
                   </div>
-                  <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
+                  <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
                     {item.reason}
                   </p>
                 </div>
@@ -302,9 +312,9 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
       {/* Funcionalidades — bento */}
       {cs.features.length > 0 ? (
         <Reveal>
-          <section className="relative border-b border-border p-6 sm:p-10 lg:p-14">
+          <section className="border-border relative border-b p-6 sm:p-10 lg:p-14">
             <SectionLabel>Funcionalidades</SectionLabel>
-            <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:auto-rows-fr lg:gap-6">
+            <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:auto-rows-fr lg:grid-cols-3 lg:gap-6">
               {cs.features.map((feature, i) => {
                 const isLead = i === 0;
                 const FeatureGlyph = mockup?.features?.[feature.title];
@@ -314,7 +324,7 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
                 return (
                   <article
                     key={feature.title}
-                    className={`flex flex-col rounded-2xl bg-muted p-6 sm:p-7 ${
+                    className={`bg-muted flex flex-col rounded-2xl p-6 sm:p-7 ${
                       isLead
                         ? "sm:col-span-2 sm:row-span-2 lg:col-span-2 lg:row-span-2"
                         : ""
@@ -327,13 +337,15 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
                     )}
                     <div className="mt-5 flex shrink-0 flex-col">
                       <h3
-                        className={`font-semibold leading-tight tracking-tight text-foreground ${
-                          isLead ? "text-xl sm:text-2xl" : "text-base sm:text-lg"
+                        className={`text-foreground leading-tight font-semibold tracking-tight ${
+                          isLead
+                            ? "text-xl sm:text-2xl"
+                            : "text-base sm:text-lg"
                         }`}
                       >
                         {feature.title}
                       </h3>
-                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                      <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
                         {feature.description}
                       </p>
                     </div>
@@ -349,7 +361,7 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
       {/* Línea de tiempo */}
       {cs.timeline && cs.timeline.length > 0 ? (
         <Reveal>
-          <section className="relative border-b border-border p-6 sm:p-10 lg:p-14">
+          <section className="border-border relative border-b p-6 sm:p-10 lg:p-14">
             <SectionLabel>Línea de tiempo</SectionLabel>
             <ol className="mt-10 space-y-0">
               {cs.timeline.map((milestone, i) => {
@@ -363,7 +375,7 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
                     {!isLast ? (
                       <span
                         aria-hidden="true"
-                        className="absolute top-11 bottom-0 left-5 w-px bg-border"
+                        className="bg-border absolute top-11 bottom-0 left-5 w-px"
                       />
                     ) : null}
                     <span
@@ -377,10 +389,10 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
                     </span>
                     <div className="pt-1.5">
                       <SectionLabel>{milestone.date}</SectionLabel>
-                      <h3 className="mt-2 text-base font-semibold leading-tight tracking-tight text-foreground sm:text-lg">
+                      <h3 className="text-foreground mt-2 text-base leading-tight font-semibold tracking-tight sm:text-lg">
                         {milestone.title}
                       </h3>
-                      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                      <p className="text-muted-foreground mt-2 max-w-2xl text-sm leading-relaxed">
                         {milestone.description}
                       </p>
                     </div>
@@ -395,26 +407,26 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
 
       {/* Cierre */}
       <section className="bg-background p-6 sm:p-10 lg:p-14">
-        <div className="flex flex-col items-start justify-between gap-8 rounded-3xl border border-border bg-muted px-8 py-12 sm:flex-row sm:items-center sm:px-12 lg:px-14">
+        <div className="border-border bg-muted flex flex-col items-start justify-between gap-8 rounded-3xl border px-8 py-12 sm:flex-row sm:items-center sm:px-12 lg:px-14">
           <div className="max-w-md">
-            <h2 className="text-2xl font-medium leading-tight tracking-tight text-foreground sm:text-3xl">
+            <h2 className="text-foreground text-2xl leading-tight font-medium tracking-tight sm:text-3xl">
               ¿Tienes un proyecto similar?
             </h2>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+            <p className="text-muted-foreground mt-3 text-sm leading-relaxed sm:text-base">
               Construyo sistemas a medida de extremo a extremo. Conversemos.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/#contacto"
-              className="focus-ring inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3.5 text-xs font-semibold uppercase tracking-[0.12em] text-background transition-opacity hover:opacity-90"
+              className="focus-ring bg-foreground text-background inline-flex items-center gap-2 rounded-full px-5 py-3.5 text-xs font-semibold tracking-[0.12em] uppercase transition-opacity hover:opacity-90"
             >
               Escríbeme
               <span aria-hidden="true">→</span>
             </Link>
             <Link
               href="/#proyectos"
-              className="focus-ring inline-flex items-center gap-2 rounded-full border border-border px-5 py-3.5 text-xs font-semibold uppercase tracking-[0.12em] text-foreground transition-colors hover:border-muted-foreground"
+              className="focus-ring border-border text-foreground hover:border-muted-foreground inline-flex items-center gap-2 rounded-full border px-5 py-3.5 text-xs font-semibold tracking-[0.12em] uppercase transition-colors"
             >
               Ver más proyectos
             </Link>
