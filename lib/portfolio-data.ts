@@ -289,7 +289,7 @@ export const portfolioProjects: ProjectData[] = [
   {
     id: "busanc",
     imageUrl: "/img/portfolio/placeholder.jpg",
-    title: "Busanc — Plataforma de Gestión Comercial e Industrial",
+    title: "Plataforma de Gestión Comercial e Industrial",
     shortDescription:
       "ERP a medida para gestionar el flujo comercial, ingeniería y producción de una empresa de productos antidesgaste para minería.",
     fullDescription:
@@ -318,22 +318,22 @@ export const portfolioProjects: ProjectData[] = [
     caseStudy: {
       visualPrivacy: "confidential-ui",
       pitch:
-        "Busanc es una plataforma a medida que digitaliza y orquesta el flujo end-to-end de una empresa industrial: desde que Comercial recibe el requerimiento del cliente hasta que Despacho genera la guía. Reemplaza un ecosistema fragmentado de Excel, correos y una intranet legada por un único sistema con trazabilidad, paralelismo entre áreas y visibilidad operativa real.",
+        "Una plataforma a medida que digitaliza y orquesta el flujo end-to-end de una empresa industrial: desde que Comercial recibe el requerimiento del cliente hasta que Despacho genera la guía. Reemplaza un ecosistema fragmentado de Excel, correos y una intranet legada por un único sistema con trazabilidad, paralelismo entre áreas y visibilidad operativa real.",
       duration:
         "≈8 meses de desarrollo activo (kickoff octubre 2025 → marcha blanca abril 2026), con levantamiento en terreno en las instalaciones de Busanc en Chile durante toda la fase de descubrimiento.",
       inProductionSince:
         "En marcha blanca desde abril 2026 (segundo mes) con un usuario activo por área validando flujos. Salida a producción real estimada: junio 2026.",
       clientName: "Busanc",
       clientIndustry:
-        "Industria minera — fabricación de productos antidesgaste para procesos de extracción y obtención de minerales. Opera en Chile.",
+        "Industria minera — fabricación de productos antidesgaste para procesos de extracción y obtención de minerales.",
       problem: [
-        "Antes de Busanc, el flujo comercial e industrial vivía repartido entre Excel, correos electrónicos y una intranet legada construida a medida que solo servía para crear la Solicitud Comercial inicial. Una vez generada la SC, todo el seguimiento —aprobaciones, asignaciones de ingenieros, cotizaciones, órdenes de compra, planificación productiva— se coordinaba por correo, sin un sistema único que reflejara el estado real del proyecto.",
+        "Antes de la plataforma, el flujo comercial e industrial vivía repartido entre Excel, correos electrónicos y una intranet legada construida a medida que solo servía para crear la Solicitud Comercial inicial. Una vez generada la SC, todo el seguimiento —aprobaciones, asignaciones de ingenieros, cotizaciones, órdenes de compra, planificación productiva— se coordinaba por correo, sin un sistema único que reflejara el estado real del proyecto.",
         'El dolor más nombrado por el equipo fue lo que ellos mismos llamaron "comentarios de pasillo": información crítica del proyecto (decisiones técnicas, cambios de alcance, observaciones de Ingeniería) que nunca quedaba escrita. Si la persona que tomó la decisión no estaba, esa información se perdía. Sumado a esto, los formularios de SC tenían campos opcionales que en la práctica nunca se completaban, obligando al Jefe de Ingeniería a inferir o preguntar verbalmente lo que faltaba, con el costo de tiempo y errores que eso implica.',
         "Comercial no tenía visibilidad del avance una vez que la SC pasaba a Ingeniería: no sabía si estaba en revisión, en costos, esperando a Hispana, ni cuándo esperar respuesta. No había forma de estimar tiempos de entrega al cliente porque no había forma de saber la carga real de cada área. Las cotizaciones llegaban como planillas Excel que Comercial debía rearmar manualmente antes de enviarlas al cliente, con riesgo de error y reproceso. Las cotizaciones tienen vigencia legal de 30 días, así que cualquier demora se traducía en negocios perdidos.",
         "A nivel productivo, la Orden de Compra del cliente llegaba a Comercial y se distribuía por correo a Planificación y a Evaluación & Costos, generando duplicaciones, intermediarios innecesarios y cero trazabilidad de quién recibió qué y cuándo. Los proyectos repetitivos —que técnicamente no requieren pasar por Ingeniería— igual seguían el flujo completo por inercia. Todo esto en un contexto de crecimiento sostenido, donde el equipo sentía que el método actual ya no escalaba.",
       ],
       solution: [
-        "Busanc unifica el flujo completo en una única plataforma con un modelo componente-céntrico: cada componente comprado de un proyecto avanza independientemente por sus etapas productivas, con su propia Orden de Trabajo, plantilla de proceso y métricas de tiempo. Esto reemplaza el flujo lineal antiguo que obligaba a esperar a que todo el proyecto pasara de un área a otra.",
+        "La plataforma unifica el flujo completo con un modelo componente-céntrico: cada componente comprado de un proyecto avanza independientemente por sus etapas productivas, con su propia Orden de Trabajo, plantilla de proceso y métricas de tiempo. Esto reemplaza el flujo lineal antiguo que obligaba a esperar a que todo el proyecto pasara de un área a otra.",
         'El cambio estructural más importante es el trabajo en paralelo entre Ingeniería, Hispana (proveedor metálico interno) y Evaluación & Costos: a medida que Ingeniería va guardando componentes, las áreas siguientes pueden ir trabajando sobre ellos sin esperar el cierre completo de la etapa anterior. Cada área tiene acciones explícitas de "Guardar" (avance parcial) y "Cerrar" (etapa terminada), con reglas de dependencia que impiden cierres prematuros. Esto reduce dramáticamente los tiempos de cotización y permite a Comercial dar fechas estimadas reales al cliente.',
         'El sistema cubre 24+ módulos de negocio: SC y Solicitudes de Levantamiento, proyectos jerárquicos con códigos correlativos y versionamiento (R1, R2, …), catálogo de materiales y productos comerciales reutilizables, cotizaciones con descuentos y multimoneda (CLP/UF/USD), revisión de Orden de Compra en dos pasos, planificación con plantillas de proceso configurables, dashboard de capacidad por área, módulos productivos dedicados (Metálico, Goma, Pintura, Calidad, Bodega), guías de despacho con soporte parcial/consolidado e historial de proyectos para recotización. Una capa transversal de Activity Log inmutable registra cada acción del sistema — la regla operativa del proyecto es "lo que no está en el sistema, no existe".',
         "Está dimensionado para escalar de los ~6 usuarios actuales en marcha blanca a ~32 usuarios concurrentes una vez en producción plena, con potencial de crecimiento conforme se integren más áreas operativas y dashboards gerenciales.",

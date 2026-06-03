@@ -1,4 +1,5 @@
 import { AiepHero, aiepFeatureGlyphs } from "@/components/mockups/aiep-pei";
+import { BusancHero, busancFeatureGlyphs } from "@/components/mockups/busanc";
 import { Otc360Hero, otc360FeatureGlyphs } from "@/components/mockups/otc-360";
 import type { ReactNode } from "react";
 
@@ -25,6 +26,10 @@ const PROJECT_MOCKUPS: Record<string, ProjectMockup> = {
   "aiep-pei": {
     hero: AiepHero,
     features: aiepFeatureGlyphs,
+  },
+  busanc: {
+    hero: BusancHero,
+    features: busancFeatureGlyphs,
   },
 };
 
