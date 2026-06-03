@@ -1,28 +1,29 @@
 import type { ReactNode } from "react";
 
+type FooterLink = { label: string; href: string };
+
 const linkColumns: ReadonlyArray<{
-  label?: string;
-  items: ReadonlyArray<string>;
+  label: string;
+  items: ReadonlyArray<FooterLink>;
 }> = [
   {
-    label: "Frame",
-    items: ["Homepage", "About", "Blog", "Careers", "Legal", "Privacy", "Terms", "Help"],
-  },
-  {
-    label: "Templates",
+    label: "Navegación",
     items: [
-      "Wireframe",
-      "Marketing",
-      "Dashboard",
-      "Landing",
-      "Docs",
-      "Portfolio",
-      "Commerce",
-      "App",
+      { label: "Proyectos", href: "#proyectos" },
+      { label: "Más proyectos", href: "#mas-proyectos" },
+      { label: "Stack", href: "#stack" },
+      { label: "Preguntas frecuentes", href: "#faq" },
+      { label: "Contacto", href: "#contacto" },
     ],
   },
   {
-    items: ["Founders", "Designers", "Engineers", "Agencies"],
+    label: "Contacto",
+    items: [
+      { label: "Email", href: "mailto:ance.anghelo@gmail.com" },
+      { label: "LinkedIn", href: "#" },
+      { label: "GitHub", href: "#" },
+      { label: "Descargar CV", href: "/cv-anghelo-alva.pdf" },
+    ],
   },
 ];
 
@@ -36,37 +37,28 @@ export function Footer(): ReactNode {
               href="#main-content"
               className="focus-ring inline-flex items-center gap-2 rounded-sm text-sm text-neutral-100 transition-colors hover:text-white dark:text-neutral-900 dark:hover:text-black"
             >
-              Back to top
+              Volver arriba
               <span aria-hidden="true">↑</span>
             </a>
           </div>
 
           <nav
             aria-label="Footer"
-            className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:gap-x-12"
+            className="grid grid-cols-2 gap-x-8 gap-y-10 lg:gap-x-12"
           >
-            {linkColumns.map((column, i) => (
-              <div key={column.label ?? `col-${i}`}>
-                {column.label ? (
-                  <p className="mb-5 text-sm text-neutral-500 dark:text-neutral-500">
-                    {column.label}
-                  </p>
-                ) : (
-                  <p
-                    className="mb-5 text-sm text-neutral-500 dark:text-neutral-500"
-                    aria-hidden="true"
-                  >
-                    &nbsp;
-                  </p>
-                )}
+            {linkColumns.map((column) => (
+              <div key={column.label}>
+                <p className="mb-5 text-sm text-neutral-500 dark:text-neutral-500">
+                  {column.label}
+                </p>
                 <ul className="space-y-3">
                   {column.items.map((item) => (
-                    <li key={item}>
+                    <li key={item.label}>
                       <a
-                        href="#"
+                        href={item.href}
                         className="focus-ring rounded-sm text-sm text-neutral-100 transition-colors hover:text-white dark:text-neutral-900 dark:hover:text-black"
                       >
-                        {item}
+                        {item.label}
                       </a>
                     </li>
                   ))}
@@ -77,10 +69,10 @@ export function Footer(): ReactNode {
 
           <div className="lg:pt-px">
             <a
-              href="#contact"
+              href="#contacto"
               className="focus-ring inline-flex items-center gap-2 rounded-full border border-neutral-700 px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-neutral-100 transition-colors hover:border-neutral-500 dark:border-neutral-300 dark:text-neutral-900 dark:hover:border-neutral-500"
             >
-              Talk to the team
+              Escríbeme
               <span aria-hidden="true">→</span>
             </a>
           </div>
@@ -93,12 +85,13 @@ export function Footer(): ReactNode {
               aria-hidden="true"
             />
             <span className="text-lg font-semibold leading-none tracking-tight">
-              Frame
+              Anghelo Alva
             </span>
           </div>
 
           <p className="text-sm text-neutral-500 dark:text-neutral-500">
-            © {new Date().getFullYear()} Frame Template. All rights reserved.
+            © {new Date().getFullYear()} Anghelo Alva. Todos los derechos
+            reservados.
           </p>
         </div>
       </div>

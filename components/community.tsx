@@ -13,26 +13,82 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { SectionCorners } from "@/components/section-corners";
 import { DitherShader } from "@/components/dither-shader";
 
-type CommunityEntry = { builder: string; project: string };
+type ProjectEntry = { title: string; description: string; href: string };
 
-const COMMUNITY_TOP: ReadonlyArray<CommunityEntry> = [
-  { builder: "Mira Halden", project: "Portfolio" },
-  { builder: "Jules Okafor", project: "Agency site" },
-  { builder: "Sora Linde", project: "Product launch" },
-  { builder: "Ravi Mahar", project: "Studio index" },
-  { builder: "Emi Tanaka", project: "Newsletter" },
-  { builder: "Otto Vester", project: "Conference site" },
-  { builder: "Petra Soros", project: "Photo journal" },
+const PROJECTS_TOP: ReadonlyArray<ProjectEntry> = [
+  {
+    title: "CAEMP",
+    description: "Plataforma de capacitación y seguridad laboral.",
+    href: "https://grupocaemp.cl",
+  },
+  {
+    title: "Finance",
+    description: "Aplicación de gestión financiera personal.",
+    href: "https://finance-olive-tau.vercel.app",
+  },
+  {
+    title: "Sistema GIS",
+    description: "Información geográfica con capas interactivas.",
+    href: "https://ing-simple-gis.vercel.app/",
+  },
+  {
+    title: "PDF Viewer",
+    description: "Visor de PDFs interactivo con efecto de libro.",
+    href: "https://pdf-viewer-five-puce.vercel.app",
+  },
+  {
+    title: "ASM — Monitoreo Ambiental",
+    description: "Sistema de monitoreo ambiental multiidioma.",
+    href: "https://asm-six.vercel.app/es/",
+  },
+  {
+    title: "IS Dashboard",
+    description: "Gestión documental y control de asistencia.",
+    href: "https://documents-dashboard.vercel.app",
+  },
+  {
+    title: "Report Dashboard",
+    description: "Reportes con visualización geoespacial.",
+    href: "https://report-dashboard-eta.vercel.app",
+  },
 ];
 
-const COMMUNITY_BOTTOM: ReadonlyArray<CommunityEntry> = [
-  { builder: "Lior Mendel", project: "Coffee shop" },
-  { builder: "Anya Petrova", project: "Music label" },
-  { builder: "Kai Westwood", project: "Restaurant" },
-  { builder: "Noor Saleh", project: "Gallery" },
-  { builder: "Tomás Ribeiro", project: "Skate brand" },
-  { builder: "Ines Caron", project: "Architecture" },
-  { builder: "Yuki Sato", project: "Type foundry" },
+const PROJECTS_BOTTOM: ReadonlyArray<ProjectEntry> = [
+  {
+    title: "Forma — Habit Tracker",
+    description: "PWA de seguimiento de hábitos diarios.",
+    href: "https://habit-tracker-rouge-one.vercel.app",
+  },
+  {
+    title: "CorreosChile — Auditorías",
+    description: "Maqueta de seguimiento de auditorías.",
+    href: "https://correos-de-chile-mockup.vercel.app",
+  },
+  {
+    title: "Inmobiliaria Ulloa Accardi",
+    description: "Prototipo de sitio para proyecto inmobiliario andino.",
+    href: "https://prototipo-inmobiliaria.vercel.app",
+  },
+  {
+    title: "Monitoreo Ambiental — Raspberry Pi 5",
+    description: "Dashboard IoT de monitoreo ambiental.",
+    href: "https://raspberry-pi-5-mockup.vercel.app",
+  },
+  {
+    title: "Emprende tu Vida",
+    description: "Plataforma educativa de emprendimiento.",
+    href: "https://maqueta-emprende-tu-vida.vercel.app",
+  },
+  {
+    title: "Websil",
+    description: "Versión de prueba del sitio Websil con Astro.",
+    href: "https://websil-test.vercel.app",
+  },
+  {
+    title: "DBJ — Landing Page",
+    description: "Landing page para DBJ.",
+    href: "https://dbj-prototipe.vercel.app",
+  },
 ];
 
 export function Community(): ReactNode {
@@ -95,6 +151,7 @@ export function Community(): ReactNode {
   return (
     <section
       ref={sectionRef}
+      id="mas-proyectos"
       aria-labelledby="community-heading"
       className="relative border-b border-border"
     >
@@ -113,12 +170,11 @@ export function Community(): ReactNode {
                 id="community-heading"
                 className="text-2xl font-medium leading-[1.05] tracking-tighter text-foreground sm:text-3xl lg:text-[2.5rem]"
               >
-                From our community, built with Frame
+                Más proyectos
               </h2>
               <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-base">
-                A small wall of work shipped on top of the template.
-                Different fields, different aesthetics, same starting
-                point.
+                Prototipos, demos y trabajos más chicos. Casi todos con demo en
+                vivo — abre una tarjeta para verla.
               </p>
             </div>
           </div>
@@ -129,20 +185,20 @@ export function Community(): ReactNode {
           >
             {reduce ? (
               <>
-                <ReducedRow entries={COMMUNITY_TOP} />
-                <ReducedRow entries={COMMUNITY_BOTTOM} />
+                <ReducedRow entries={PROJECTS_TOP} />
+                <ReducedRow entries={PROJECTS_BOTTOM} />
               </>
             ) : (
               <>
                 <Row
                   ref={trackTopRef}
-                  entries={COMMUNITY_TOP}
+                  entries={PROJECTS_TOP}
                   x={xTop}
                   ready={ready}
                 />
                 <Row
                   ref={trackBottomRef}
-                  entries={COMMUNITY_BOTTOM}
+                  entries={PROJECTS_BOTTOM}
                   x={xBottom}
                   ready={ready}
                 />
@@ -185,7 +241,7 @@ function Row({
   ready,
 }: {
   ref: React.RefObject<HTMLDivElement | null>;
-  entries: ReadonlyArray<CommunityEntry>;
+  entries: ReadonlyArray<ProjectEntry>;
   x: MotionValue<number>;
   ready: boolean;
 }): ReactNode {
@@ -205,7 +261,7 @@ function Row({
         style={{ x, opacity: ready ? 1 : 0 }}
       >
         {entries.map((entry) => (
-          <CommunityCard key={entry.builder} entry={entry} />
+          <ProjectCard key={entry.href} entry={entry} />
         ))}
       </motion.div>
     </div>
@@ -215,26 +271,42 @@ function Row({
 function ReducedRow({
   entries,
 }: {
-  entries: ReadonlyArray<CommunityEntry>;
+  entries: ReadonlyArray<ProjectEntry>;
 }): ReactNode {
   return (
     <div className="flex w-full gap-6 overflow-x-auto px-6 sm:gap-8 sm:px-10 lg:px-14">
       {entries.map((entry) => (
-        <CommunityCard key={entry.builder} entry={entry} />
+        <ProjectCard key={entry.href} entry={entry} />
       ))}
     </div>
   );
 }
 
-function CommunityCard({ entry }: { entry: CommunityEntry }): ReactNode {
+function ProjectCard({ entry }: { entry: ProjectEntry }): ReactNode {
   return (
-    <article className="relative flex aspect-5/6 w-75 shrink-0 flex-col justify-end overflow-hidden rounded-2xl border border-border bg-background p-5 sm:w-90 sm:p-6">
-      <h3 className="text-base font-medium leading-tight tracking-tight text-foreground">
-        {entry.builder}
-      </h3>
-      <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-        {entry.project}
-      </p>
-    </article>
+    <a
+      href={entry.href}
+      target="_blank"
+      rel="noreferrer"
+      className="focus-ring group relative flex aspect-5/6 w-75 shrink-0 flex-col justify-between overflow-hidden rounded-2xl border border-border bg-background p-5 transition-colors hover:border-foreground/30 sm:w-90 sm:p-6"
+    >
+      <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
+        Ver demo
+        <span
+          aria-hidden="true"
+          className="transition-transform duration-300 ease-out group-hover:translate-x-0.5"
+        >
+          ↗
+        </span>
+      </span>
+      <div>
+        <h3 className="text-base font-medium leading-tight tracking-tight text-foreground">
+          {entry.title}
+        </h3>
+        <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+          {entry.description}
+        </p>
+      </div>
+    </a>
   );
 }

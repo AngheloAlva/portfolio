@@ -5,21 +5,21 @@ import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
 
 const primaryLinks = [
-  { label: "Layouts", href: "#layouts" },
-  { label: "System", href: "#system" },
-  { label: "Docs", href: "#docs" },
+  { label: "Proyectos", href: "#proyectos" },
+  { label: "Stack", href: "#stack" },
+  { label: "Contacto", href: "#contacto" },
 ];
 
 const mobileLinks = [
-  { label: "Homepage", href: "#main-content" },
+  { label: "Inicio", href: "#main-content" },
   ...primaryLinks,
 ];
 
 const utilityLinks = [
-  { label: "License", href: "#license" },
-  { label: "Security", href: "#security" },
-  { label: "Privacy", href: "#privacy" },
-  { label: "Terms", href: "#terms" },
+  { label: "Email", href: "mailto:ance.anghelo@gmail.com" },
+  { label: "LinkedIn", href: "#" },
+  { label: "GitHub", href: "#" },
+  { label: "Descargar CV", href: "/cv-anghelo-alva.pdf" },
 ];
 
 function Logo(): ReactNode {
@@ -27,14 +27,14 @@ function Logo(): ReactNode {
     <Link
       href="#main-content"
       className="focus-ring enter inline-flex items-center gap-2 rounded-sm text-foreground"
-      aria-label="Frame home"
+      aria-label="Anghelo Alva — inicio"
     >
       <span
         className="h-5 w-5 shrink-0 bg-foreground"
         aria-hidden="true"
       />
       <span className="text-lg font-semibold leading-none tracking-tight">
-        Frame
+        Anghelo Alva
       </span>
     </Link>
   );
@@ -102,31 +102,32 @@ export function Header(): ReactNode {
         </nav>
 
         <div className="ml-auto hidden items-center gap-4 lg:flex">
-          <Link
-            href="#signin"
+          <a
+            href="/cv-anghelo-alva.pdf"
+            download
             style={{ ["--enter-delay" as string]: "260ms" }}
             className="focus-ring enter rounded-full px-2 py-1.5 text-sm font-medium text-foreground transition-colors hover:text-muted-foreground"
           >
-            Sign In
-          </Link>
+            Descargar CV
+          </a>
           <Link
-            href="#start"
+            href="#contacto"
             style={{ ["--enter-delay" as string]: "320ms" }}
             className={`focus-ring enter rounded-full px-5 py-2.5 text-sm font-medium text-foreground transition-[background-color] duration-300 ease-out hover:text-muted-foreground ${
               isScrolled ? "bg-transparent" : "bg-muted hover:bg-border"
             }`}
           >
-            Open Frame
+            Contacto
           </Link>
         </div>
 
         <div className="ml-auto flex items-center gap-2 lg:hidden">
           <Link
-            href="#start"
+            href="#contacto"
             style={{ ["--enter-delay" as string]: "120ms" }}
             className="focus-ring enter rounded-full bg-muted px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-border"
           >
-            Open Frame
+            Contacto
           </Link>
           <button
             type="button"
@@ -173,7 +174,7 @@ export function Header(): ReactNode {
 
           <div className="mt-12 flex flex-col items-start gap-2 pb-10">
             <p className="text-base font-medium tracking-[-0.02em] text-muted-foreground">
-              Desk
+              Contacto
             </p>
             {utilityLinks.map((link) => (
               <Link

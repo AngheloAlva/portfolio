@@ -9,7 +9,6 @@ import { Pricing } from "@/components/pricing";
 import { Reveal } from "@/components/reveal";
 import { SectionCorners } from "@/components/section-corners";
 import { Showcase } from "@/components/showcase";
-import { Testimonials } from "@/components/testimonials";
 import type { ReactNode } from "react";
 
 export default function HomePage(): ReactNode {
@@ -20,27 +19,36 @@ export default function HomePage(): ReactNode {
         <section className="relative border-b border-border">
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <div className="flex min-h-130 flex-col justify-center px-6 py-16 sm:px-10 sm:py-20 lg:min-h-160 lg:border-r lg:border-border lg:px-14 lg:py-24">
+              <p
+                style={{ ["--enter-delay" as string]: "300ms" }}
+                className="enter text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground"
+              >
+                Anghelo Alva · Desarrollador Full Stack
+              </p>
               <h1
                 style={{ ["--enter-delay" as string]: "380ms" }}
-                className="enter text-4xl font-medium leading-[1.05] tracking-tighter text-foreground sm:text-5xl lg:text-[4rem] xl:text-[5.5rem]"
+                className="enter mt-6 text-4xl font-medium leading-[1.05] tracking-tighter text-foreground sm:text-5xl lg:text-[4rem] xl:text-[5.5rem]"
               >
-                A baseline for products that move quickly.
+                Software a medida,
+                <br />
+                de extremo a extremo.
               </h1>
               <div
                 style={{ ["--enter-delay" as string]: "520ms" }}
                 className="enter mt-10 flex flex-wrap items-center gap-6"
               >
                 <a
-                  href="#start"
+                  href="#proyectos"
                   className="focus-ring inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-background transition-opacity hover:opacity-90"
                 >
-                  Get Started
+                  Ver proyectos
                 </a>
                 <a
-                  href="#why"
+                  href="/cv-anghelo-alva.pdf"
+                  download
                   className="focus-ring inline-flex items-center gap-2 rounded-full px-2 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-foreground transition-colors hover:text-muted-foreground"
                 >
-                  Learn More
+                  Descargar CV
                   <span
                     className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-foreground"
                     aria-hidden="true"
@@ -65,15 +73,16 @@ export default function HomePage(): ReactNode {
                 style={{ ["--enter-delay" as string]: "680ms" }}
                 className="enter max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg"
               >
-                Frame helps teams lock structure, hierarchy, and flow before
-                color and brand land — so the work ships sooner.
+                De la reunión con el cliente al sistema en producción: levanto,
+                diseño, desarrollo, despliego y doy soporte. Para empresas de
+                energía, minería, turismo y educación.
               </p>
             </div>
             <div className="grid grid-cols-3 px-6 py-10 sm:px-10 lg:px-14">
               {[
-                { label: "Components", value: "120+" },
-                { label: "Avg. Setup", value: "9 min" },
-                { label: "License", value: "Commercial" },
+                { label: "En producción", value: "7+" },
+                { label: "Rubros", value: "4" },
+                { label: "Ciclo completo", value: "E2E" },
               ].map((stat, i) => (
                 <div
                   key={stat.label}
@@ -96,22 +105,22 @@ export default function HomePage(): ReactNode {
         <Reveal>
           <section className="relative border-b border-border p-6 sm:p-10 lg:p-14">
             <h2 className="overflow-hidden text-ellipsis whitespace-nowrap text-2xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-3xl lg:text-[2.5rem]">
-              A scaffold, not a finished product
+              Me hago cargo del ciclo completo
             </h2>
 
             <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3 lg:mt-16 lg:gap-6">
               {[
                 {
-                  title: "Skip the blank canvas",
-                  body: "Routing, tokens, and layout primitives are wired before you write a line of feature code.",
+                  title: "Del requerimiento al deploy",
+                  body: "Levanto requerimientos en terreno con el cliente, diseño, desarrollo, despliego y doy soporte. Un solo responsable de punta a punta.",
                 },
                 {
-                  title: "Designed to be overwritten",
-                  body: "Every component is a placeholder you can tear out the moment your real system arrives.",
+                  title: "Responsable técnico",
+                  body: "No entrego y desaparezco: soy el dueño técnico de lo que construyo, sosteniéndolo en producción con mejoras continuas.",
                 },
                 {
-                  title: "Stays out of your way",
-                  body: "No proprietary abstractions, no hidden magic — just the conventions your team already uses.",
+                  title: "Autodidacta, en producción real",
+                  body: "No aprendí con tutoriales sino construyendo ERPs, e-commerce y sistemas de gestión para empresas reales desde el primer año.",
                 },
               ].map((card, i) => (
                 <article
@@ -146,13 +155,13 @@ export default function HomePage(): ReactNode {
             <div className="relative grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
               <article className="flex min-h-90 flex-col justify-between rounded-2xl border border-border bg-background p-6 sm:p-8 lg:min-h-120">
                 <h2 className="max-w-md text-2xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-3xl lg:text-[2rem]">
-                  <span className="text-muted-foreground">Trusted by teams at</span>{" "}
-                  Linear, Vercel, Figma, and others
+                  <span className="text-muted-foreground">Empresas y marcas</span>{" "}
+                  con las que trabajé
                 </h2>
                 <p className="mt-12 max-w-md text-sm leading-relaxed text-muted-foreground sm:text-base">
-                  Product teams reach for Frame when they need to skip the
-                  blank-canvas phase and get a working scaffold in front of
-                  stakeholders by end of week.
+                  Energía, minería, turismo, educación, salud y retail. Software
+                  a medida para operaciones reales, de forma directa o a través
+                  de Ingeniería Simple.
                 </p>
               </article>
               <div className="relative min-h-90 overflow-hidden rounded-2xl bg-muted lg:min-h-120">
@@ -172,27 +181,27 @@ export default function HomePage(): ReactNode {
           <section className="relative border-b border-border">
             <div className="px-6 pt-6 sm:px-10 sm:pt-10 lg:px-14 lg:pt-14">
               <h2 className="text-2xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-3xl lg:text-[2.5rem]">
-                How Frame fits into your stack
+                Cómo llevo un proyecto a producción
               </h2>
             </div>
 
             <div className="mt-12 border-t border-border lg:mt-16">
               {[
                 {
-                  title: "Clone and run",
-                  body: "Pull the repo, install dependencies, and the dev server boots a working app on the first try — no setup steps, no missing env vars.",
+                  title: "Levantamiento en terreno",
+                  body: "Me reúno con el cliente —muchas veces en su planta u oficina— para entender la operación real, los dolores del día a día y lo que de verdad necesita el negocio.",
                 },
                 {
-                  title: "Swap the placeholders",
-                  body: "Replace copy, components, and tokens at your own pace. Each surface is intentionally generic so your brand drops in without resistance.",
+                  title: "Diseño y arquitectura",
+                  body: "Modelo los datos, defino la arquitectura y elijo el stack según el problema, no según la moda. Prototipo los flujos antes de escribir el sistema.",
                 },
                 {
-                  title: "Wire your real data",
-                  body: "Routing and layout are already in place — point the templated views at your APIs and the structure carries the rest of the work.",
+                  title: "Desarrollo end-to-end",
+                  body: "Construyo front, back, base de datos e integraciones, con iteraciones frecuentes y validación constante contra la operación real del cliente.",
                 },
                 {
-                  title: "Ship and iterate",
-                  body: "Deploy on day one with a baseline that holds up to feedback, then evolve it as your product finds its real shape.",
+                  title: "Despliegue y soporte",
+                  body: "Pongo el sistema en producción y me quedo: mejoras continuas, soporte y evolución a medida que el negocio crece.",
                 },
               ].map((step, i) => (
                 <div
@@ -214,10 +223,10 @@ export default function HomePage(): ReactNode {
 
             <div className="px-6 pb-6 pt-10 sm:px-10 sm:pb-10 sm:pt-12 lg:px-14 lg:pb-14">
               <a
-                href="#docs"
+                href="#proyectos"
                 className="focus-ring inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3.5 font-mono text-xs font-medium uppercase tracking-[0.12em] text-background transition-opacity hover:opacity-90"
               >
-                Read the docs
+                Ver proyectos
                 <span aria-hidden="true">→</span>
               </a>
             </div>
@@ -225,9 +234,6 @@ export default function HomePage(): ReactNode {
           </section>
         </Reveal>
 
-        <Reveal>
-          <Testimonials />
-        </Reveal>
         <Reveal>
           <Showcase />
         </Reveal>

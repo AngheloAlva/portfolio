@@ -5,11 +5,13 @@ import {
   ChevronLeft,
   ChevronRight,
   Plus,
-  TrendingUp,
-  Search,
-  Layers,
+  Factory,
   Boxes,
-  Sparkles,
+  Globe,
+  ShoppingCart,
+  LayoutDashboard,
+  Building2,
+  Gamepad2,
   type LucideIcon,
 } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState, type ReactNode } from "react";
@@ -25,38 +27,68 @@ type ShowcaseCard = {
   title: string;
   Icon: LucideIcon;
   body: string;
+  tags: string[];
+  href?: string;
+  hrefLabel?: string;
 };
 
 const CARDS: ReadonlyArray<ShowcaseCard> = [
   {
-    id: "flagship",
-    title: "Flagship\nLarge Cap",
-    Icon: TrendingUp,
-    body: "A long-horizon position in resilient, high-quality public companies. Built for compounding without the noise of short-term swings.",
+    id: "otc-360",
+    title: "OTC 360\nControl operacional",
+    Icon: Factory,
+    body: "Plataforma que reemplazó papel, correos y Excel por un único sistema de órdenes de trabajo, permisos y planes de mantenimiento, con indicadores en vivo. Para OTC — Oleoducto Trasandino Chile.",
+    tags: ["Next.js", "PostgreSQL", "Prisma", "Azure"],
+    href: "https://otc360.cl",
+    hrefLabel: "Visitar sitio",
   },
   {
-    id: "opportunities",
-    title: "Opportunities\nSmall Cap",
-    Icon: Search,
-    body: "Concentrated exposure to under-the-radar names with asymmetric upside. Researched in-house, screened for conviction, sized with discipline.",
-  },
-  {
-    id: "offshore",
-    title: "Offshore\nGlobal Equity",
-    Icon: Layers,
-    body: "International equity exposure across developed and emerging markets, balanced for currency, region, and sector concentration.",
-  },
-  {
-    id: "automated",
-    title: "Automated\nFixed Income",
+    id: "busanc",
+    title: "Busanc\nGestión industrial",
     Icon: Boxes,
-    body: "A rules-based bond ladder that rebalances itself as rates move. Designed for steady carry without the friction of manual trading.",
+    body: "ERP a medida que orquesta el flujo end-to-end de una empresa minera: de la solicitud comercial al despacho, con trabajo en paralelo entre áreas y trazabilidad total.",
+    tags: ["Next.js 16", "NestJS", "Drizzle", "Turborepo"],
   },
   {
-    id: "ventures",
-    title: "Ventures\nPrivate Markets",
-    Icon: Sparkles,
-    body: "Curated access to late-stage private deals previously walled off to institutions. One subscription, one portfolio, one set of fees.",
+    id: "turismochiletours",
+    title: "Turismo Chile\nSitio multilingüe",
+    Icon: Globe,
+    body: "Sitio corporativo en cuatro idiomas para un tour operador en San Pedro de Atacama, con catálogo de programas y captación de tours privados.",
+    tags: ["Next.js 14", "next-intl", "Resend", "Vercel"],
+    href: "https://turismochiletours.com/es",
+    hrefLabel: "Visitar sitio",
+  },
+  {
+    id: "toursanpedroatacama",
+    title: "San Pedro\nE-commerce",
+    Icon: ShoppingCart,
+    body: "Ecommerce multilingüe para reservar excursiones, con tres pasarelas de pago, conversión automática CLP/USD y panel administrativo completo.",
+    tags: ["Next.js 15", "Drizzle", "Turso", "Webpay·PayPal·Flow"],
+    href: "https://toursanpedroatacama.com/",
+    hrefLabel: "Visitar sitio",
+  },
+  {
+    id: "dashboard-turismo",
+    title: "Dashboard\nTurismo Chile",
+    Icon: LayoutDashboard,
+    body: "Dashboard interno multi-rol que reemplazó una Power Apps heredada: ventas, calendario operativo, caja, comisiones y migración de 11 años de datos.",
+    tags: ["Next.js 16", "Prisma", "Neon", "TanStack"],
+  },
+  {
+    id: "bz-consulting",
+    title: "BZ Consulting\nSitio institucional",
+    Icon: Building2,
+    body: "Sitio bilingüe ultra-liviano sobre Astro, con publicación de noticias semanales vía MDX y sin CMS. Más de 190 artículos y 2 años en producción.",
+    tags: ["Astro 4", "MDX", "Cloudflare", "Resend"],
+    href: "https://bzconsulting.cl",
+    hrefLabel: "Visitar sitio",
+  },
+  {
+    id: "aiep-pei",
+    title: "Desafío PEI\nAIEP · tiempo real",
+    Icon: Gamepad2,
+    body: "Juego tipo Kahoot en tiempo real para evaluar el nuevo plan educativo de AIEP en un evento en vivo nacional, con hasta 1.000 participantes simultáneos vía polling.",
+    tags: ["Next.js 15", "PostgreSQL", "Polling", "Vercel"],
   },
 ];
 
@@ -132,37 +164,38 @@ export function Showcase(): ReactNode {
 
   return (
     <section
+      id="proyectos"
       aria-labelledby={headingId}
-      className="relative border-b border-border"
+      className="relative scroll-mt-20 border-b border-border"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2">
+      <div className="grid grid-cols-1 lg:grid-cols-3">
         <div className="flex flex-col justify-center px-6 py-16 sm:px-10 sm:py-20 lg:border-r lg:border-border lg:px-14 lg:py-24">
           <h2
             id={headingId}
             className="text-4xl font-medium leading-[1.05] tracking-tighter text-foreground sm:text-5xl lg:text-[3.5rem] xl:text-[4rem]"
           >
-            Built lean,
+            Sistemas reales,
             <br />
-            shipped fast,
+            en producción,
             <br />
-            <span className="text-muted-foreground">ready for your brand</span>
+            <span className="text-muted-foreground">para quien depende de ellos</span>
           </h2>
           <p className="mt-10 max-w-md text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Each surface is intentionally generic so your brand drops in
-            without resistance.
+            Cada uno resolvió un problema operativo concreto. Abre una tarjeta
+            para ver el caso.
           </p>
           <div className="mt-10">
             <a
-              href="#offerings"
+              href="#contacto"
               className="focus-ring inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-background transition-opacity hover:opacity-90"
             >
-              See Our Designs
+              Hablemos
               <span aria-hidden="true">→</span>
             </a>
           </div>
         </div>
 
-        <div className="relative flex flex-col overflow-hidden">
+        <div className="relative flex flex-col overflow-hidden lg:col-span-2">
           <div
             ref={trackRef}
             className="flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto scroll-smooth px-6 py-16 sm:gap-6 sm:px-10 sm:py-20 lg:px-14 lg:py-24 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
@@ -336,22 +369,56 @@ function ExpandedCard({
           >
             {card.body}
           </motion.p>
-          <motion.button
-            type="button"
-            onClick={onClose}
-            layoutId={`card-plus-${card.id}`}
-            transition={MORPH_TRANSITION}
-            aria-label="Close card"
-            className="focus-ring inline-flex h-9 w-9 items-center justify-center rounded-full bg-background/60 text-foreground transition-opacity hover:opacity-80"
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.35, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-wrap gap-2"
           >
-            <motion.span
-              className="inline-flex"
-              animate={{ rotate: 45 }}
+            {card.tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full bg-background/60 px-3 py-1 text-xs font-medium text-muted-foreground"
+              >
+                {tag}
+              </span>
+            ))}
+          </motion.div>
+
+          <div className="flex items-center gap-3">
+            {card.href ? (
+              <motion.a
+                href={card.href}
+                target="_blank"
+                rel="noreferrer"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 8 }}
+                transition={{ duration: 0.35, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                className="focus-ring inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-background transition-opacity hover:opacity-90"
+              >
+                {card.hrefLabel ?? "Visitar"}
+                <span aria-hidden="true">↗</span>
+              </motion.a>
+            ) : null}
+            <motion.button
+              type="button"
+              onClick={onClose}
+              layoutId={`card-plus-${card.id}`}
               transition={MORPH_TRANSITION}
+              aria-label="Close card"
+              className="focus-ring inline-flex h-9 w-9 items-center justify-center rounded-full bg-background/60 text-foreground transition-opacity hover:opacity-80"
             >
-              <Plus className="h-4 w-4" strokeWidth={1.5} />
-            </motion.span>
-          </motion.button>
+              <motion.span
+                className="inline-flex"
+                animate={{ rotate: 45 }}
+                transition={MORPH_TRANSITION}
+              >
+                <Plus className="h-4 w-4" strokeWidth={1.5} />
+              </motion.span>
+            </motion.button>
+          </div>
         </div>
       </motion.div>
     </div>

@@ -22,45 +22,47 @@ type FAQ = {
 
 const FAQS: ReadonlyArray<FAQ> = [
   {
-    q: "What exactly does Frame give me on day one?",
+    q: "¿Quién eres?",
     a: [
-      "Frame is a wireframe-stage scaffold for product teams. The repo boots a working app with routing, layout primitives, theming, and a set of intentionally generic component placeholders already in place — so the first feature you ship doesn't start from a blank canvas. Brand, content, and product details are meant to be overwritten at your own pace.",
+      "Soy Anghelo Alva, desarrollador full stack autodidacta. No aprendí con tutoriales sino construyendo software para empresas reales desde el primer año: ERPs, e-commerce y sistemas de gestión que hoy están en producción.",
+      "Me acostumbré a hacerme cargo del ciclo completo de forma autónoma —levantar requerimientos con el cliente, diseñar, desarrollar, desplegar y dar soporte— y a ser el responsable técnico de lo que entrego.",
     ],
   },
   {
-    q: "How do I start a project from Frame?",
+    q: "¿Cómo trabajas un proyecto?",
     a: [
-      "Clone the repo, install with your preferred package manager, and run the dev server. There's no install wizard, no setup script, and no required environment variables for the default routes. Most teams have a working local app within a few minutes.",
+      "De punta a punta. Empiezo levantando requerimientos con el cliente, muchas veces en terreno; modelo los datos y la arquitectura; desarrollo front y back; despliego a producción y me quedo dando soporte y mejoras continuas. Un solo responsable técnico para todo el ciclo.",
     ],
   },
   {
-    q: "Is Frame opinionated about my stack?",
+    q: "¿Por qué la mayoría de los proyectos son demos y no los sistemas reales?",
     a: [
-      "Frame uses Next.js, Tailwind, and TypeScript out of the box, but it doesn't introduce custom abstractions on top of them. If your team already uses these tools, the conventions will look familiar. If you migrate off any one of them later, the rest of the scaffold is still useful.",
+      "Casi todos mis sistemas son privados por acuerdo con el cliente. Para mostrarlos sin comprometer datos sensibles trabajo con copias de diseño modificado y datos ficticios, y mantengo los repositorios de esos demos públicos en mi GitHub.",
+      "Así quien me evalúa ve el código real y limpio, y el sistema productivo del cliente queda protegido.",
     ],
   },
   {
-    q: "Can I use Frame for client work?",
+    q: "¿Qué tipo de proyectos haces?",
     a: [
-      "Yes. Frame is licensed for unlimited commercial projects (you just can't resell the template itself), and intentionally easy to strip back to a minimal starting point. Teams use it as the first commit on internal tools, marketing sites, and early-stage product builds — anywhere the goal is to put structure in place before brand and copy land.",
+      "Sistemas de gestión y ERPs a medida, e-commerce con pasarelas de pago, sitios institucionales multilingües, dashboards operativos y plataformas en tiempo real. He trabajado para empresas de energía, minería, turismo y educación.",
     ],
   },
   {
-    q: "How does Frame handle theming and dark mode?",
+    q: "¿Trabajas de forma remota?",
     a: [
-      "Theme tokens live in CSS variables and are wired through Tailwind's theme inline mapping. A floating theme switch toggles between light and dark; reduced-motion preferences and color-scheme metadata are honored automatically. Replace the token values with your brand palette and the rest of the system follows.",
+      "Sí. Varios de mis proyectos se coordinaron 100% en remoto, y otros combinaron trabajo remoto con visitas a planta para el levantamiento de requerimientos. Me adapto a lo que el proyecto necesite.",
     ],
   },
   {
-    q: "What's missing on purpose?",
+    q: "¿Estás certificándote en algo?",
     a: [
-      "Frame intentionally omits anything that would couple it to a specific product: forms libraries, state managers, auth, analytics, and CMS integrations are not pre-wired. The structure is opinionated; the runtime behavior is not. Drop in whatever your team prefers.",
+      "Sí, actualmente me estoy certificando como AWS Solutions Architect Associate, para reforzar el lado de arquitectura cloud de lo que ya construyo y opero en producción.",
     ],
   },
   {
-    q: "Will I outgrow Frame?",
+    q: "¿Estás disponible para nuevos proyectos?",
     a: [
-      "That's the goal. Frame is meant to be torn out incrementally as your real design system, content model, and feature surface arrive. Most teams replace components piece by piece rather than all at once — by the time the scaffold is gone, the structure underneath has already paid for itself.",
+      "Estoy abierto a nuevas oportunidades. Si tienes un proyecto o una posición en mente, escríbeme y lo conversamos — respondo rápido.",
     ],
   },
 ];
@@ -71,14 +73,15 @@ export function Faq(): ReactNode {
 
   return (
     <section
+      id="faq"
       aria-labelledby={headingId}
-      className="relative border-b border-border p-6 sm:p-10 lg:p-14"
+      className="relative scroll-mt-20 border-b border-border p-6 sm:p-10 lg:p-14"
     >
       <h2
         id={headingId}
         className="text-3xl font-medium leading-[1.05] tracking-tighter text-foreground sm:text-4xl lg:text-[3.5rem]"
       >
-        FAQs
+        Preguntas frecuentes
       </h2>
 
       <div className="mt-6 border-t border-border sm:mt-10 lg:mt-14">

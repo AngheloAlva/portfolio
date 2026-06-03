@@ -3,20 +3,44 @@ import type { ReactNode } from "react";
 
 export function FinalCTA(): ReactNode {
   return (
-    <section className="bg-background p-6 sm:p-10 lg:p-14">
+    <section id="contacto" className="scroll-mt-20 bg-background p-6 sm:p-10 lg:p-14">
       <div className="overflow-hidden rounded-3xl border border-border bg-neutral-50 text-neutral-950 dark:bg-neutral-950 dark:text-neutral-50">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,420px)]">
           <div className="flex min-h-80 flex-col justify-center px-8 py-12 sm:px-12 sm:py-16 lg:border-r lg:border-neutral-200 lg:px-14 lg:py-20 dark:lg:border-neutral-800">
             <h2 className="max-w-md text-3xl font-medium leading-[1.1] tracking-tight sm:text-4xl lg:text-[2.5rem]">
-              Drop in your brand and ship the next version
+              ¿Construimos algo juntos?
             </h2>
-            <div className="mt-10">
+            <p className="mt-5 max-w-md text-sm leading-relaxed text-neutral-600 sm:text-base dark:text-neutral-400">
+              Desarrollador full stack, responsable del ciclo completo —del
+              levantamiento al soporte en producción. Abierto a nuevas
+              oportunidades y proyectos.
+            </p>
+            <div className="mt-10 flex flex-wrap items-center gap-3">
               <a
-                href="#start"
+                href="mailto:ance.anghelo@gmail.com"
                 className="focus-ring inline-flex items-center gap-2 rounded-full bg-neutral-950 px-5 py-3.5 font-mono text-xs font-medium uppercase tracking-[0.12em] text-neutral-50 transition-opacity hover:opacity-90 dark:bg-neutral-50 dark:text-neutral-950"
               >
-                Start with Frame
+                Escríbeme
                 <span aria-hidden="true">→</span>
+              </a>
+              <a
+                href="#"
+                className="focus-ring inline-flex items-center gap-2 rounded-full border border-neutral-300 px-5 py-3.5 font-mono text-xs font-medium uppercase tracking-[0.12em] text-neutral-950 transition-colors hover:border-neutral-500 dark:border-neutral-700 dark:text-neutral-50 dark:hover:border-neutral-500"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="#"
+                className="focus-ring inline-flex items-center gap-2 rounded-full border border-neutral-300 px-5 py-3.5 font-mono text-xs font-medium uppercase tracking-[0.12em] text-neutral-950 transition-colors hover:border-neutral-500 dark:border-neutral-700 dark:text-neutral-50 dark:hover:border-neutral-500"
+              >
+                GitHub
+              </a>
+              <a
+                href="/cv-anghelo-alva.pdf"
+                download
+                className="focus-ring inline-flex items-center gap-2 rounded-full border border-neutral-300 px-5 py-3.5 font-mono text-xs font-medium uppercase tracking-[0.12em] text-neutral-950 transition-colors hover:border-neutral-500 dark:border-neutral-700 dark:text-neutral-50 dark:hover:border-neutral-500"
+              >
+                Descargar CV
               </a>
             </div>
           </div>

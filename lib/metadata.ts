@@ -1,32 +1,38 @@
 import type { Metadata } from "next";
 
 export const siteConfig = {
-  name: "Wireframe Template",
+  name: "Anghelo Alva",
   description:
-    "A baseline for products that move quickly. Wireframe-stage scaffolding for teams that ship before the brand lands.",
+    "Desarrollador full stack. Construyo software a medida de extremo a extremo —del levantamiento de requerimientos al soporte en producción— para empresas de energía, minería, turismo y educación.",
+  // TODO: replace with the real domain once defined.
   url: "https://example.com",
+  // TODO: add an Open Graph image at /public/og-image.png (1200×630).
   ogImage: "/og-image.png",
-  creator: "@yourhandle",
+  // TODO: add Twitter/X handle if available.
+  creator: "Anghelo Alva",
   authors: [
     {
-      name: "Your Name",
+      name: "Anghelo Alva",
       url: "https://example.com",
     },
   ],
   keywords: [
-    "landing page",
-    "template",
+    "Anghelo Alva",
+    "desarrollador full stack",
     "Next.js",
     "React",
-    "Tailwind CSS",
     "TypeScript",
+    "NestJS",
+    "PostgreSQL",
+    "portafolio",
+    "Chile",
   ],
 } as const;
 
 export const baseMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: siteConfig.name,
+    default: `${siteConfig.name} — Desarrollador Full Stack`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -50,7 +56,7 @@ export const baseMetadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "es_CL",
     url: siteConfig.url,
     title: siteConfig.name,
     description: siteConfig.description,
