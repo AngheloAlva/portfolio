@@ -92,14 +92,6 @@ export interface ProjectData {
   caseStudy?: CaseStudy;
 }
 
-export const CATEGORY_LABELS: Record<"todos" | ProjectCategory, string> = {
-  todos: "Todos",
-  "desarrollo-web": "Desarrollo Web",
-  "power-platform": "Power Platform",
-  capacitaciones: "Capacitaciones",
-  reportabilidad: "Reportabilidad",
-};
-
 export const portfolioProjects: ProjectData[] = [
   // ── Desarrollo Web ──
   {
@@ -849,29 +841,21 @@ export const portfolioProjects: ProjectData[] = [
     technologies: [
       "Next.js 16",
       "React 19",
-      "TypeScript 5.9",
-      "Tailwind CSS 4",
-      "shadcn/ui",
-      "Radix UI",
-      "Prisma 7",
-      "PostgreSQL (Neon)",
-      "Better Auth 1.4",
+      "TypeScript",
+      "Tailwind CSS",
+      "Prisma",
+      "PostgreSQL",
+      "Better Auth",
       "TanStack Query",
       "TanStack Table",
       "TanStack Form",
       "TanStack Virtual",
-      "Zod 4",
-      "Zustand 5",
+      "Zod",
+      "Zustand",
       "@react-pdf/renderer",
       "ExcelJS",
-      "DnD Kit",
-      "MapLibre GL",
       "Recharts",
-      "Motion 12",
       "Resend",
-      "React Email",
-      "Vercel Blob",
-      "Vercel",
     ],
     gradientColor: "#e75219",
     isFlagship: true,
@@ -880,7 +864,7 @@ export const portfolioProjects: ProjectData[] = [
     caseStudy: {
       visualPrivacy: "confidential-ui",
       pitch:
-        "Una sola herramienta para correr toda la operación diaria de una agencia de turismo en pleno desierto de Atacama. Migra los flujos atrapados en Power Apps a una web moderna, suma módulos que antes vivían en Excel y WhatsApp, y le da al equipo una fuente de verdad común. Diseñado para que ventas, operaciones, guías y administración trabajen sobre los mismos datos — con permisos, auditoría y exportes pensados para el día a día real, no para una demo.",
+        "Una sola herramienta para correr toda la operación diaria de una agencia de turismo en pleno desierto de Atacama. Migra los flujos atrapados en Power Apps a una web moderna, suma módulos que antes vivían en Excel y WhatsApp, y le da al equipo una fuente de verdad común. Diseñado para que ventas, operaciones, guías y administración trabajen sobre los mismos datos — con permisos, auditoría y exportes pensados para el día a día real.",
       duration:
         "≈7 meses, octubre 2025 – mayo 2026, con scope creciente: surgieron mejoras durante el camino que extendieron el cronograma original.",
       inProductionSince:
@@ -978,11 +962,6 @@ export const portfolioProjects: ProjectData[] = [
           title: "Facturación mayorista con exportes",
           description:
             "El módulo de Facturación permite seleccionar ventas de un mayorista (Ekatours, Despegar, etc.) dentro de un rango de fechas, marcar varias con multiselect, y generar un PDF de cobro consolidado con el detalle de cada venta (voucher, pasajero, fechas, monto) listo para mandarle al mayorista. El mismo flujo soporta exporte a Excel para conciliación administrativa. Antes era una operación manual mensual repartida entre la Power Apps, planillas Excel y correo; ahora una operadora arma el cobro en menos de un minuto con totales calculados y registro en sistema.",
-        },
-        {
-          title: "Permisos granulares por módulo",
-          description:
-            "Autorización en el modelo RoleModulePermission: cada rol tiene permisos por módulo (ver / crear / editar / eliminar / aprobar) configurables desde la UI sin tocar código. La sidebar, las acciones de las tablas y los Server Actions chequean el permiso del lado del servidor — la UI nunca es la fuente de verdad de seguridad.",
         },
         {
           title: "Recepciones y traspasos entre agencias",

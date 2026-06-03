@@ -21,9 +21,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const project = portfolioProjects.find(
-    (p) => p.id === id && p.caseStudy,
-  );
+  const project = portfolioProjects.find((p) => p.id === id && p.caseStudy);
   if (!project) return {};
   return createMetadata({
     title: project.title,
@@ -38,9 +36,7 @@ export default async function ProjectCaseStudyPage({
   params: Promise<{ id: string }>;
 }): Promise<ReactNode> {
   const { id } = await params;
-  const project = portfolioProjects.find(
-    (p) => p.id === id && p.caseStudy,
-  );
+  const project = portfolioProjects.find((p) => p.id === id && p.caseStudy);
   if (!project) notFound();
 
   return (

@@ -1,5 +1,9 @@
 import { AiepHero, aiepFeatureGlyphs } from "@/components/mockups/aiep-pei";
 import { BusancHero, busancFeatureGlyphs } from "@/components/mockups/busanc";
+import {
+  DashboardTurismoHero,
+  dashboardTurismoFeatureGlyphs,
+} from "@/components/mockups/dashboard-turismo";
 import { Otc360Hero, otc360FeatureGlyphs } from "@/components/mockups/otc-360";
 import type { ReactNode } from "react";
 
@@ -30,6 +34,10 @@ const PROJECT_MOCKUPS: Record<string, ProjectMockup> = {
   busanc: {
     hero: BusancHero,
     features: busancFeatureGlyphs,
+  },
+  "dashboard-turismo": {
+    hero: DashboardTurismoHero,
+    features: dashboardTurismoFeatureGlyphs,
   },
 };
 

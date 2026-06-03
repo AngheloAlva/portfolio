@@ -3,7 +3,6 @@ import { getProjectMockup } from "@/components/mockups/registry";
 import { Reveal } from "@/components/reveal";
 import { SectionCorners } from "@/components/section-corners";
 import {
-  CATEGORY_LABELS,
   type CaseStudyMilestoneIcon,
   type ParagraphBlock,
   type ProjectData,
@@ -134,9 +133,7 @@ export function CaseStudyView({
 
         <div className="grid grid-cols-1 lg:grid-cols-2">
           <div className="lg:border-border flex flex-col justify-center px-6 py-12 sm:px-10 sm:py-16 lg:border-r lg:px-14 lg:py-20">
-            <SectionLabel>
-              {cs.clientIndustry} · {CATEGORY_LABELS[project.category]}
-            </SectionLabel>
+            <SectionLabel>{cs.clientIndustry} · Desarrollo Web</SectionLabel>
             <h1 className="text-foreground mt-6 text-4xl leading-[1.05] font-medium tracking-tighter sm:text-5xl lg:text-[4rem]">
               {project.title}
             </h1>
@@ -315,21 +312,27 @@ export function CaseStudyView({
           <section className="border-border relative border-b p-6 sm:p-10 lg:p-14">
             <SectionLabel>Funcionalidades</SectionLabel>
             <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:auto-rows-fr lg:grid-cols-3 lg:gap-6">
-              {cs.features.map((feature, i) => {
-                const isLead = i === 0;
-                const FeatureGlyph = mockup?.features?.[feature.title];
-                const glyphClass = isLead
-                  ? "flex-1 min-h-40 sm:min-h-52"
-                  : "flex-1 min-h-24";
-                return (
-                  <article
-                    key={feature.title}
-                    className={`bg-muted flex flex-col rounded-2xl p-6 sm:p-7 ${
-                      isLead
-                        ? "sm:col-span-2 sm:row-span-2 lg:col-span-2 lg:row-span-2"
-                        : ""
-                    }`}
-                  >
+              {/* The lead spans a 2×2 square only when the feature count tiles it
+                  cleanly (multiples of 3); otherwise it stays 2-wide × 1-row so
+                  the remaining cards fill the row below without leaving a gap. */}
+              {(() => {
+                const leadSquare = cs.features.length % 3 === 0;
+                const leadSpan = leadSquare
+                  ? "sm:col-span-2 sm:row-span-2 lg:col-span-2 lg:row-span-2"
+                  : "sm:col-span-2 lg:col-span-2";
+                return cs.features.map((feature, i) => {
+                  const isLead = i === 0;
+                  const FeatureGlyph = mockup?.features?.[feature.title];
+                  const glyphClass = isLead
+                    ? "flex-1 min-h-40 sm:min-h-52"
+                    : "flex-1 min-h-24";
+                  return (
+                    <article
+                      key={feature.title}
+                      className={`bg-muted flex flex-col rounded-2xl p-6 sm:p-7 ${
+                        isLead ? leadSpan : ""
+                      }`}
+                    >
                     {FeatureGlyph ? (
                       <FeatureGlyph className={glyphClass} />
                     ) : (
@@ -349,9 +352,10 @@ export function CaseStudyView({
                         {feature.description}
                       </p>
                     </div>
-                  </article>
-                );
-              })}
+                    </article>
+                  );
+                });
+              })()}
             </div>
             <SectionCorners />
           </section>
