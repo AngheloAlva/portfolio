@@ -1,6 +1,35 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 type FooterLink = { label: string; href: string };
+
+/**
+ * Renders an internal route (e.g. "/#contacto") with next/link and anything
+ * else (mailto:, "#", static files) with a plain anchor.
+ */
+function FooterAnchor({
+  href,
+  className,
+  children,
+}: {
+  href: string;
+  className: string;
+  children: ReactNode;
+}): ReactNode {
+  const isRoute = href.startsWith("/") && !href.includes(".");
+  if (isRoute) {
+    return (
+      <Link href={href} className={className}>
+        {children}
+      </Link>
+    );
+  }
+  return (
+    <a href={href} className={className}>
+      {children}
+    </a>
+  );
+}
 
 const linkColumns: ReadonlyArray<{
   label: string;
@@ -9,11 +38,11 @@ const linkColumns: ReadonlyArray<{
   {
     label: "Navegación",
     items: [
-      { label: "Proyectos", href: "#proyectos" },
-      { label: "Más proyectos", href: "#mas-proyectos" },
-      { label: "Stack", href: "#stack" },
-      { label: "Preguntas frecuentes", href: "#faq" },
-      { label: "Contacto", href: "#contacto" },
+      { label: "Proyectos", href: "/#proyectos" },
+      { label: "Más proyectos", href: "/#mas-proyectos" },
+      { label: "Stack", href: "/#stack" },
+      { label: "Preguntas frecuentes", href: "/#faq" },
+      { label: "Contacto", href: "/#contacto" },
     ],
   },
   {
@@ -54,12 +83,12 @@ export function Footer(): ReactNode {
                 <ul className="space-y-3">
                   {column.items.map((item) => (
                     <li key={item.label}>
-                      <a
+                      <FooterAnchor
                         href={item.href}
                         className="focus-ring rounded-sm text-sm text-neutral-100 transition-colors hover:text-white dark:text-neutral-900 dark:hover:text-black"
                       >
                         {item.label}
-                      </a>
+                      </FooterAnchor>
                     </li>
                   ))}
                 </ul>
@@ -68,13 +97,13 @@ export function Footer(): ReactNode {
           </nav>
 
           <div className="lg:pt-px">
-            <a
-              href="#contacto"
+            <FooterAnchor
+              href="/#contacto"
               className="focus-ring inline-flex items-center gap-2 rounded-full border border-neutral-700 px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-neutral-100 transition-colors hover:border-neutral-500 dark:border-neutral-300 dark:text-neutral-900 dark:hover:border-neutral-500"
             >
               Escríbeme
               <span aria-hidden="true">→</span>
-            </a>
+            </FooterAnchor>
           </div>
         </div>
 

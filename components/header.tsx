@@ -5,13 +5,13 @@ import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
 
 const primaryLinks = [
-  { label: "Proyectos", href: "#proyectos" },
-  { label: "Stack", href: "#stack" },
-  { label: "Contacto", href: "#contacto" },
+  { label: "Proyectos", href: "/#proyectos" },
+  { label: "Stack", href: "/#stack" },
+  { label: "Contacto", href: "/#contacto" },
 ];
 
 const mobileLinks = [
-  { label: "Inicio", href: "#main-content" },
+  { label: "Inicio", href: "/" },
   ...primaryLinks,
 ];
 
@@ -25,7 +25,7 @@ const utilityLinks = [
 function Logo(): ReactNode {
   return (
     <Link
-      href="#main-content"
+      href="/"
       className="focus-ring enter inline-flex items-center gap-2 rounded-sm text-foreground"
       aria-label="Anghelo Alva — inicio"
     >
@@ -111,7 +111,7 @@ export function Header(): ReactNode {
             Descargar CV
           </a>
           <Link
-            href="#contacto"
+            href="/#contacto"
             style={{ ["--enter-delay" as string]: "320ms" }}
             className={`focus-ring enter rounded-full px-5 py-2.5 text-sm font-medium text-foreground transition-[background-color] duration-300 ease-out hover:text-muted-foreground ${
               isScrolled ? "bg-transparent" : "bg-muted hover:bg-border"
@@ -123,7 +123,7 @@ export function Header(): ReactNode {
 
         <div className="ml-auto flex items-center gap-2 lg:hidden">
           <Link
-            href="#contacto"
+            href="/#contacto"
             style={{ ["--enter-delay" as string]: "120ms" }}
             className="focus-ring enter rounded-full bg-muted px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-border"
           >
@@ -178,7 +178,7 @@ export function Header(): ReactNode {
             </p>
             {utilityLinks.map((link) => (
               <Link
-                key={link.href}
+                key={link.label}
                 href={link.href}
                 className="focus-ring rounded-md text-base font-normal text-foreground transition-colors hover:text-muted-foreground"
                 onClick={closeMenu}

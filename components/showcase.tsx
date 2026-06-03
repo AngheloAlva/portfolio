@@ -15,6 +15,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState, type ReactNode } from "react";
+import Link from "next/link";
 import { SectionCorners } from "@/components/section-corners";
 
 const MORPH_TRANSITION: Transition = {
@@ -386,21 +387,24 @@ function ExpandedCard({
             ))}
           </motion.div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
+            <Link
+              href={`/proyectos/${card.id}`}
+              className="focus-ring inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-background transition-opacity hover:opacity-90"
+            >
+              Ver caso
+              <span aria-hidden="true">→</span>
+            </Link>
             {card.href ? (
-              <motion.a
+              <a
                 href={card.href}
                 target="_blank"
                 rel="noreferrer"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 8 }}
-                transition={{ duration: 0.35, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                className="focus-ring inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-background transition-opacity hover:opacity-90"
+                className="focus-ring inline-flex items-center gap-2 rounded-full border border-border px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-foreground transition-colors hover:border-muted-foreground"
               >
                 {card.hrefLabel ?? "Visitar"}
                 <span aria-hidden="true">↗</span>
-              </motion.a>
+              </a>
             ) : null}
             <motion.button
               type="button"
