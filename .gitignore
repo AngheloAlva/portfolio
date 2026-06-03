@@ -42,3 +42,7 @@ next-env.d.ts
 
 # agent tooling
 /.atl
+.playwright-mcp/
+
+# local planning docs
+/Estructura_Portafolio_Anghelo.md
