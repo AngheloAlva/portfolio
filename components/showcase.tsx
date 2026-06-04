@@ -17,6 +17,8 @@ import {
 import { useCallback, useEffect, useId, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { SectionCorners } from "@/components/section-corners";
+import { AppMockup } from "@/components/app-mockup";
+import { getProjectMockup } from "@/components/mockups/registry";
 
 const MORPH_TRANSITION: Transition = {
   duration: 0.55,
@@ -199,7 +201,7 @@ export function Showcase(): ReactNode {
         <div className="relative flex flex-col overflow-hidden lg:col-span-2">
           <div
             ref={trackRef}
-            className="flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto scroll-smooth px-6 py-16 sm:gap-6 sm:px-10 sm:py-20 lg:px-14 lg:py-24 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            className="flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto scroll-smooth scroll-pl-6 px-6 py-16 sm:gap-6 sm:scroll-pl-10 sm:px-10 sm:py-20 lg:scroll-pl-14 lg:px-14 lg:py-24 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           >
             {CARDS.map((card) => (
               <Card
@@ -265,6 +267,36 @@ export function Showcase(): ReactNode {
   );
 }
 
+/**
+ * A 16:9 preview of the project's wireframe hero. The bespoke heroes are tall,
+ * full-size dashboards, so we render them on a 2× canvas and `scale-50` it down,
+ * top-anchored, letting the 16:9 frame crop the rest — like a cropped screenshot
+ * of the top of the app. Projects without a bespoke hero fall back to AppMockup.
+ */
+function CardPreview({
+  id,
+  title,
+  className,
+}: {
+  id: string;
+  title: string;
+  className?: string;
+}): ReactNode {
+  const Hero = getProjectMockup(id)?.hero;
+  return (
+    <div
+      aria-hidden="true"
+      className={`border-border bg-background pointer-events-none relative aspect-video w-full overflow-hidden rounded-xl border ${className ?? ""}`}
+    >
+      <div className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100">
+        <div className="h-[200%] w-[200%] origin-top-left scale-50">
+          {Hero ? <Hero label={title} /> : <AppMockup label={title} />}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Card({
   card,
   hidden,
@@ -283,7 +315,7 @@ function Card({
       layoutId={`card-${card.id}`}
       transition={MORPH_TRANSITION}
       style={{ visibility: hidden ? "hidden" : "visible" }}
-      className="focus-ring group relative flex aspect-[3/4] w-[280px] shrink-0 cursor-pointer snap-center flex-col justify-between rounded-2xl bg-muted p-6 text-left sm:w-[320px] sm:p-7 lg:w-[360px] lg:p-8"
+      className="focus-ring group relative flex aspect-[3/4] w-[280px] shrink-0 cursor-pointer snap-start flex-col justify-between rounded-2xl bg-muted p-6 text-left sm:w-[320px] sm:p-7 lg:w-[360px] lg:p-8"
     >
       <motion.div
         layoutId={`card-icon-${card.id}`}
@@ -292,6 +324,7 @@ function Card({
       >
         <Icon className="h-4 w-4" strokeWidth={1.5} />
       </motion.div>
+      <CardPreview id={card.id} title={card.title} />
       <div className="space-y-5">
         <motion.h3
           layoutId={`card-title-${card.id}`}
@@ -351,6 +384,16 @@ function ExpandedCard({
           className="flex h-11 w-11 items-center justify-center rounded-full bg-background/60 text-foreground"
         >
           <Icon className="h-4 w-4" strokeWidth={1.5} />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-8 hidden sm:block"
+        >
+          <CardPreview id={card.id} title={card.title} />
         </motion.div>
 
         <div className="mt-8 space-y-6 sm:mt-12">
