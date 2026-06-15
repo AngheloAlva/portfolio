@@ -49,16 +49,16 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run start` | Start production server |
-| `npm run lint` | Run ESLint |
-| `npm run lint:fix` | Fix ESLint errors |
-| `npm run format` | Format code with Prettier |
-| `npm run format:check` | Check code formatting |
-| `npm run typecheck` | Run TypeScript type checking |
+| Command                | Description                  |
+| ---------------------- | ---------------------------- |
+| `npm run dev`          | Start development server     |
+| `npm run build`        | Build for production         |
+| `npm run start`        | Start production server      |
+| `npm run lint`         | Run ESLint                   |
+| `npm run lint:fix`     | Fix ESLint errors            |
+| `npm run format`       | Format code with Prettier    |
+| `npm run format:check` | Check code formatting        |
+| `npm run typecheck`    | Run TypeScript type checking |
 
 ## Project Structure
 
@@ -99,6 +99,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ### 1. Update Site Configuration
 
 Edit `lib/metadata.ts` to update:
+
 - Site name, description, and URL
 - Social media handles
 - Keywords and authors
@@ -108,12 +109,13 @@ Edit `lib/config.ts` to toggle features:
 ```typescript
 export const features = {
   smoothScroll: true, // Lenis smooth scroll (auto-disabled on reduced motion)
-} as const;
+} as const
 ```
 
 ### 2. Replace Icons and Brand
 
 Replace the following files with your brand assets:
+
 - `app/icon.svg` — Favicon (32x32)
 - `app/apple-icon.svg` — Apple touch icon (180x180)
 - `public/og-image.png` — Open Graph image (1200x630)
@@ -179,6 +181,7 @@ The hero uses the default theme palette; the pricing featured card and final CTA
 ## Accessibility
 
 The template includes:
+
 - Skip-to-content link
 - Visible focus rings on all interactive elements
 - ARIA labels and roles on carousels, accordions, and toggles

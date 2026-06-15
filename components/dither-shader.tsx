@@ -1,15 +1,15 @@
-"use client";
+"use client"
 
-import { Mesh, Program, Renderer, Triangle } from "ogl";
-import { useTheme } from "next-themes";
-import { useEffect, useRef, type ReactNode } from "react";
+import { Mesh, Program, Renderer, Triangle } from "ogl"
+import { useTheme } from "next-themes"
+import { useEffect, useRef, type ReactNode } from "react"
 
 const vertexShader = /* glsl */ `#version 300 es
   in vec2 position;
   void main() {
     gl_Position = vec4(position, 0.0, 1.0);
   }
-`;
+`
 
 const fragmentShader = /* glsl */ `#version 300 es
   precision highp float;
@@ -113,180 +113,170 @@ const fragmentShader = /* glsl */ `#version 300 es
       mix(1.0, mask, uTransparent)
     );
   }
-`;
+`
 
-export type DitherVariant = "hero" | "cta";
-export type DitherTone = { r: number; g: number; b: number };
+export type DitherVariant = "hero" | "cta"
+export type DitherTone = { r: number; g: number; b: number }
 
 function isWebGL2Supported(): boolean {
-  if (typeof window === "undefined") return false;
-  try {
-    const canvas = document.createElement("canvas");
-    return !!canvas.getContext("webgl2");
-  } catch {
-    return false;
-  }
+	if (typeof window === "undefined") return false
+	try {
+		const canvas = document.createElement("canvas")
+		return !!canvas.getContext("webgl2")
+	} catch {
+		return false
+	}
 }
 
 export function DitherShader({
-  variant = "hero",
-  tone,
+	variant = "hero",
+	tone,
 }: { variant?: DitherVariant; tone?: DitherTone } = {}): ReactNode {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const { resolvedTheme } = useTheme();
+	const containerRef = useRef<HTMLDivElement | null>(null)
+	const { resolvedTheme } = useTheme()
 
-  const themeTargetRef = useRef(0);
-  const variantRef = useRef(variant === "cta" ? 1 : 0);
-  const transparentRef = useRef(tone ? 1 : 0);
-  const glyphColorRef = useRef<[number, number, number]>(
-    tone ? [tone.r, tone.g, tone.b] : [0.85, 0.85, 0.85]
-  );
+	const themeTargetRef = useRef(0)
+	const variantRef = useRef(variant === "cta" ? 1 : 0)
+	const transparentRef = useRef(tone ? 1 : 0)
+	const glyphColorRef = useRef<[number, number, number]>(
+		tone ? [tone.r, tone.g, tone.b] : [0.85, 0.85, 0.85]
+	)
 
-  useEffect(() => {
-    variantRef.current = variant === "cta" ? 1 : 0;
-  }, [variant]);
+	useEffect(() => {
+		variantRef.current = variant === "cta" ? 1 : 0
+	}, [variant])
 
-  useEffect(() => {
-    transparentRef.current = tone ? 1 : 0;
-    if (tone) {
-      glyphColorRef.current = [tone.r, tone.g, tone.b];
-    }
-  }, [tone]);
+	useEffect(() => {
+		transparentRef.current = tone ? 1 : 0
+		if (tone) {
+			glyphColorRef.current = [tone.r, tone.g, tone.b]
+		}
+	}, [tone])
 
-  useEffect(() => {
-    themeTargetRef.current = resolvedTheme === "dark" ? 1 : 0;
-  }, [resolvedTheme]);
+	useEffect(() => {
+		themeTargetRef.current = resolvedTheme === "dark" ? 1 : 0
+	}, [resolvedTheme])
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-    if (!isWebGL2Supported()) return;
+	useEffect(() => {
+		const container = containerRef.current
+		if (!container) return
+		if (!isWebGL2Supported()) return
 
-    const transparent = transparentRef.current === 1;
-    let renderer: Renderer;
-    try {
-      renderer = new Renderer({
-        webgl: 2,
-        alpha: transparent,
-        dpr: Math.min(window.devicePixelRatio, 2),
-      });
-    } catch {
-      return;
-    }
+		const transparent = transparentRef.current === 1
+		let renderer: Renderer
+		try {
+			renderer = new Renderer({
+				webgl: 2,
+				alpha: transparent,
+				dpr: Math.min(window.devicePixelRatio, 2),
+			})
+		} catch {
+			return
+		}
 
-    const gl = renderer.gl;
-    if (transparent) {
-      gl.clearColor(0, 0, 0, 0);
-    } else if (themeTargetRef.current === 1) {
-      gl.clearColor(0.039, 0.039, 0.039, 1);
-    } else {
-      gl.clearColor(1, 1, 1, 1);
-    }
+		const gl = renderer.gl
+		if (transparent) {
+			gl.clearColor(0, 0, 0, 0)
+		} else if (themeTargetRef.current === 1) {
+			gl.clearColor(0.039, 0.039, 0.039, 1)
+		} else {
+			gl.clearColor(1, 1, 1, 1)
+		}
 
-    container.appendChild(gl.canvas);
-    gl.canvas.style.display = "block";
-    gl.canvas.style.width = "100%";
-    gl.canvas.style.height = "100%";
+		container.appendChild(gl.canvas)
+		gl.canvas.style.display = "block"
+		gl.canvas.style.width = "100%"
+		gl.canvas.style.height = "100%"
 
-    const program = new Program(gl, {
-      vertex: vertexShader,
-      fragment: fragmentShader,
-      uniforms: {
-        iResolution: { value: [1, 1] },
-        iTime: { value: 0 },
-        iMouse: { value: [0, 0] },
-        iMouseActive: { value: 0 },
-        uTheme: { value: themeTargetRef.current },
-        uVariant: { value: variantRef.current },
-        uTransparent: { value: transparentRef.current },
-        uGlyphColor: { value: glyphColorRef.current.slice() },
-      },
-    });
+		const program = new Program(gl, {
+			vertex: vertexShader,
+			fragment: fragmentShader,
+			uniforms: {
+				iResolution: { value: [1, 1] },
+				iTime: { value: 0 },
+				iMouse: { value: [0, 0] },
+				iMouseActive: { value: 0 },
+				uTheme: { value: themeTargetRef.current },
+				uVariant: { value: variantRef.current },
+				uTransparent: { value: transparentRef.current },
+				uGlyphColor: { value: glyphColorRef.current.slice() },
+			},
+		})
 
-    const mesh = new Mesh(gl, { geometry: new Triangle(gl), program });
+		const mesh = new Mesh(gl, { geometry: new Triangle(gl), program })
 
-    const target = { x: 0, y: 0, active: 0 };
-    const current = { x: 0, y: 0, active: 0 };
+		const target = { x: 0, y: 0, active: 0 }
+		const current = { x: 0, y: 0, active: 0 }
 
-    const resize = (): void => {
-      const { clientWidth, clientHeight } = container;
-      renderer.setSize(clientWidth, clientHeight);
-      program.uniforms.iResolution.value = [
-        gl.drawingBufferWidth,
-        gl.drawingBufferHeight,
-      ];
-      if (current.x === 0 && current.y === 0) {
-        current.x = gl.drawingBufferWidth / 2;
-        current.y = gl.drawingBufferHeight / 2;
-        target.x = current.x;
-        target.y = current.y;
-      }
-    };
+		const resize = (): void => {
+			const { clientWidth, clientHeight } = container
+			renderer.setSize(clientWidth, clientHeight)
+			program.uniforms.iResolution.value = [gl.drawingBufferWidth, gl.drawingBufferHeight]
+			if (current.x === 0 && current.y === 0) {
+				current.x = gl.drawingBufferWidth / 2
+				current.y = gl.drawingBufferHeight / 2
+				target.x = current.x
+				target.y = current.y
+			}
+		}
 
-    const handlePointerMove = (event: PointerEvent): void => {
-      const rect = container.getBoundingClientRect();
-      const dpr = gl.drawingBufferWidth / rect.width;
-      target.x = (event.clientX - rect.left) * dpr;
-      target.y = (rect.height - (event.clientY - rect.top)) * dpr;
-      target.active = 1;
-    };
+		const handlePointerMove = (event: PointerEvent): void => {
+			const rect = container.getBoundingClientRect()
+			const dpr = gl.drawingBufferWidth / rect.width
+			target.x = (event.clientX - rect.left) * dpr
+			target.y = (rect.height - (event.clientY - rect.top)) * dpr
+			target.active = 1
+		}
 
-    const handlePointerLeave = (): void => {
-      target.active = 0;
-    };
+		const handlePointerLeave = (): void => {
+			target.active = 0
+		}
 
-    const ro = new ResizeObserver(resize);
-    ro.observe(container);
-    resize();
+		const ro = new ResizeObserver(resize)
+		ro.observe(container)
+		resize()
 
-    window.addEventListener("pointermove", handlePointerMove, { passive: true });
-    container.addEventListener("pointerleave", handlePointerLeave);
+		window.addEventListener("pointermove", handlePointerMove, { passive: true })
+		container.addEventListener("pointerleave", handlePointerLeave)
 
-    let frameId = 0;
-    const start = performance.now();
+		let frameId = 0
+		const start = performance.now()
 
-    const render = (): void => {
-      current.x += (target.x - current.x) * 0.12;
-      current.y += (target.y - current.y) * 0.12;
-      current.active += (target.active - current.active) * 0.06;
+		const render = (): void => {
+			current.x += (target.x - current.x) * 0.12
+			current.y += (target.y - current.y) * 0.12
+			current.active += (target.active - current.active) * 0.06
 
-      const themeNow = program.uniforms.uTheme.value as number;
-      program.uniforms.uTheme.value =
-        themeNow + (themeTargetRef.current - themeNow) * 0.12;
+			const themeNow = program.uniforms.uTheme.value as number
+			program.uniforms.uTheme.value = themeNow + (themeTargetRef.current - themeNow) * 0.12
 
-      program.uniforms.uVariant.value = variantRef.current;
-      program.uniforms.uTransparent.value = transparentRef.current;
-      const gc = program.uniforms.uGlyphColor.value as number[];
-      gc[0] = glyphColorRef.current[0];
-      gc[1] = glyphColorRef.current[1];
-      gc[2] = glyphColorRef.current[2];
+			program.uniforms.uVariant.value = variantRef.current
+			program.uniforms.uTransparent.value = transparentRef.current
+			const gc = program.uniforms.uGlyphColor.value as number[]
+			gc[0] = glyphColorRef.current[0]
+			gc[1] = glyphColorRef.current[1]
+			gc[2] = glyphColorRef.current[2]
 
-      program.uniforms.iTime.value = (performance.now() - start) / 1000;
-      program.uniforms.iMouse.value = [current.x, current.y];
-      program.uniforms.iMouseActive.value = current.active;
+			program.uniforms.iTime.value = (performance.now() - start) / 1000
+			program.uniforms.iMouse.value = [current.x, current.y]
+			program.uniforms.iMouseActive.value = current.active
 
-      renderer.render({ scene: mesh });
-      frameId = requestAnimationFrame(render);
-    };
-    render();
+			renderer.render({ scene: mesh })
+			frameId = requestAnimationFrame(render)
+		}
+		render()
 
-    return () => {
-      cancelAnimationFrame(frameId);
-      ro.disconnect();
-      window.removeEventListener("pointermove", handlePointerMove);
-      container.removeEventListener("pointerleave", handlePointerLeave);
-      if (gl.canvas.parentElement === container) {
-        container.removeChild(gl.canvas);
-      }
-      gl.getExtension("WEBGL_lose_context")?.loseContext();
-    };
-  }, []);
+		return () => {
+			cancelAnimationFrame(frameId)
+			ro.disconnect()
+			window.removeEventListener("pointermove", handlePointerMove)
+			container.removeEventListener("pointerleave", handlePointerLeave)
+			if (gl.canvas.parentElement === container) {
+				container.removeChild(gl.canvas)
+			}
+			gl.getExtension("WEBGL_lose_context")?.loseContext()
+		}
+	}, [])
 
-  return (
-    <div
-      ref={containerRef}
-      className="absolute inset-0 h-full w-full"
-      aria-hidden="true"
-    />
-  );
+	return <div ref={containerRef} className="absolute inset-0 h-full w-full" aria-hidden="true" />
 }

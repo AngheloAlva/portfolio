@@ -1,11 +1,11 @@
-import { AiepHero, aiepFeatureGlyphs } from "@/components/mockups/aiep-pei";
-import { BusancHero, busancFeatureGlyphs } from "@/components/mockups/busanc";
+import { AiepHero, aiepFeatureGlyphs } from "@/components/mockups/aiep-pei"
+import { BusancHero, busancFeatureGlyphs } from "@/components/mockups/busanc"
 import {
-  DashboardTurismoHero,
-  dashboardTurismoFeatureGlyphs,
-} from "@/components/mockups/dashboard-turismo";
-import { Otc360Hero, otc360FeatureGlyphs } from "@/components/mockups/otc-360";
-import type { ReactNode } from "react";
+	DashboardTurismoHero,
+	dashboardTurismoFeatureGlyphs,
+} from "@/components/mockups/dashboard-turismo"
+import { Otc360Hero, otc360FeatureGlyphs } from "@/components/mockups/otc-360"
+import type { ReactNode } from "react"
 
 /**
  * Per-project wireframe registry.
@@ -16,31 +16,31 @@ import type { ReactNode } from "react";
  * without touching the others.
  */
 export interface ProjectMockup {
-  /** Big hero mockup replacing the generic `AppMockup`. */
-  hero?: (props: { label?: string }) => ReactNode;
-  /** Feature glyphs keyed by the exact `feature.title`. */
-  features?: Record<string, (props: { className?: string }) => ReactNode>;
+	/** Big hero mockup replacing the generic `AppMockup`. */
+	hero?: (props: { label?: string }) => ReactNode
+	/** Feature glyphs keyed by the exact `feature.title`. */
+	features?: Record<string, (props: { className?: string }) => ReactNode>
 }
 
 const PROJECT_MOCKUPS: Record<string, ProjectMockup> = {
-  "otc-360": {
-    hero: Otc360Hero,
-    features: otc360FeatureGlyphs,
-  },
-  "aiep-pei": {
-    hero: AiepHero,
-    features: aiepFeatureGlyphs,
-  },
-  busanc: {
-    hero: BusancHero,
-    features: busancFeatureGlyphs,
-  },
-  "dashboard-turismo": {
-    hero: DashboardTurismoHero,
-    features: dashboardTurismoFeatureGlyphs,
-  },
-};
+	"otc-360": {
+		hero: Otc360Hero,
+		features: otc360FeatureGlyphs,
+	},
+	"aiep-pei": {
+		hero: AiepHero,
+		features: aiepFeatureGlyphs,
+	},
+	"busanc": {
+		hero: BusancHero,
+		features: busancFeatureGlyphs,
+	},
+	"dashboard-turismo": {
+		hero: DashboardTurismoHero,
+		features: dashboardTurismoFeatureGlyphs,
+	},
+}
 
 export function getProjectMockup(id: string): ProjectMockup | undefined {
-  return PROJECT_MOCKUPS[id];
+	return PROJECT_MOCKUPS[id]
 }

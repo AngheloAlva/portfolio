@@ -7,11 +7,11 @@
  * library code paths) so the template degrades cleanly.
  */
 export const features = {
-  /**
-   * Smooth-scroll powered by Lenis. When `false` the page falls back to
-   * native CSS `scroll-behavior: smooth` and no Lenis instance is
-   * created. Automatically disabled when the user prefers reduced
-   * motion regardless of this value.
-   */
-  smoothScroll: true,
-} as const;
+	/**
+	 * Smooth-scroll powered by Lenis. When `false` the page falls back to
+	 * native CSS `scroll-behavior: smooth` and no Lenis instance is
+	 * created. Automatically disabled when the user prefers reduced
+	 * motion regardless of this value.
+	 */
+	smoothScroll: true,
+} as const
