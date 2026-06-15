@@ -1,312 +1,286 @@
-"use client";
+"use client"
 
-import {
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-  type MotionValue,
-} from "motion/react";
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { SectionCorners } from "@/components/section-corners";
-import { DitherShader } from "@/components/dither-shader";
-
-type ProjectEntry = { title: string; description: string; href: string };
-
-const PROJECTS_TOP: ReadonlyArray<ProjectEntry> = [
-  {
-    title: "CAEMP",
-    description: "Plataforma de capacitación y seguridad laboral.",
-    href: "https://grupocaemp.cl",
-  },
-  {
-    title: "Finance",
-    description: "Aplicación de gestión financiera personal.",
-    href: "https://finance-olive-tau.vercel.app",
-  },
-  {
-    title: "Sistema GIS",
-    description: "Información geográfica con capas interactivas.",
-    href: "https://ing-simple-gis.vercel.app/",
-  },
-  {
-    title: "PDF Viewer",
-    description: "Visor de PDFs interactivo con efecto de libro.",
-    href: "https://pdf-viewer-five-puce.vercel.app",
-  },
-  {
-    title: "ASM — Monitoreo Ambiental",
-    description: "Sistema de monitoreo ambiental multiidioma.",
-    href: "https://asm-six.vercel.app/es/",
-  },
-  {
-    title: "IS Dashboard",
-    description: "Gestión documental y control de asistencia.",
-    href: "https://documents-dashboard.vercel.app",
-  },
-  {
-    title: "Report Dashboard",
-    description: "Reportes con visualización geoespacial.",
-    href: "https://report-dashboard-eta.vercel.app",
-  },
-];
-
-const PROJECTS_BOTTOM: ReadonlyArray<ProjectEntry> = [
-  {
-    title: "Forma — Habit Tracker",
-    description: "PWA de seguimiento de hábitos diarios.",
-    href: "https://habit-tracker-rouge-one.vercel.app",
-  },
-  {
-    title: "CorreosChile — Auditorías",
-    description: "Maqueta de seguimiento de auditorías.",
-    href: "https://correos-de-chile-mockup.vercel.app",
-  },
-  {
-    title: "Inmobiliaria Ulloa Accardi",
-    description: "Prototipo de sitio para proyecto inmobiliario andino.",
-    href: "https://prototipo-inmobiliaria.vercel.app",
-  },
-  {
-    title: "Monitoreo Ambiental — Raspberry Pi 5",
-    description: "Dashboard IoT de monitoreo ambiental.",
-    href: "https://raspberry-pi-5-mockup.vercel.app",
-  },
-  {
-    title: "Emprende tu Vida",
-    description: "Plataforma educativa de emprendimiento.",
-    href: "https://maqueta-emprende-tu-vida.vercel.app",
-  },
-  {
-    title: "Websil",
-    description: "Versión de prueba del sitio Websil con Astro.",
-    href: "https://websil-test.vercel.app",
-  },
-  {
-    title: "DBJ — Landing Page",
-    description: "Landing page para DBJ.",
-    href: "https://dbj-prototipe.vercel.app",
-  },
-];
+import { motion, useReducedMotion, type Transition } from "motion/react"
+import Image from "next/image"
+import { useEffect, useRef, useState, type ReactNode } from "react"
+import { DitherShader } from "@/components/dither-shader"
+import { SectionCorners } from "@/components/section-corners"
+import { miniProjects, type MiniProject } from "@/lib/portfolio-data"
+import { Github } from "lucide-react"
 
 export function Community(): ReactNode {
-  const sectionRef = useRef<HTMLElement>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
-  const trackTopRef = useRef<HTMLDivElement>(null);
-  const trackBottomRef = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
+	const [openId, setOpenId] = useState<string | null>(null)
+	const reduce = useReducedMotion()
 
-  const overflowTop = useMotionValue(0);
-  const overflowBottom = useMotionValue(0);
-  const [ready, setReady] = useState(false);
+	// Close the expanded card with Escape.
+	useEffect(() => {
+		if (!openId) return
+		const onKey = (e: KeyboardEvent) => {
+			if (e.key === "Escape") setOpenId(null)
+		}
+		window.addEventListener("keydown", onKey)
+		return () => window.removeEventListener("keydown", onKey)
+	}, [openId])
 
-  useEffect(() => {
-    const stageEl = stageRef.current;
-    const topEl = trackTopRef.current;
-    const bottomEl = trackBottomRef.current;
-    if (!stageEl || !topEl || !bottomEl) return;
+	const transition: Transition = reduce
+		? { duration: 0 }
+		: { type: "spring", stiffness: 320, damping: 34, mass: 0.8 }
 
-    const measure = () => {
-      const stageWidth = stageEl.clientWidth;
-      overflowTop.set(Math.max(0, topEl.scrollWidth - stageWidth));
-      overflowBottom.set(Math.max(0, bottomEl.scrollWidth - stageWidth));
-      setReady(true);
-    };
+	return (
+		<section
+			id="mas-proyectos"
+			aria-labelledby="community-heading"
+			className="border-border relative overflow-hidden border-b"
+		>
+			<ShaderBackdrop />
 
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(stageEl);
-    ro.observe(topEl);
-    ro.observe(bottomEl);
-    return () => ro.disconnect();
-  }, [overflowTop, overflowBottom]);
+			<div className="relative z-10 flex w-full flex-col gap-8 px-6 py-16 sm:gap-10 sm:px-10 sm:py-20 lg:px-14">
+				<div className="max-w-2xl">
+					<h2
+						id="community-heading"
+						className="text-foreground text-2xl leading-[1.05] font-medium tracking-tighter sm:text-3xl lg:text-[2.5rem]"
+					>
+						Más proyectos
+					</h2>
+					<p className="text-muted-foreground mt-3 max-w-lg text-sm leading-relaxed sm:text-base">
+						Prototipos, demos y trabajos más chicos. Abre una tarjeta para ver el detalle, las
+						tecnologías y la demo en vivo.
+					</p>
+				</div>
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
-  const progress = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 26,
-    mass: 0.6,
-    restDelta: 0.0005,
-  });
-
-  const xTop = useTransform([progress, overflowTop], (values) => {
-    const [p, o] = values as [number, number];
-    const clamped = Math.min(Math.max(p / 0.92, 0), 1);
-    return -o * clamped;
-  });
-
-  const xBottom = useTransform([progress, overflowBottom], (values) => {
-    const [p, o] = values as [number, number];
-    const clamped = Math.min(Math.max(p / 0.92, 0), 1);
-    return -o * (1 - clamped);
-  });
-
-  const backdropOpacity = useTransform(progress, [0, 0.85, 1], [0.22, 0.22, 0]);
-
-  return (
-    <section
-      ref={sectionRef}
-      id="mas-proyectos"
-      aria-labelledby="community-heading"
-      className="relative border-b border-border"
-    >
-      <div className="relative h-[180vh]">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none sticky top-16 h-[calc(100vh-4rem)] w-full sm:top-20 sm:h-[calc(100vh-5rem)]"
-        >
-          <Backdrop opacity={backdropOpacity} />
-        </div>
-
-        <div className="sticky top-16 z-10 -mt-[calc(100vh-4rem)] flex w-full flex-col gap-6 overflow-hidden py-6 sm:top-20 sm:-mt-[calc(100vh-5rem)] sm:gap-8 sm:py-10">
-          <div className="relative z-10 flex flex-col gap-4 px-6 sm:flex-row sm:items-end sm:justify-between sm:gap-10 sm:px-10 lg:px-14">
-            <div className="max-w-2xl">
-              <h2
-                id="community-heading"
-                className="text-2xl font-medium leading-[1.05] tracking-tighter text-foreground sm:text-3xl lg:text-[2.5rem]"
-              >
-                Más proyectos
-              </h2>
-              <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-base">
-                Prototipos, demos y trabajos más chicos. Casi todos con demo en
-                vivo — abre una tarjeta para verla.
-              </p>
-            </div>
-          </div>
-
-          <div
-            ref={stageRef}
-            className="relative z-10 flex flex-col gap-4 overflow-hidden sm:gap-6"
-          >
-            {reduce ? (
-              <>
-                <ReducedRow entries={PROJECTS_TOP} />
-                <ReducedRow entries={PROJECTS_BOTTOM} />
-              </>
-            ) : (
-              <>
-                <Row
-                  ref={trackTopRef}
-                  entries={PROJECTS_TOP}
-                  x={xTop}
-                  ready={ready}
-                />
-                <Row
-                  ref={trackBottomRef}
-                  entries={PROJECTS_BOTTOM}
-                  x={xBottom}
-                  ready={ready}
-                />
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-      <SectionCorners />
-    </section>
-  );
+				<motion.ul
+					layout
+					transition={transition}
+					className="grid list-none grid-flow-row-dense grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+				>
+					{miniProjects.map((project) => {
+						const open = openId === project.id
+						return (
+							<motion.li
+								key={project.id}
+								layout
+								transition={transition}
+								className={open ? "col-span-full" : ""}
+							>
+								{open ? (
+									<ExpandedCard project={project} reduce={reduce} onClose={() => setOpenId(null)} />
+								) : (
+									<CollapsedCard project={project} onOpen={() => setOpenId(project.id)} />
+								)}
+							</motion.li>
+						)
+					})}
+				</motion.ul>
+			</div>
+			<SectionCorners />
+		</section>
+	)
 }
 
-function Backdrop({
-  opacity,
+// WebGL dither backdrop. Only mounted while the section is near the viewport
+// (the shader runs a continuous rAF loop, so we don't keep it alive offscreen)
+// and never under prefers-reduced-motion.
+function ShaderBackdrop(): ReactNode {
+	const ref = useRef<HTMLDivElement>(null)
+	const reduce = useReducedMotion()
+	const [visible, setVisible] = useState(false)
+
+	useEffect(() => {
+		const el = ref.current
+		if (!el || reduce) return
+		const io = new IntersectionObserver(
+			(entries) => {
+				const entry = entries[0]
+				if (entry) setVisible(entry.isIntersecting)
+			},
+			{ rootMargin: "200px" }
+		)
+		io.observe(el)
+		return () => io.disconnect()
+	}, [reduce])
+
+	return (
+		<div
+			ref={ref}
+			aria-hidden="true"
+			className="pointer-events-none absolute inset-0 overflow-hidden opacity-[0.18]"
+			style={{
+				WebkitMaskImage:
+					"linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
+				maskImage:
+					"linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
+			}}
+		>
+			{visible && !reduce ? <DitherShader variant="hero" /> : null}
+		</div>
+	)
+}
+
+function CollapsedCard({
+	project,
+	onOpen,
 }: {
-  opacity: MotionValue<number>;
+	project: MiniProject
+	onOpen: () => void
 }): ReactNode {
-  return (
-    <motion.div
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[55vh]"
-      style={{
-        opacity,
-        WebkitMaskImage:
-          "linear-gradient(to top, black 0%, black 25%, transparent 100%)",
-        maskImage:
-          "linear-gradient(to top, black 0%, black 25%, transparent 100%)",
-      }}
-    >
-      <DitherShader variant="hero" />
-    </motion.div>
-  );
+	const visibleTech = project.technologies.slice(0, 3)
+	const extraTech = project.technologies.length - visibleTech.length
+
+	return (
+		<button
+			type="button"
+			onClick={onOpen}
+			aria-expanded={false}
+			className="focus-ring group border-border bg-background hover:border-foreground/30 flex h-full min-h-44 w-full flex-col justify-start gap-6 rounded-2xl border p-5 text-left transition-colors sm:p-6"
+		>
+			<div className="flex flex-wrap gap-1.5">
+				{visibleTech.map((tech) => (
+					<TechChip key={tech} label={tech} />
+				))}
+				{extraTech > 0 ? (
+					<span
+						className="bg-muted/60 text-muted-foreground/80 rounded-full px-2.5 py-1 text-xs font-medium"
+						aria-label={`${extraTech} tecnologías más`}
+					>
+						+{extraTech}
+					</span>
+				) : null}
+			</div>
+			<div>
+				<h3 className="text-foreground text-base leading-tight font-medium tracking-tight">
+					{project.title}
+				</h3>
+				<p className="text-muted-foreground mt-1 text-sm leading-relaxed">
+					{project.shortDescription}
+				</p>
+				<span className="text-muted-foreground/80 group-hover:text-foreground mt-3 inline-flex items-center gap-1 text-xs font-medium transition-colors">
+					Ver más
+					<span
+						aria-hidden="true"
+						className="transition-transform duration-300 ease-out group-hover:translate-y-0.5"
+					>
+						↓
+					</span>
+				</span>
+			</div>
+		</button>
+	)
 }
 
-function Row({
-  ref,
-  entries,
-  x,
-  ready,
+function ExpandedCard({
+	project,
+	reduce,
+	onClose,
 }: {
-  ref: React.RefObject<HTMLDivElement | null>;
-  entries: ReadonlyArray<ProjectEntry>;
-  x: MotionValue<number>;
-  ready: boolean;
+	project: MiniProject
+	reduce: boolean | null
+	onClose: () => void
 }): ReactNode {
-  return (
-    <div
-      className="relative"
-      style={{
-        WebkitMaskImage:
-          "linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%)",
-        maskImage:
-          "linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%)",
-      }}
-    >
-      <motion.div
-        ref={ref}
-        className="flex shrink-0 gap-6 px-6 sm:gap-8 sm:px-10 lg:px-14"
-        style={{ x, opacity: ready ? 1 : 0 }}
-      >
-        {entries.map((entry) => (
-          <ProjectCard key={entry.href} entry={entry} />
-        ))}
-      </motion.div>
-    </div>
-  );
+	const description = project.longDescription ?? project.shortDescription
+	return (
+		<motion.div
+			initial={reduce ? false : { opacity: 0 }}
+			animate={{ opacity: 1 }}
+			className="border-foreground/20 bg-background relative grid gap-6 overflow-hidden rounded-2xl border p-5 sm:p-6 lg:grid-cols-2 lg:gap-8"
+		>
+			<ProjectMedia project={project} />
+
+			<div className="flex flex-col">
+				<div className="flex items-start justify-between gap-4">
+					<h3 className="text-foreground text-lg leading-tight font-medium tracking-tight sm:text-xl">
+						{project.title}
+					</h3>
+					<button
+						type="button"
+						onClick={onClose}
+						aria-expanded={true}
+						aria-label="Cerrar detalle"
+						className="focus-ring text-muted-foreground hover:text-foreground hover:bg-muted -mt-1 -mr-1 grid size-8 shrink-0 place-items-center rounded-full transition-colors"
+					>
+						<span aria-hidden="true" className="text-lg leading-none">
+							×
+						</span>
+					</button>
+				</div>
+
+				<p className="text-muted-foreground mt-3 text-sm leading-relaxed sm:text-base">
+					{description}
+				</p>
+
+				<div className="mt-5 flex flex-wrap gap-1.5">
+					{project.technologies.map((tech) => (
+						<TechChip key={tech} label={tech} />
+					))}
+				</div>
+
+				{project.why ? <DetailBlock label="Por qué" body={project.why} /> : null}
+				{project.learnings ? <DetailBlock label="Aprendizaje" body={project.learnings} /> : null}
+
+				<div className="mt-auto flex flex-wrap items-center gap-3 pt-6">
+					<a
+						href={project.href}
+						target="_blank"
+						rel="noreferrer"
+						className="focus-ring bg-foreground text-background hover:bg-foreground/90 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors"
+					>
+						Ver demo
+						<span aria-hidden="true">↗</span>
+					</a>
+					{project.repoUrl ? (
+						<a
+							href={project.repoUrl}
+							target="_blank"
+							rel="noreferrer"
+							className="focus-ring border-border text-foreground hover:bg-muted inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-medium transition-colors"
+						>
+							Código
+							<Github className="size-4.5" />
+						</a>
+					) : null}
+				</div>
+			</div>
+		</motion.div>
+	)
 }
 
-function ReducedRow({
-  entries,
-}: {
-  entries: ReadonlyArray<ProjectEntry>;
-}): ReactNode {
-  return (
-    <div className="flex w-full gap-6 overflow-x-auto px-6 sm:gap-8 sm:px-10 lg:px-14">
-      {entries.map((entry) => (
-        <ProjectCard key={entry.href} entry={entry} />
-      ))}
-    </div>
-  );
+function ProjectMedia({ project }: { project: MiniProject }): ReactNode {
+	return (
+		<div className="bg-muted relative h-full min-h-96 overflow-hidden rounded-xl">
+			{project.image ? (
+				<Image
+					src={project.image}
+					alt={`Captura de ${project.title}`}
+					fill
+					sizes="(min-width: 1024px) 45vw, 100vw"
+					className="object-cover object-center"
+				/>
+			) : (
+				<div
+					aria-hidden="true"
+					className="from-primary/15 via-background to-background grid h-full w-full place-items-center bg-linear-to-br"
+				>
+					<span className="text-foreground/40 text-4xl font-semibold tracking-tighter">
+						{project.title.charAt(0)}
+					</span>
+				</div>
+			)}
+		</div>
+	)
 }
 
-function ProjectCard({ entry }: { entry: ProjectEntry }): ReactNode {
-  return (
-    <a
-      href={entry.href}
-      target="_blank"
-      rel="noreferrer"
-      className="focus-ring group relative flex aspect-5/6 w-75 shrink-0 flex-col justify-between overflow-hidden rounded-2xl border border-border bg-background p-5 transition-colors hover:border-foreground/30 sm:w-90 sm:p-6"
-    >
-      <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
-        Ver demo
-        <span
-          aria-hidden="true"
-          className="transition-transform duration-300 ease-out group-hover:translate-x-0.5"
-        >
-          ↗
-        </span>
-      </span>
-      <div>
-        <h3 className="text-base font-medium leading-tight tracking-tight text-foreground">
-          {entry.title}
-        </h3>
-        <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-          {entry.description}
-        </p>
-      </div>
-    </a>
-  );
+function TechChip({ label }: { label: string }): ReactNode {
+	return (
+		<span className="bg-muted text-muted-foreground rounded-full px-2.5 py-1 text-xs font-medium">
+			{label}
+		</span>
+	)
+}
+
+function DetailBlock({ label, body }: { label: string; body: string }): ReactNode {
+	return (
+		<div className="mt-5">
+			<h4 className="text-foreground/70 text-xs font-semibold tracking-wide uppercase">{label}</h4>
+			<p className="text-muted-foreground mt-1 text-sm leading-relaxed">{body}</p>
+		</div>
+	)
 }
