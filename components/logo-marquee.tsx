@@ -13,6 +13,7 @@ const logos: ClientLogo[] = [
     alt: "TurismoChileTours",
   },
   { id: "aiep", src: "/logos/aiep.svg", alt: "AIEP" },
+  { id: "aiep", src: "/logos/caemp.png", alt: "Caemp" },
   { id: "bzconsulting", src: "/logos/bzconsulting.png", alt: "BZ Consulting" },
 ];
 
@@ -68,7 +69,7 @@ export function LogoMarquee(): ReactNode {
 
   return (
     <div
-      className="relative h-full min-h-[360px] w-full overflow-hidden"
+      className="relative h-full min-h-90 w-full overflow-hidden"
       style={{
         maskImage:
           "linear-gradient(to bottom, transparent, black 18%, black 82%, transparent)",
@@ -76,7 +77,7 @@ export function LogoMarquee(): ReactNode {
           "linear-gradient(to bottom, transparent, black 18%, black 82%, transparent)",
       }}
     >
-      <div className="absolute inset-0 mx-auto grid max-w-[220px] grid-cols-2 place-items-center gap-1 sm:max-w-[260px]">
+      <div className="absolute inset-0 mx-auto grid max-w-55 grid-cols-2 place-items-center gap-1 sm:max-w-65">
         <MarqueeColumn direction="up" duration="22s" logoSet={colA} />
         <MarqueeColumn direction="down" duration="26s" logoSet={colB} />
       </div>
