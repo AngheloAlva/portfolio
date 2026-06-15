@@ -14,41 +14,17 @@ const logos: ClientLogo[] = [
   },
   { id: "aiep", src: "/logos/aiep.svg", alt: "AIEP" },
   { id: "bzconsulting", src: "/logos/bzconsulting.png", alt: "BZ Consulting" },
-  { id: "sgs", src: "/logos/sgs.svg", alt: "SGS" },
-  {
-    id: "generadora-metropolitana",
-    src: "/logos/generadora-metropolitana.png",
-    alt: "Generadora Metropolitana",
-  },
-  {
-    id: "clinica-alemana",
-    src: "/logos/clinica-alemana.svg",
-    alt: "Clínica Alemana",
-  },
-  { id: "tecno-global", src: "/logos/tecno-global.jpeg", alt: "Tecno Global" },
-  { id: "bimakers", src: "/logos/bimakers.avif", alt: "Bimakers" },
-  {
-    id: "gestion-global",
-    src: "/logos/gestion-global.png",
-    alt: "Gestión Global",
-  },
-  { id: "lider", src: "/logos/lider.png", alt: "Líder" },
-  { id: "falabella", src: "/logos/falabella.svg", alt: "Falabella" },
-  { id: "geobiota", src: "/logos/geobiota.png", alt: "Geobiota" },
-  { id: "traza", src: "/logos/traza.svg", alt: "Traza" },
-  { id: "club-hipico", src: "/logos/club-hipico.svg", alt: "Club Hípico" },
-  { id: "asicap", src: "/logos/asicap.png", alt: "Asicap" },
 ];
 
 function LogoChip({ logo }: { logo: ClientLogo }): ReactNode {
   return (
-    <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-background sm:h-24 sm:w-24">
+    <div className="bg-background flex h-20 w-20 shrink-0 items-center justify-center rounded-full sm:h-24 sm:w-24">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={logo.src}
         alt={logo.alt}
         loading="lazy"
-        className="h-9 w-12 object-contain opacity-80 brightness-0 dark:opacity-90 dark:invert sm:h-10 sm:w-14"
+        className="h-9 w-12 object-contain opacity-80 brightness-0 sm:h-10 sm:w-14 dark:opacity-90 dark:invert"
       />
     </div>
   );
