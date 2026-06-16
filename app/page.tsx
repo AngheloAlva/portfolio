@@ -1,11 +1,13 @@
+import { Certifications } from "@/components/certifications"
 import { Community } from "@/components/community"
 import { DitherShader } from "@/components/dither-shader"
+import { Experience } from "@/components/experience"
 import { Faq } from "@/components/faq"
 import { FinalCTA } from "@/components/final-cta"
 import { Footer } from "@/components/footer"
 import { Header } from "@/components/header"
 import { LogoMarquee } from "@/components/logo-marquee"
-import { Pricing } from "@/components/pricing"
+import { Stack } from "@/components/stack"
 import { Reveal } from "@/components/reveal"
 import { SectionCorners } from "@/components/section-corners"
 import { Showcase } from "@/components/showcase"
@@ -104,6 +106,39 @@ export default function HomePage(): ReactNode {
 
 				<Reveal>
 					<section className="border-border relative border-b p-6 sm:p-10 lg:p-14">
+						<div className="relative grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
+							<article className="border-border bg-background flex min-h-90 flex-col justify-between rounded-2xl border p-6 sm:p-8 lg:min-h-120">
+								<h2 className="text-foreground max-w-md text-2xl leading-[1.15] font-semibold tracking-tight sm:text-3xl lg:text-[2rem]">
+									<span className="text-muted-foreground">Empresas y marcas</span> con las que
+									trabajé
+								</h2>
+								<p className="text-muted-foreground mt-12 max-w-md text-sm leading-relaxed sm:text-base">
+									Energía, minería, turismo, educación, salud y retail. Software a medida para
+									operaciones reales, de forma directa o a través de Ingeniería Simple.
+								</p>
+							</article>
+							<div className="bg-muted relative min-h-90 overflow-hidden rounded-2xl lg:min-h-120">
+								<LogoMarquee />
+							</div>
+							<div
+								aria-hidden="true"
+								className="bg-border pointer-events-none absolute top-0 bottom-0 hidden w-px -translate-x-1/2 lg:block"
+								style={{ left: "50%" }}
+							/>
+						</div>
+						<SectionCorners />
+					</section>
+				</Reveal>
+
+				<Reveal>
+					<Showcase />
+				</Reveal>
+				<Reveal>
+					<Experience />
+				</Reveal>
+
+				<Reveal>
+					<section className="border-border relative border-b p-6 sm:p-10 lg:p-14">
 						<h2 className="text-foreground overflow-hidden text-2xl leading-[1.1] font-semibold tracking-tight text-ellipsis whitespace-nowrap sm:text-3xl lg:text-[2.5rem]">
 							Me hago cargo del ciclo completo
 						</h2>
@@ -145,32 +180,6 @@ export default function HomePage(): ReactNode {
 									</p>
 								</article>
 							))}
-						</div>
-						<SectionCorners />
-					</section>
-				</Reveal>
-
-				<Reveal>
-					<section className="border-border relative border-b p-6 sm:p-10 lg:p-14">
-						<div className="relative grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
-							<article className="border-border bg-background flex min-h-90 flex-col justify-between rounded-2xl border p-6 sm:p-8 lg:min-h-120">
-								<h2 className="text-foreground max-w-md text-2xl leading-[1.15] font-semibold tracking-tight sm:text-3xl lg:text-[2rem]">
-									<span className="text-muted-foreground">Empresas y marcas</span> con las que
-									trabajé
-								</h2>
-								<p className="text-muted-foreground mt-12 max-w-md text-sm leading-relaxed sm:text-base">
-									Energía, minería, turismo, educación, salud y retail. Software a medida para
-									operaciones reales, de forma directa o a través de Ingeniería Simple.
-								</p>
-							</article>
-							<div className="bg-muted relative min-h-90 overflow-hidden rounded-2xl lg:min-h-120">
-								<LogoMarquee />
-							</div>
-							<div
-								aria-hidden="true"
-								className="bg-border pointer-events-none absolute top-0 bottom-0 hidden w-px -translate-x-1/2 lg:block"
-								style={{ left: "50%" }}
-							/>
 						</div>
 						<SectionCorners />
 					</section>
@@ -234,11 +243,11 @@ export default function HomePage(): ReactNode {
 				</Reveal>
 
 				<Reveal>
-					<Showcase />
+					<Stack />
 				</Reveal>
 				<Community />
 				<Reveal>
-					<Pricing />
+					<Certifications />
 				</Reveal>
 				<Reveal>
 					<Faq />

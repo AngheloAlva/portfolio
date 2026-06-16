@@ -1846,3 +1846,152 @@ export const miniProjects: MiniProject[] = [
 		repoUrl: "https://github.com/AngheloAlva/maqueta-emprende-tu-vida",
 	},
 ]
+
+export interface ExperienceMilestone {
+	date: string
+	title: string
+	description: string
+}
+
+export interface WorkExperience {
+	id: string
+	company: string
+	role: string
+	period: string
+	summary: string
+	milestones: ExperienceMilestone[]
+	highlights: string[]
+	companyLogo?: string
+}
+
+export interface Certification {
+	id: string
+	title: string
+	issuer: string
+	date: string
+	tier: "featured" | "foundation"
+	credentialId?: string
+	credentialUrl?: string
+	skills?: string[]
+}
+
+export const workExperience: WorkExperience[] = [
+	{
+		id: "ingenieria-simple",
+		company: "Ingeniería Simple",
+		companyLogo: "/logos/ing-simple.svg",
+		role: "Desarrollador Full Stack",
+		period: "2024 — Presente",
+		summary:
+			"Trabajo con Ingeniería Simple desde 2024. Empecé colaborando de forma freelance y en marzo de 2025 me incorporé formalmente como Desarrollador Full Stack. En cada proyecto acompaño el ciclo completo: desde el levantamiento de requerimientos —muchas veces en planta, con el cliente— hasta el deploy y el mantenimiento en producción.",
+		milestones: [
+			{
+				date: "Mar 2025",
+				title: "Incorporación formal",
+				description: "Me sumo al equipo como Desarrollador Full Stack.",
+			},
+			{
+				date: "May 2024",
+				title: "Inicio de la colaboración",
+				description: "Primeras colaboraciones freelance; primeros proyectos llevados a producción.",
+			},
+		],
+		highlights: [
+			"Construí y mantengo en producción OTC 360, plataforma de gestión de mantenimiento de OTC (Oleoducto Trasandino Chile), con 13+ meses en operación.",
+			"Levantamiento de requerimientos directo en planta (OTC, Busanc), trabajando con usuarios y áreas reales.",
+			"Rol full stack end-to-end: frontend, backend, base de datos y despliegue en cada proyecto.",
+		],
+	},
+]
+
+export const certifications: Certification[] = [
+	{
+		id: "aws-cloud-foundations",
+		title: "AWS Academy Cloud Foundations",
+		issuer: "Amazon Web Services (AWS)",
+		date: "abr. 2024",
+		tier: "featured",
+		credentialUrl: "",
+	},
+	{
+		id: "aws-cloud-developing",
+		title: "AWS Academy Cloud Developing",
+		issuer: "Amazon Web Services (AWS)",
+		date: "jun. 2024",
+		tier: "featured",
+		credentialUrl: "",
+	},
+	{
+		id: "system-design-architecture",
+		title: "Diseño de Sistemas a Gran Escala y Arquitectura de Software",
+		issuer: "Udemy",
+		date: "abr. 2026",
+		tier: "featured",
+		credentialId: "UC-9e47ce0f-809c-4043-b93b-8d6ddaac0625",
+		credentialUrl: "",
+		skills: ["Arquitectura de software", "Diseño de sistemas a gran escala"],
+	},
+	{
+		id: "react-devtalles",
+		title: "React: De cero a experto (Hooks y MERN)",
+		issuer: "DevTalles",
+		date: "nov. 2023",
+		tier: "foundation",
+		credentialId: "ckhebfqt6g",
+		credentialUrl: "",
+	},
+	{
+		id: "nodejs-devtalles",
+		title: "Node.js: De cero a experto",
+		issuer: "DevTalles",
+		date: "nov. 2023",
+		tier: "foundation",
+		credentialId: "vftug1vdoz",
+		credentialUrl: "",
+	},
+	{
+		id: "javascript-devtalles",
+		title: "JavaScript Moderno: Guía para dominar el lenguaje",
+		issuer: "DevTalles",
+		date: "nov. 2023",
+		tier: "foundation",
+		credentialId: "1opqqybvsy",
+		credentialUrl: "",
+	},
+	{
+		id: "typescript-devtalles",
+		title: "TypeScript: Tu completa guía y manual de mano",
+		issuer: "DevTalles",
+		date: "nov. 2023",
+		tier: "foundation",
+		credentialId: "oa3xs5wpza",
+		credentialUrl: "",
+	},
+	{
+		id: "solid-clean-code-devtalles",
+		title: "Principios SOLID y Clean Code",
+		issuer: "DevTalles",
+		date: "oct. 2023",
+		tier: "foundation",
+		credentialId: "kicie0ygej",
+		credentialUrl: "",
+	},
+	{
+		id: "nextjs-devtalles",
+		title: "Next.js: El framework de React para producción",
+		issuer: "DevTalles",
+		date: "jul. 2024",
+		tier: "foundation",
+		credentialId: "vwhtouxyuy",
+		credentialUrl: "",
+	},
+	{
+		id: "git-github-devtalles",
+		title: "GIT+GitHub: Todo un sistema de control de versiones de cero",
+		issuer: "DevTalles",
+		date: "oct. 2023",
+		tier: "foundation",
+		credentialId: "uay6crux8n",
+		credentialUrl: "",
+	},
+]

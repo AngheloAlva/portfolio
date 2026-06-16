@@ -55,7 +55,7 @@ const GROUPS: ReadonlyArray<StackGroup> = [
 	},
 ]
 
-export function Pricing(): ReactNode {
+export function Stack(): ReactNode {
 	const headingId = useId()
 
 	return (

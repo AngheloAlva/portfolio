@@ -6,6 +6,7 @@ import { useEffect, useState, type ReactNode } from "react"
 
 const primaryLinks = [
 	{ label: "Proyectos", href: "/#proyectos" },
+	{ label: "Experiencia", href: "/#experiencia" },
 	{ label: "Stack", href: "/#stack" },
 	{ label: "Contacto", href: "/#contacto" },
 ]
