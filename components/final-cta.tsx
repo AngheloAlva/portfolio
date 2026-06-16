@@ -1,4 +1,5 @@
-import { DitherShader } from "@/components/dither-shader"
+import { LazyDither } from "@/components/lazy-dither"
+
 import type { ReactNode } from "react"
 
 export function FinalCTA(): ReactNode {
@@ -11,8 +12,9 @@ export function FinalCTA(): ReactNode {
 							¿Construimos algo juntos?
 						</h2>
 						<p className="mt-5 max-w-md text-sm leading-relaxed text-neutral-600 sm:text-base dark:text-neutral-400">
-							Desarrollador full stack, responsable del ciclo completo —del levantamiento al soporte
-							en producción. Abierto a nuevas oportunidades y proyectos.
+							Soy responsable del ciclo completo —del primer requerimiento al soporte en producción—
+							y estoy abierto a nuevas oportunidades. Si tienes algo en mente, escríbeme y lo
+							conversamos. Respondo rápido.
 						</p>
 						<div className="mt-10 flex flex-wrap items-center gap-3">
 							<a
@@ -46,7 +48,7 @@ export function FinalCTA(): ReactNode {
 
 					<div className="relative min-h-80 p-2 lg:min-h-90">
 						<div className="relative h-full w-full overflow-hidden rounded-2xl border border-neutral-200 dark:border-neutral-800">
-							<DitherShader variant="cta" />
+							<LazyDither variant="cta" className="absolute inset-0" />
 						</div>
 					</div>
 				</div>

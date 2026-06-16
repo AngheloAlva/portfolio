@@ -1,3 +1,4 @@
+import { About } from "@/components/about"
 import { Certifications } from "@/components/certifications"
 import { Community } from "@/components/community"
 import { DitherShader } from "@/components/dither-shader"
@@ -18,6 +19,7 @@ export default function HomePage(): ReactNode {
 	return (
 		<>
 			<Header />
+
 			<main id="main-content" className="flex-1">
 				<section className="border-border relative border-b">
 					<div className="grid grid-cols-1 lg:grid-cols-2">
@@ -26,15 +28,15 @@ export default function HomePage(): ReactNode {
 								style={{ ["--enter-delay" as string]: "300ms" }}
 								className="enter text-muted-foreground text-xs font-semibold tracking-[0.18em] uppercase"
 							>
-								Anghelo Alva · Desarrollador Full Stack
+								Hola, soy Anghelo 👋
 							</p>
 							<h1
 								style={{ ["--enter-delay" as string]: "380ms" }}
-								className="enter text-foreground mt-6 text-4xl leading-[1.05] font-medium tracking-tighter sm:text-5xl lg:text-[4rem] xl:text-[5.5rem]"
+								className="enter text-foreground mt-6 text-4xl leading-[1.05] font-medium tracking-tighter sm:text-5xl lg:text-[3.5rem] xl:text-[4.5rem]"
 							>
-								Software a medida,
+								Construyo software que las empresas usan todos los días.
 								<br />
-								de extremo a extremo.
+								<span className="text-muted-foreground">Y me quedo a sostenerlo.</span>
 							</h1>
 							<div
 								style={{ ["--enter-delay" as string]: "520ms" }}
@@ -76,8 +78,9 @@ export default function HomePage(): ReactNode {
 								style={{ ["--enter-delay" as string]: "680ms" }}
 								className="enter text-muted-foreground max-w-md text-base leading-relaxed sm:text-lg"
 							>
-								De la reunión con el cliente al sistema en producción: levanto, diseño, desarrollo,
-								despliego y doy soporte. Para empresas de energía, minería, turismo y educación.
+								Desarrollador full stack autodidacta. Aprendí construyendo sistemas reales en
+								producción: levanto requerimientos con el cliente, diseño, desarrollo, despliego y
+								doy soporte.
 							</p>
 						</div>
 						<div className="grid grid-cols-3 px-6 py-10 sm:px-10 lg:px-14">
@@ -109,12 +112,11 @@ export default function HomePage(): ReactNode {
 						<div className="relative grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
 							<article className="border-border bg-background flex min-h-90 flex-col justify-between rounded-2xl border p-6 sm:p-8 lg:min-h-120">
 								<h2 className="text-foreground max-w-md text-2xl leading-[1.15] font-semibold tracking-tight sm:text-3xl lg:text-[2rem]">
-									<span className="text-muted-foreground">Empresas y marcas</span> con las que
-									trabajé
+									<span className="text-muted-foreground">Con quiénes</span> trabajé
 								</h2>
 								<p className="text-muted-foreground mt-12 max-w-md text-sm leading-relaxed sm:text-base">
-									Energía, minería, turismo, educación, salud y retail. Software a medida para
-									operaciones reales, de forma directa o a través de Ingeniería Simple.
+									Trabajé en energía, minería, turismo, educación, salud y retail, con sus equipos y
+									operaciones reales —de forma directa o a través de Ingeniería Simple.
 								</p>
 							</article>
 							<div className="bg-muted relative min-h-90 overflow-hidden rounded-2xl lg:min-h-120">
@@ -137,60 +139,18 @@ export default function HomePage(): ReactNode {
 					<Experience />
 				</Reveal>
 
-				<Reveal>
-					<section className="border-border relative border-b p-6 sm:p-10 lg:p-14">
-						<h2 className="text-foreground overflow-hidden text-2xl leading-[1.1] font-semibold tracking-tight text-ellipsis whitespace-nowrap sm:text-3xl lg:text-[2.5rem]">
-							Me hago cargo del ciclo completo
-						</h2>
-
-						<div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3 lg:mt-16 lg:gap-6">
-							{[
-								{
-									title: "Del requerimiento al deploy",
-									body: "Levanto requerimientos en terreno con el cliente, diseño, desarrollo, despliego y doy soporte. Un solo responsable de punta a punta.",
-								},
-								{
-									title: "Responsable técnico",
-									body: "No entrego y desaparezco: soy el dueño técnico de lo que construyo, sosteniéndolo en producción con mejoras continuas.",
-								},
-								{
-									title: "Autodidacta, en producción real",
-									body: "No aprendí con tutoriales sino construyendo ERPs, e-commerce y sistemas de gestión para empresas reales desde el primer año.",
-								},
-							].map((card, i) => (
-								<article
-									key={card.title}
-									className={`group bg-muted relative flex min-h-65 flex-col justify-between rounded-2xl p-6 sm:p-8 lg:min-h-75 ${
-										i > 0
-											? "md:before:bg-border md:before:absolute md:before:top-0 md:before:bottom-0 md:before:-left-2 md:before:w-px md:before:content-[''] lg:before:-left-3"
-											: ""
-									}`}
-								>
-									<h3 className="text-foreground overflow-hidden text-lg leading-tight font-semibold tracking-tight text-ellipsis whitespace-nowrap sm:text-xl">
-										{card.title}{" "}
-										<span
-											aria-hidden="true"
-											className="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1"
-										>
-											→
-										</span>
-									</h3>
-									<p className="text-muted-foreground mt-12 max-w-[28ch] text-sm leading-relaxed sm:text-base">
-										{card.body}
-									</p>
-								</article>
-							))}
-						</div>
-						<SectionCorners />
-					</section>
-				</Reveal>
+				<About />
 
 				<Reveal>
 					<section className="border-border relative border-b">
 						<div className="px-6 pt-6 sm:px-10 sm:pt-10 lg:px-14 lg:pt-14">
 							<h2 className="text-foreground text-2xl leading-[1.1] font-semibold tracking-tight sm:text-3xl lg:text-[2.5rem]">
-								Cómo llevo un proyecto a producción
+								Así trabajo
 							</h2>
+							<p className="text-muted-foreground mt-5 max-w-xl text-sm leading-relaxed sm:text-base">
+								Tomo cada proyecto de punta a punta y me quedo como responsable: del primer
+								requerimiento al soporte en producción.
+							</p>
 						</div>
 
 						<div className="border-border mt-12 border-t lg:mt-16">

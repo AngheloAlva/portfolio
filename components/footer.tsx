@@ -38,6 +38,7 @@ const linkColumns: ReadonlyArray<{
 	{
 		label: "Navegación",
 		items: [
+			{ label: "Sobre mí", href: "/#sobre-mi" },
 			{ label: "Proyectos", href: "/#proyectos" },
 			{ label: "Más proyectos", href: "/#mas-proyectos" },
 			{ label: "Stack", href: "/#stack" },
@@ -107,14 +108,16 @@ export function Footer(): ReactNode {
 				<div className="mt-16 flex flex-col items-start justify-between gap-6 pt-8 sm:flex-row sm:items-center lg:mt-24">
 					<div className="flex items-center gap-2">
 						<span
-							className="h-5 w-5 shrink-0 bg-neutral-100! dark:bg-neutral-900!"
 							aria-hidden="true"
-						/>
+							className="flex h-5 w-5 shrink-0 items-center justify-center rounded-[5px] bg-neutral-100! font-mono text-[11px] leading-none font-bold text-neutral-900! dark:bg-neutral-900! dark:text-neutral-100!"
+						>
+							A
+						</span>
 						<span className="text-lg leading-none font-semibold tracking-tight">Anghelo Alva</span>
 					</div>
 
 					<p className="text-sm text-neutral-500 dark:text-neutral-500">
-						© {new Date().getFullYear()} Anghelo Alva. Todos los derechos reservados.
+						© {new Date().getFullYear()} Anghelo Alva.
 					</p>
 				</div>
 			</div>

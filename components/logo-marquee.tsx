@@ -19,13 +19,13 @@ const logos: ClientLogo[] = [
 
 function LogoChip({ logo }: { logo: ClientLogo }): ReactNode {
 	return (
-		<div className="bg-background flex h-20 w-20 shrink-0 items-center justify-center rounded-full sm:h-24 sm:w-24">
+		<div className="bg-background flex h-20 w-20 shrink-0 items-center justify-center rounded-full sm:h-32 sm:w-32">
 			{/* eslint-disable-next-line @next/next/no-img-element */}
 			<img
 				src={logo.src}
 				alt={logo.alt}
 				loading="lazy"
-				className="h-9 w-12 object-contain opacity-80 brightness-0 sm:h-10 sm:w-14 dark:opacity-90 dark:invert"
+				className="h-9 w-12 object-contain opacity-80 brightness-0 sm:h-10 sm:w-16 dark:opacity-90 dark:invert"
 			/>
 		</div>
 	)
@@ -76,9 +76,9 @@ export function LogoMarquee(): ReactNode {
 					"linear-gradient(to bottom, transparent, black 18%, black 82%, transparent)",
 			}}
 		>
-			<div className="absolute inset-0 mx-auto grid max-w-55 grid-cols-2 place-items-center gap-1 sm:max-w-65">
-				<MarqueeColumn direction="up" duration="22s" logoSet={colA} />
-				<MarqueeColumn direction="down" duration="26s" logoSet={colB} />
+			<div className="absolute inset-0 mx-auto grid max-w-55 grid-cols-2 place-items-center gap-2 sm:max-w-65">
+				<MarqueeColumn direction="up" duration="15s" logoSet={colA} />
+				<MarqueeColumn direction="down" duration="15s" logoSet={colB} />
 			</div>
 		</div>
 	)

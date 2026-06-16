@@ -90,15 +90,17 @@ const CARDS: ReadonlyArray<ShowcaseCard> = [
 		id: "aiep-pei",
 		title: "Desafío PEI\nAIEP · tiempo real",
 		Icon: Gamepad2,
-		body: "Juego tipo Kahoot en tiempo real para evaluar el nuevo plan educativo de AIEP en un evento en vivo nacional, con hasta 1.000 participantes simultáneos vía polling.",
+		body: "Juego tipo Kahoot en tiempo real para evaluar el nuevo plan educativo de AIEP en un evento en vivo nacional, con 600-700 participantes simultáneos vía polling.",
 		tags: ["Next.js 15", "PostgreSQL", "Polling", "Vercel"],
 	},
 	{
 		id: "caemp",
-		title: "Grupo Caemp\nSitio Corporativo",
+		title: "Grupo CAEMP\nSitio corporativo",
 		Icon: Building2,
-		body: "Juego tipo Kahoot en tiempo real para evaluar el nuevo plan educativo de AIEP en un evento en vivo nacional, con hasta 1.000 participantes simultáneos vía polling.",
-		tags: ["Next.js 15", "PostgreSQL", "Polling", "Vercel"],
+		body: "Sitio de un holding con tres marcas: cada una vive en su propio dominio, color y logo, pero todas se sirven desde un único proyecto y un solo despliegue.",
+		tags: ["TanStack Start", "React 19", "Tailwind v4", "Vercel"],
+		href: "https://grupocaemp.cl",
+		hrefLabel: "Visitar sitio",
 	},
 ]
 

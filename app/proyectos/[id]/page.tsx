@@ -27,6 +27,7 @@ export async function generateMetadata({
 		title: project.title,
 		description: project.caseStudy?.pitch ?? project.shortDescription,
 		path: `/proyectos/${project.id}`,
+		image: project.imageUrl,
 	})
 }
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { DitherShader } from "@/components/dither-shader"
+import { LazyDither } from "@/components/lazy-dither"
 import { SectionCorners } from "@/components/section-corners"
 import { Check } from "lucide-react"
 import { useTheme } from "next-themes"
@@ -92,12 +92,11 @@ function StackCard({ group }: { group: StackGroup }): ReactNode {
 	const isDark = resolvedTheme === "dark"
 	return (
 		<article className="border-border bg-background text-foreground relative flex min-h-[360px] flex-col overflow-hidden rounded-2xl border p-6 shadow-[0_12px_32px_-18px_rgba(0,0,0,0.18)] sm:p-8 lg:min-h-[400px] dark:shadow-[0_12px_32px_-16px_rgba(0,0,0,0.45)]">
-			<div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-40">
-				<DitherShader
-					variant="cta"
-					tone={isDark ? { r: 0.18, g: 0.18, b: 0.18 } : { r: 0.83, g: 0.83, b: 0.83 }}
-				/>
-			</div>
+			<LazyDither
+				variant="cta"
+				tone={isDark ? { r: 0.18, g: 0.18, b: 0.18 } : { r: 0.83, g: 0.83, b: 0.83 }}
+				className="pointer-events-none absolute inset-0 opacity-40"
+			/>
 
 			<div className="relative z-10 flex h-full flex-col">
 				<header>

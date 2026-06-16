@@ -22,16 +22,9 @@ type FAQ = {
 
 const FAQS: ReadonlyArray<FAQ> = [
 	{
-		q: "¿Quién eres?",
-		a: [
-			"Soy Anghelo Alva, desarrollador full stack autodidacta. No aprendí con tutoriales sino construyendo software para empresas reales desde el primer año: ERPs, e-commerce y sistemas de gestión que hoy están en producción.",
-			"Me acostumbré a hacerme cargo del ciclo completo de forma autónoma —levantar requerimientos con el cliente, diseñar, desarrollar, desplegar y dar soporte— y a ser el responsable técnico de lo que entrego.",
-		],
-	},
-	{
 		q: "¿Cómo trabajas un proyecto?",
 		a: [
-			"De punta a punta. Empiezo levantando requerimientos con el cliente, muchas veces en terreno; modelo los datos y la arquitectura; desarrollo front y back; despliego a producción y me quedo dando soporte y mejoras continuas. Un solo responsable técnico para todo el ciclo.",
+			"De punta a punta. Empiezo levantando requerimientos con el cliente, muchas veces en terreno; modelo los datos y la arquitectura; desarrollo front y back; despliego a producción y me quedo dando soporte y mejoras continuas. Un solo responsable para todo el ciclo.",
 		],
 	},
 	{

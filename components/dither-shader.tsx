@@ -2,7 +2,7 @@
 
 import { Mesh, Program, Renderer, Triangle } from "ogl"
 import { useTheme } from "next-themes"
-import { useEffect, useRef, type ReactNode } from "react"
+import { useEffect, useRef, useState, type ReactNode } from "react"
 
 const vertexShader = /* glsl */ `#version 300 es
   in vec2 position;
@@ -135,6 +135,9 @@ export function DitherShader({
 	const containerRef = useRef<HTMLDivElement | null>(null)
 	const { resolvedTheme } = useTheme()
 
+	// Bumped when the WebGL context is lost, to force a clean remount.
+	const [generation, setGeneration] = useState(0)
+
 	const themeTargetRef = useRef(0)
 	const variantRef = useRef(variant === "cta" ? 1 : 0)
 	const transparentRef = useRef(tone ? 1 : 0)
@@ -241,6 +244,19 @@ export function DitherShader({
 
 		let frameId = 0
 		const start = performance.now()
+		let restoreTimer = 0
+
+		// Browsers cap live WebGL contexts (~16) and evict the OLDEST when exceeded.
+		// Without this, an evicted hero canvas stays permanently broken. preventDefault
+		// keeps the canvas restorable; we then remount with a fresh context once GPU
+		// pressure eases (other shaders unmount).
+		const handleContextLost = (event: Event): void => {
+			event.preventDefault()
+			cancelAnimationFrame(frameId)
+			window.clearTimeout(restoreTimer)
+			restoreTimer = window.setTimeout(() => setGeneration((g) => g + 1), 250)
+		}
+		gl.canvas.addEventListener("webglcontextlost", handleContextLost, false)
 
 		const render = (): void => {
 			current.x += (target.x - current.x) * 0.12
@@ -268,15 +284,17 @@ export function DitherShader({
 
 		return () => {
 			cancelAnimationFrame(frameId)
+			window.clearTimeout(restoreTimer)
 			ro.disconnect()
 			window.removeEventListener("pointermove", handlePointerMove)
 			container.removeEventListener("pointerleave", handlePointerLeave)
+			gl.canvas.removeEventListener("webglcontextlost", handleContextLost)
 			if (gl.canvas.parentElement === container) {
 				container.removeChild(gl.canvas)
 			}
 			gl.getExtension("WEBGL_lose_context")?.loseContext()
 		}
-	}, [])
+	}, [generation])
 
 	return <div ref={containerRef} className="absolute inset-0 h-full w-full" aria-hidden="true" />
 }

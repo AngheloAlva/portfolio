@@ -7,6 +7,7 @@ import { useEffect, useState, type ReactNode } from "react"
 const primaryLinks = [
 	{ label: "Proyectos", href: "/#proyectos" },
 	{ label: "Experiencia", href: "/#experiencia" },
+	{ label: "Sobre mí", href: "/#sobre-mi" },
 	{ label: "Stack", href: "/#stack" },
 	{ label: "Contacto", href: "/#contacto" },
 ]
@@ -27,7 +28,12 @@ function Logo(): ReactNode {
 			className="focus-ring enter text-foreground inline-flex items-center gap-2 rounded-sm"
 			aria-label="Anghelo Alva — inicio"
 		>
-			<span className="bg-foreground h-5 w-5 shrink-0" aria-hidden="true" />
+			<span
+				aria-hidden="true"
+				className="bg-foreground text-background flex h-5 w-5 shrink-0 items-center justify-center rounded-[5px] font-mono text-[11px] leading-none font-bold"
+			>
+				A
+			</span>
 			<span className="text-lg leading-none font-semibold tracking-tight">Anghelo Alva</span>
 		</Link>
 	)

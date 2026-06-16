@@ -2,8 +2,8 @@
 
 import { motion, useReducedMotion, type Transition } from "motion/react"
 import Image from "next/image"
-import { useEffect, useRef, useState, type ReactNode } from "react"
-import { DitherShader } from "@/components/dither-shader"
+import { useEffect, useState, type ReactNode } from "react"
+import { LazyDither } from "@/components/lazy-dither"
 import { SectionCorners } from "@/components/section-corners"
 import { miniProjects, type MiniProject } from "@/lib/portfolio-data"
 import { Github } from "lucide-react"
@@ -77,31 +77,12 @@ export function Community(): ReactNode {
 	)
 }
 
-// WebGL dither backdrop. Only mounted while the section is near the viewport
-// (the shader runs a continuous rAF loop, so we don't keep it alive offscreen)
-// and never under prefers-reduced-motion.
+// WebGL dither backdrop. LazyDither only mounts the shader while the section is
+// near the viewport (the shader runs a continuous rAF loop, so we don't keep it
+// alive offscreen) and never under prefers-reduced-motion.
 function ShaderBackdrop(): ReactNode {
-	const ref = useRef<HTMLDivElement>(null)
-	const reduce = useReducedMotion()
-	const [visible, setVisible] = useState(false)
-
-	useEffect(() => {
-		const el = ref.current
-		if (!el || reduce) return
-		const io = new IntersectionObserver(
-			(entries) => {
-				const entry = entries[0]
-				if (entry) setVisible(entry.isIntersecting)
-			},
-			{ rootMargin: "200px" }
-		)
-		io.observe(el)
-		return () => io.disconnect()
-	}, [reduce])
-
 	return (
 		<div
-			ref={ref}
 			aria-hidden="true"
 			className="pointer-events-none absolute inset-0 overflow-hidden opacity-[0.18]"
 			style={{
@@ -111,7 +92,7 @@ function ShaderBackdrop(): ReactNode {
 					"linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
 			}}
 		>
-			{visible && !reduce ? <DitherShader variant="hero" /> : null}
+			<LazyDither variant="hero" className="absolute inset-0" />
 		</div>
 	)
 }
