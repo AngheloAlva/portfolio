@@ -231,10 +231,10 @@ export default function HomePage(): ReactNode {
 
 						<div className="px-6 pt-10 pb-6 sm:px-10 sm:pt-12 sm:pb-10 lg:px-14 lg:pb-14">
 							<a
-								href="#proyectos"
+								href="#contacto"
 								className="focus-ring bg-foreground text-background inline-flex items-center gap-2 rounded-full px-5 py-3.5 font-mono text-xs font-medium tracking-[0.12em] uppercase transition-opacity hover:opacity-90"
 							>
-								Ver proyectos
+								Hablemos
 								<span aria-hidden="true">→</span>
 							</a>
 						</div>
