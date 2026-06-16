@@ -1911,7 +1911,7 @@ export const certifications: Certification[] = [
 		issuer: "Amazon Web Services (AWS)",
 		date: "abr. 2024",
 		tier: "featured",
-		credentialUrl: "",
+		credentialUrl: "https://www.credly.com/badges/9c7f378f-f957-41e6-9f17-654085e3b97d",
 	},
 	{
 		id: "aws-cloud-developing",
@@ -1919,7 +1919,8 @@ export const certifications: Certification[] = [
 		issuer: "Amazon Web Services (AWS)",
 		date: "jun. 2024",
 		tier: "featured",
-		credentialUrl: "",
+		credentialUrl:
+			"https://www.credly.com/badges/45f82f0a-3ab9-4a02-a044-be3df5b5bc25/linked_in_profile",
 	},
 	{
 		id: "system-design-architecture",
@@ -1928,7 +1929,8 @@ export const certifications: Certification[] = [
 		date: "abr. 2026",
 		tier: "featured",
 		credentialId: "UC-9e47ce0f-809c-4043-b93b-8d6ddaac0625",
-		credentialUrl: "",
+		credentialUrl:
+			"https://udemy-certificate.s3.amazonaws.com/image/UC-9e47ce0f-809c-4043-b93b-8d6ddaac0625.jpg",
 		skills: ["Arquitectura de software", "Diseño de sistemas a gran escala"],
 	},
 	{
@@ -1938,7 +1940,7 @@ export const certifications: Certification[] = [
 		date: "nov. 2023",
 		tier: "foundation",
 		credentialId: "ckhebfqt6g",
-		credentialUrl: "",
+		credentialUrl: "https://cursos.devtalles.com/certificates/ckhebfqt6g",
 	},
 	{
 		id: "nodejs-devtalles",
@@ -1947,7 +1949,7 @@ export const certifications: Certification[] = [
 		date: "nov. 2023",
 		tier: "foundation",
 		credentialId: "vftug1vdoz",
-		credentialUrl: "",
+		credentialUrl: "https://cursos.devtalles.com/certificates/vftug1vdoz",
 	},
 	{
 		id: "javascript-devtalles",
@@ -1956,7 +1958,7 @@ export const certifications: Certification[] = [
 		date: "nov. 2023",
 		tier: "foundation",
 		credentialId: "1opqqybvsy",
-		credentialUrl: "",
+		credentialUrl: "https://cursos.devtalles.com/certificates/1opqqybvsy",
 	},
 	{
 		id: "typescript-devtalles",
@@ -1965,7 +1967,7 @@ export const certifications: Certification[] = [
 		date: "nov. 2023",
 		tier: "foundation",
 		credentialId: "oa3xs5wpza",
-		credentialUrl: "",
+		credentialUrl: "https://cursos.devtalles.com/certificates/oa3xs5wpza",
 	},
 	{
 		id: "solid-clean-code-devtalles",
@@ -1974,7 +1976,7 @@ export const certifications: Certification[] = [
 		date: "oct. 2023",
 		tier: "foundation",
 		credentialId: "kicie0ygej",
-		credentialUrl: "",
+		credentialUrl: "https://cursos.devtalles.com/certificates/kicie0ygej",
 	},
 	{
 		id: "nextjs-devtalles",
@@ -1983,7 +1985,7 @@ export const certifications: Certification[] = [
 		date: "jul. 2024",
 		tier: "foundation",
 		credentialId: "vwhtouxyuy",
-		credentialUrl: "",
+		credentialUrl: "https://cursos.devtalles.com/certificates/vwhtouxyuy",
 	},
 	{
 		id: "git-github-devtalles",
@@ -1992,6 +1994,6 @@ export const certifications: Certification[] = [
 		date: "oct. 2023",
 		tier: "foundation",
 		credentialId: "uay6crux8n",
-		credentialUrl: "",
+		credentialUrl: "https://cursos.devtalles.com/certificates/uay6crux8n",
 	},
 ]
