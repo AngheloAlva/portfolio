@@ -4,14 +4,12 @@ export const siteConfig = {
 	name: "Anghelo Alva",
 	description:
 		"Soy Anghelo Alva, desarrollador full stack. Construyo software a medida de extremo a extremo —del levantamiento de requerimientos al soporte en producción— para empresas de energía, minería, turismo y educación.",
-	// TODO: replace with the real domain once defined.
-	url: "https://example.com",
-	// TODO: add Twitter/X handle if available.
+	url: "https://angheloalva.dev",
 	creator: "Anghelo Alva",
 	authors: [
 		{
 			name: "Anghelo Alva",
-			url: "https://example.com",
+			url: "https://angheloalva.dev",
 		},
 	],
 	keywords: [
@@ -65,7 +63,6 @@ export const baseMetadata: Metadata = {
 		card: "summary_large_image",
 		title: siteConfig.name,
 		description: siteConfig.description,
-		creator: siteConfig.creator,
 	},
 	icons: {
 		icon: [
