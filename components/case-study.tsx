@@ -63,6 +63,15 @@ function SectionLabel({ children }: { children: ReactNode }): ReactNode {
 	)
 }
 
+/** Visually identical to SectionLabel but renders an h2 for correct heading hierarchy. */
+function SectionHeading({ children }: { children: ReactNode }): ReactNode {
+	return (
+		<h2 className="text-muted-foreground font-mono text-xs font-medium tracking-[0.16em] uppercase">
+			{children}
+		</h2>
+	)
+}
+
 /** Editorial two-column section: sticky label on the left, content on the right. */
 function EditorialSection({ label, children }: { label: string; children: ReactNode }): ReactNode {
 	return (
@@ -71,7 +80,7 @@ function EditorialSection({ label, children }: { label: string; children: ReactN
 				<div className="grid grid-cols-1 gap-8 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-14">
 					<div>
 						<div className="lg:sticky lg:top-28">
-							<SectionLabel>{label}</SectionLabel>
+							<SectionHeading>{label}</SectionHeading>
 						</div>
 					</div>
 					<div className="max-w-3xl">{children}</div>
@@ -226,7 +235,7 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
 			{cs.metrics.length > 0 ? (
 				<Reveal>
 					<section className="border-border relative border-b p-6 sm:p-10 lg:p-14">
-						<SectionLabel>En números</SectionLabel>
+						<SectionHeading>En números</SectionHeading>
 						<div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
 							{cs.metrics.map((metric) => (
 								<div key={metric.label}>
@@ -264,7 +273,7 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
 				<Reveal>
 					<section className="border-border relative border-b">
 						<div className="px-6 pt-6 sm:px-10 sm:pt-10 lg:px-14 lg:pt-14">
-							<SectionLabel>Decisiones técnicas</SectionLabel>
+							<SectionHeading>Decisiones técnicas</SectionHeading>
 						</div>
 						<div className="border-border mt-10 border-t lg:mt-14">
 							{cs.techStackDetailed.map((item) => (
@@ -297,7 +306,7 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
 			{cs.features.length > 0 ? (
 				<Reveal>
 					<section className="border-border relative border-b p-6 sm:p-10 lg:p-14">
-						<SectionLabel>Funcionalidades</SectionLabel>
+						<SectionHeading>Funcionalidades</SectionHeading>
 						<div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:auto-rows-fr lg:grid-cols-3 lg:gap-6">
 							{/* The lead spans a 2×2 square only when the feature count tiles it
                   cleanly (multiples of 3); otherwise it stays 2-wide × 1-row so
@@ -349,7 +358,7 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
 			{cs.timeline && cs.timeline.length > 0 ? (
 				<Reveal>
 					<section className="border-border relative border-b p-6 sm:p-10 lg:p-14">
-						<SectionLabel>Línea de tiempo</SectionLabel>
+						<SectionHeading>Línea de tiempo</SectionHeading>
 						<ol className="mt-10 space-y-0">
 							{cs.timeline.map((milestone, i) => {
 								const Icon = MILESTONE_ICONS[milestone.icon]

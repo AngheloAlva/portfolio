@@ -60,6 +60,19 @@ const FAQS: ReadonlyArray<FAQ> = [
 	},
 ]
 
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	mainEntity: FAQS.map((faq) => ({
+		"@type": "Question",
+		name: faq.q,
+		acceptedAnswer: {
+			"@type": "Answer",
+			text: faq.a.join(" "),
+		},
+	})),
+}
+
 export function Faq(): ReactNode {
 	const [openIndex, setOpenIndex] = useState<number>(0)
 	const headingId = useId()
@@ -70,6 +83,10 @@ export function Faq(): ReactNode {
 			aria-labelledby={headingId}
 			className="border-border relative scroll-mt-20 border-b p-6 sm:p-10 lg:p-14"
 		>
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+			/>
 			<h2
 				id={headingId}
 				className="text-foreground text-3xl leading-[1.05] font-medium tracking-tighter sm:text-4xl lg:text-[3.5rem]"
