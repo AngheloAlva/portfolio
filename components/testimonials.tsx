@@ -281,7 +281,7 @@ function CarouselControls({
 			<button
 				type="button"
 				onClick={() => onAdvance(-1)}
-				aria-label="Previous testimonial"
+				aria-label="Testimonio anterior"
 				className="focus-ring bg-muted text-foreground inline-flex h-8 w-8 items-center justify-center rounded-full transition-opacity hover:opacity-80"
 			>
 				<ChevronLeft className="h-4 w-4" />
@@ -297,7 +297,7 @@ function CarouselControls({
 						type="button"
 						role="tab"
 						aria-selected={i === activeIndex}
-						aria-label={`Go to testimonial ${i + 1}`}
+						aria-label={`Ir al testimonio ${i + 1}`}
 						onClick={() => onSelect(i)}
 						className={`h-1.5 rounded-full transition-all duration-300 ${
 							i === activeIndex
@@ -310,7 +310,7 @@ function CarouselControls({
 			<button
 				type="button"
 				onClick={() => onAdvance(1)}
-				aria-label="Next testimonial"
+				aria-label="Testimonio siguiente"
 				className="focus-ring bg-muted text-foreground inline-flex h-8 w-8 items-center justify-center rounded-full transition-opacity hover:opacity-80"
 			>
 				<ChevronRight className="h-4 w-4" />
