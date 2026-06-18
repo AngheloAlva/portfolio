@@ -72,6 +72,8 @@ export interface ProjectData {
 	fullDescription: string
 	technologies: string[]
 	liveUrl?: string
+	/** Label for the liveUrl button. Defaults to "Visitar sitio". */
+	liveUrlLabel?: string
 	githubUrl?: string
 	gradientColor?: string
 	isFlagship?: boolean
@@ -102,7 +104,8 @@ export const portfolioProjects: ProjectData[] = [
 			"React PDF",
 			"Zod",
 		],
-		liveUrl: "https://otc360.cl",
+		liveUrl: "https://is-360.vercel.app/",
+		liveUrlLabel: "Ver demo",
 		gradientColor: "#0f766e",
 		isFlagship: true,
 		isProduction: true,
@@ -454,7 +457,7 @@ export const portfolioProjects: ProjectData[] = [
 	},
 	{
 		id: "turismochiletours",
-		imageUrl: "/img/portfolio/turismochiletours/portrait.png",
+		imageUrl: "/projects/turismochiletours.png",
 		title: "TurismoChileTours",
 		shortDescription:
 			"Sitio corporativo multilingüe para tour operador en San Pedro de Atacama, con catálogo de programas y solicitud de tours privados.",
@@ -624,7 +627,7 @@ export const portfolioProjects: ProjectData[] = [
 	},
 	{
 		id: "toursanpedroatacama",
-		imageUrl: "/img/portfolio/toursanpedroatacama/portrait.png",
+		imageUrl: "/projects/san-pedro-de-atacama.png",
 		title: "San Pedro de Atacama",
 		shortDescription:
 			"Ecommerce multilingüe para reservar excursiones en San Pedro de Atacama, con tres pasarelas de pago, conversión CLP/USD y panel administrativo completo.",
@@ -1004,7 +1007,7 @@ export const portfolioProjects: ProjectData[] = [
 	},
 	{
 		id: "bz-consulting",
-		imageUrl: "/img/portfolio/bzconsulting/hero.png",
+		imageUrl: "/projects/bz-consulting.png",
 		title: "BZ Consulting",
 		shortDescription:
 			"Sitio institucional multilingüe con publicación de noticias semanales para empresa de inspección y calibración de tanques de almacenamiento.",
@@ -1183,7 +1186,7 @@ export const portfolioProjects: ProjectData[] = [
 	},
 	{
 		id: "caemp",
-		imageUrl: "/img/portfolio/caemp/portrait.png",
+		imageUrl: "/projects/caemp.png",
 		title: "Grupo CAEMP",
 		shortDescription:
 			"Tres marcas con identidad y dominio propios, servidas desde una única base de código y un solo despliegue mediante arquitectura multi-dominio.",

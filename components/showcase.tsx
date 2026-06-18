@@ -15,6 +15,7 @@ import {
 	type LucideIcon,
 } from "lucide-react"
 import { useCallback, useEffect, useId, useRef, useState, type ReactNode } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { SectionCorners } from "@/components/section-corners"
 import { AppMockup } from "@/components/app-mockup"
@@ -33,6 +34,8 @@ type ShowcaseCard = {
 	tags: string[]
 	href?: string
 	hrefLabel?: string
+	/** Real screenshot shown instead of the wireframe mockup (public projects only). */
+	image?: string
 }
 
 const CARDS: ReadonlyArray<ShowcaseCard> = [
@@ -42,8 +45,8 @@ const CARDS: ReadonlyArray<ShowcaseCard> = [
 		Icon: Factory,
 		body: "Plataforma que reemplazó papel, correos y Excel por un único sistema de órdenes de trabajo, permisos y planes de mantenimiento, con indicadores en vivo. Para OTC — Oleoducto Trasandino Chile.",
 		tags: ["Next.js", "PostgreSQL", "Prisma", "Azure"],
-		href: "https://otc360.cl",
-		hrefLabel: "Visitar sitio",
+		href: "https://is-360.vercel.app/",
+		hrefLabel: "Ver demo",
 	},
 	{
 		id: "busanc",
@@ -60,6 +63,7 @@ const CARDS: ReadonlyArray<ShowcaseCard> = [
 		tags: ["Next.js 14", "next-intl", "Resend", "Vercel"],
 		href: "https://turismochiletours.com/es",
 		hrefLabel: "Visitar sitio",
+		image: "/projects/turismochiletours.png",
 	},
 	{
 		id: "toursanpedroatacama",
@@ -69,6 +73,7 @@ const CARDS: ReadonlyArray<ShowcaseCard> = [
 		tags: ["Next.js 15", "Drizzle", "Turso", "Webpay·PayPal·Flow"],
 		href: "https://toursanpedroatacama.com/",
 		hrefLabel: "Visitar sitio",
+		image: "/projects/san-pedro-de-atacama.png",
 	},
 	{
 		id: "dashboard-turismo",
@@ -85,6 +90,7 @@ const CARDS: ReadonlyArray<ShowcaseCard> = [
 		tags: ["Astro 4", "MDX", "Cloudflare", "Resend"],
 		href: "https://bzconsulting.cl",
 		hrefLabel: "Visitar sitio",
+		image: "/projects/bz-consulting.png",
 	},
 	{
 		id: "aiep-pei",
@@ -101,6 +107,7 @@ const CARDS: ReadonlyArray<ShowcaseCard> = [
 		tags: ["TanStack Start", "React 19", "Tailwind v4", "Vercel"],
 		href: "https://grupocaemp.cl",
 		hrefLabel: "Visitar sitio",
+		image: "/projects/caemp.png",
 	},
 ]
 
@@ -280,10 +287,12 @@ export function Showcase(): ReactNode {
 function CardPreview({
 	id,
 	title,
+	image,
 	className,
 }: {
 	id: string
 	title: string
+	image?: string | undefined
 	className?: string
 }): ReactNode {
 	const Hero = getProjectMockup(id)?.hero
@@ -292,11 +301,21 @@ function CardPreview({
 			aria-hidden="true"
 			className={`border-border bg-background pointer-events-none relative aspect-video w-full overflow-hidden rounded-xl border ${className ?? ""}`}
 		>
-			<div className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100">
-				<div className="h-[200%] w-[200%] origin-top-left scale-50">
-					{Hero ? <Hero label={title} /> : <AppMockup label={title} />}
+			{image ? (
+				<Image
+					src={image}
+					alt=""
+					fill
+					sizes="(max-width: 640px) 90vw, 360px"
+					className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+				/>
+			) : (
+				<div className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100">
+					<div className="h-[200%] w-[200%] origin-top-left scale-50">
+						{Hero ? <Hero label={title} /> : <AppMockup label={title} />}
+					</div>
 				</div>
-			</div>
+			)}
 		</div>
 	)
 }
@@ -328,7 +347,7 @@ function Card({
 			>
 				<Icon className="h-4 w-4" strokeWidth={1.5} />
 			</motion.div>
-			<CardPreview id={card.id} title={card.title} />
+			<CardPreview id={card.id} title={card.title} image={card.image} />
 			<div className="space-y-5">
 				<motion.h3
 					layoutId={`card-title-${card.id}`}
@@ -391,7 +410,7 @@ function ExpandedCard({ card, onClose }: { card: ShowcaseCard; onClose: () => vo
 					transition={{ duration: 0.4, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
 					className="mt-8 hidden sm:block"
 				>
-					<CardPreview id={card.id} title={card.title} />
+					<CardPreview id={card.id} title={card.title} image={card.image} />
 				</motion.div>
 
 				<div className="mt-8 space-y-6 sm:mt-12">

@@ -16,6 +16,7 @@ import {
 	Rocket,
 	type LucideIcon,
 } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 import type { ReactNode } from "react"
 
@@ -130,7 +131,7 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
 									rel="noreferrer"
 									className="focus-ring bg-foreground text-background inline-flex items-center gap-2 rounded-full px-5 py-3.5 text-xs font-semibold tracking-[0.12em] uppercase transition-opacity hover:opacity-90"
 								>
-									Visitar sitio
+									{project.liveUrlLabel ?? "Visitar sitio"}
 									<span aria-hidden="true">↗</span>
 								</a>
 							) : null}
@@ -160,7 +161,22 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
 					</div>
 
 					<div className="bg-muted flex items-center justify-center p-6 sm:p-10 lg:p-14">
-						{Hero ? <Hero label={project.title} /> : <AppMockup label={project.title} />}
+						{project.imageUrl?.startsWith("/projects/") ? (
+							<div className="border-border relative aspect-square w-full overflow-hidden rounded-xl border">
+								<Image
+									src={project.imageUrl}
+									alt={`Vista del sitio de ${project.title}`}
+									fill
+									sizes="(max-width: 1024px) 90vw, 45vw"
+									className="object-cover object-center"
+									priority
+								/>
+							</div>
+						) : Hero ? (
+							<Hero label={project.title} />
+						) : (
+							<AppMockup label={project.title} />
+						)}
 					</div>
 				</div>
 
