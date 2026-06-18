@@ -1,5 +1,7 @@
 "use client"
 
+import Image from "next/image"
+import { useReducedMotion } from "@/lib/motion"
 import type { ReactNode } from "react"
 
 type ClientLogo = { id: string; src: string; alt: string }
@@ -13,18 +15,19 @@ const logos: ClientLogo[] = [
 		alt: "TurismoChileTours",
 	},
 	{ id: "aiep", src: "/logos/aiep.svg", alt: "AIEP" },
-	{ id: "aiep", src: "/logos/caemp.png", alt: "Caemp" },
+	{ id: "caemp", src: "/logos/caemp.png", alt: "Caemp" },
 	{ id: "bzconsulting", src: "/logos/bzconsulting.png", alt: "BZ Consulting" },
 ]
 
 function LogoChip({ logo }: { logo: ClientLogo }): ReactNode {
 	return (
 		<div className="bg-background flex h-20 w-20 shrink-0 items-center justify-center rounded-full sm:h-32 sm:w-32">
-			{/* eslint-disable-next-line @next/next/no-img-element */}
-			<img
+			<Image
 				src={logo.src}
 				alt={logo.alt}
-				loading="lazy"
+				width={64}
+				height={40}
+				unoptimized
 				className="h-9 w-12 object-contain opacity-80 brightness-0 sm:h-10 sm:w-16 dark:opacity-90 dark:invert"
 			/>
 		</div>
@@ -42,6 +45,7 @@ function MarqueeColumn({
 	duration: string
 	logoSet: ClientLogo[]
 }): ReactNode {
+	const reduce = useReducedMotion()
 	const animation = direction === "up" ? "marquee-up" : "marquee-down"
 
 	const renderCopy = (key: string): ReactNode => (
@@ -55,7 +59,7 @@ function MarqueeColumn({
 	return (
 		<div
 			className="flex flex-col items-center gap-4"
-			style={{ animation: `${animation} ${duration} linear infinite` }}
+			style={reduce ? undefined : { animation: `${animation} ${duration} linear infinite` }}
 		>
 			{renderCopy("a")}
 			{renderCopy("b")}

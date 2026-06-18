@@ -218,12 +218,13 @@ export function Showcase(): ReactNode {
 						ref={trackRef}
 						className="flex snap-x snap-mandatory scroll-pl-6 scrollbar-none items-stretch gap-4 overflow-x-auto scroll-smooth px-6 py-16 [-ms-overflow-style:none] sm:scroll-pl-10 sm:gap-6 sm:px-10 sm:py-20 lg:scroll-pl-14 lg:px-14 lg:py-24 [&::-webkit-scrollbar]:hidden"
 					>
-						{CARDS.map((card) => (
+						{CARDS.map((card, index) => (
 							<Card
 								key={card.id}
 								card={card}
 								hidden={activeId === card.id}
 								onClick={() => setActiveId(card.id)}
+								isFirst={index === 0}
 							/>
 						))}
 						<div aria-hidden="true" className="shrink-0 basis-6 sm:basis-10 lg:basis-14" />
@@ -287,11 +288,13 @@ function CardPreview({
 	title,
 	image,
 	className,
+	priority,
 }: {
 	id: string
 	title: string
 	image?: string | undefined
 	className?: string
+	priority?: boolean
 }): ReactNode {
 	const Hero = getProjectMockup(id)?.hero
 	return (
@@ -304,7 +307,12 @@ function CardPreview({
 					src={image}
 					alt=""
 					fill
-					sizes="(max-width: 640px) 90vw, 360px"
+					sizes={
+						priority
+							? "(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 360px"
+							: "(max-width: 640px) 90vw, 360px"
+					}
+					priority={priority ?? false}
 					className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
 				/>
 			) : (
@@ -322,10 +330,12 @@ function Card({
 	card,
 	hidden,
 	onClick,
+	isFirst,
 }: {
 	card: ShowcaseCard
 	hidden: boolean
 	onClick: () => void
+	isFirst?: boolean
 }): ReactNode {
 	const { Icon } = card
 	return (
@@ -345,7 +355,7 @@ function Card({
 			>
 				<Icon className="h-4 w-4" strokeWidth={1.5} />
 			</motion.div>
-			<CardPreview id={card.id} title={card.title} image={card.image} />
+			<CardPreview id={card.id} title={card.title} image={card.image} priority={isFirst ?? false} />
 			<div className="space-y-5">
 				<motion.h3
 					layoutId={`card-title-${card.id}`}

@@ -46,6 +46,7 @@ export function About(): ReactNode {
 								alt="Anghelo Alva"
 								width={160}
 								height={160}
+								priority
 								className="size-36 shrink-0 rounded-2xl object-cover sm:size-40"
 							/>
 

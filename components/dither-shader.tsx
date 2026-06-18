@@ -246,6 +246,15 @@ export function DitherShader({
 		const start = performance.now()
 		let restoreTimer = 0
 
+		// Two independent pause sources: offscreen (IntersectionObserver) and
+		// hidden tab (visibilitychange). Kept separate so clearing one doesn't
+		// resume the loop while the other still requires a pause.
+		let ioPaused = false
+		let tabPaused = false
+		let rafRunning = false
+
+		const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
 		// Browsers cap live WebGL contexts (~16) and evict the OLDEST when exceeded.
 		// Without this, an evicted hero canvas stays permanently broken. preventDefault
 		// keeps the canvas restorable; we then remount with a fresh context once GPU
@@ -259,6 +268,9 @@ export function DitherShader({
 		gl.canvas.addEventListener("webglcontextlost", handleContextLost, false)
 
 		const render = (): void => {
+			rafRunning = false
+			if (ioPaused || tabPaused) return
+
 			current.x += (target.x - current.x) * 0.12
 			current.y += (target.y - current.y) * 0.12
 			current.active += (target.active - current.active) * 0.06
@@ -278,11 +290,65 @@ export function DitherShader({
 			program.uniforms.iMouseActive.value = current.active
 
 			renderer.render({ scene: mesh })
+			rafRunning = true
 			frameId = requestAnimationFrame(render)
 		}
-		render()
+
+		const resumeRaf = (): void => {
+			if (ioPaused || tabPaused || rafRunning) return
+			rafRunning = true
+			frameId = requestAnimationFrame(render)
+		}
+
+		const io = new IntersectionObserver(
+			(entries) => {
+				const entry = entries[0]
+				if (!entry) return
+				if (entry.isIntersecting) {
+					ioPaused = false
+					resumeRaf()
+				} else {
+					ioPaused = true
+					cancelAnimationFrame(frameId)
+				}
+			},
+			{ rootMargin: "100px" }
+		)
+
+		const handleVisibilityChange = (): void => {
+			if (document.hidden) {
+				tabPaused = true
+				cancelAnimationFrame(frameId)
+			} else {
+				tabPaused = false
+				resumeRaf()
+			}
+		}
+
+		if (isReducedMotion) {
+			// Single static frame for reduced-motion users — and no intersection/
+			// visibility listeners, so nothing can start a RAF loop later.
+			const themeNow = program.uniforms.uTheme.value as number
+			program.uniforms.uTheme.value = themeNow + (themeTargetRef.current - themeNow) * 0.12
+			program.uniforms.uVariant.value = variantRef.current
+			program.uniforms.uTransparent.value = transparentRef.current
+			const gc = program.uniforms.uGlyphColor.value as number[]
+			gc[0] = glyphColorRef.current[0]
+			gc[1] = glyphColorRef.current[1]
+			gc[2] = glyphColorRef.current[2]
+			program.uniforms.iTime.value = 0
+			program.uniforms.iMouse.value = [current.x, current.y]
+			program.uniforms.iMouseActive.value = current.active
+			renderer.render({ scene: mesh })
+		} else {
+			io.observe(container)
+			document.addEventListener("visibilitychange", handleVisibilityChange)
+			resumeRaf()
+		}
 
 		return () => {
+			io.disconnect()
+			document.removeEventListener("visibilitychange", handleVisibilityChange)
 			cancelAnimationFrame(frameId)
 			window.clearTimeout(restoreTimer)
 			ro.disconnect()
