@@ -212,10 +212,10 @@ export default function HomePage(): ReactNode {
 				<Reveal>
 					<Faq />
 				</Reveal>
+				<Reveal>
+					<FinalCTA />
+				</Reveal>
 			</main>
-			<Reveal>
-				<FinalCTA />
-			</Reveal>
 			<Footer />
 		</>
 	)

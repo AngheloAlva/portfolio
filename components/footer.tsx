@@ -59,7 +59,7 @@ const linkColumns: ReadonlyArray<{
 
 export function Footer(): ReactNode {
 	return (
-		<section className="bg-background p-3 sm:p-4 lg:p-6">
+		<footer className="bg-background p-3 sm:p-4 lg:p-6">
 			<div className="rounded-3xl bg-neutral-950! px-5 py-8 text-neutral-100! sm:px-8 sm:py-10 lg:px-10 lg:py-12 dark:bg-neutral-50! dark:text-neutral-900!">
 				<div className="grid grid-cols-1 gap-12 lg:grid-cols-[auto_1fr_auto] lg:gap-16">
 					<div>
@@ -121,6 +121,6 @@ export function Footer(): ReactNode {
 					</p>
 				</div>
 			</div>
-		</section>
+		</footer>
 	)
 }

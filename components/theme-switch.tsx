@@ -25,7 +25,7 @@ export function ThemeSwitch(): ReactNode {
 			<div className="fixed right-6 bottom-6 z-50">
 				<button
 					className="bg-foreground/10 h-10 w-10 cursor-not-allowed rounded-full opacity-30"
-					aria-label="Toggle theme"
+					aria-label="Cambiar tema"
 					disabled
 				/>
 			</div>
@@ -38,8 +38,8 @@ export function ThemeSwitch(): ReactNode {
 		<div className="fixed right-6 bottom-6 z-50">
 			<button
 				onClick={toggleTheme}
-				className="bg-muted text-foreground flex h-10 w-10 cursor-pointer items-center justify-center rounded-full opacity-30 shadow-lg transition-opacity duration-300 hover:opacity-100 hover:shadow-xl"
-				aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+				className="bg-muted text-foreground flex h-10 w-10 cursor-pointer items-center justify-center rounded-full opacity-60 shadow-lg transition-opacity duration-300 hover:opacity-100 focus-visible:opacity-100 hover:shadow-xl"
+				aria-label="Cambiar tema"
 				aria-pressed={isDark}
 				type="button"
 			>

@@ -218,12 +218,13 @@ export function Showcase(): ReactNode {
 						ref={trackRef}
 						className="flex snap-x snap-mandatory scroll-pl-6 scrollbar-none items-stretch gap-4 overflow-x-auto scroll-smooth px-6 py-16 [-ms-overflow-style:none] sm:scroll-pl-10 sm:gap-6 sm:px-10 sm:py-20 lg:scroll-pl-14 lg:px-14 lg:py-24 [&::-webkit-scrollbar]:hidden"
 					>
-						{CARDS.map((card) => (
+						{CARDS.map((card, index) => (
 							<Card
 								key={card.id}
 								card={card}
 								hidden={activeId === card.id}
 								onClick={() => setActiveId(card.id)}
+								isFirst={index === 0}
 							/>
 						))}
 						<div aria-hidden="true" className="shrink-0 basis-6 sm:basis-10 lg:basis-14" />
@@ -234,21 +235,19 @@ export function Showcase(): ReactNode {
 							type="button"
 							onClick={() => scrollByCards(-1)}
 							disabled={page === 0}
-							aria-label="Previous card"
+							aria-label="Proyecto anterior"
 							className="focus-ring bg-muted text-foreground inline-flex h-8 w-8 items-center justify-center rounded-full transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-30"
 						>
 							<ChevronLeft className="h-4 w-4" />
 						</button>
 						<div
-							role="tablist"
-							aria-label="Card progress"
+							aria-hidden="true"
 							className="bg-muted flex h-8 items-center gap-2 rounded-full px-4"
 						>
 							{Array.from({ length: pageCount }).map((_, i) => (
 								<span
 									key={i}
-									role="tab"
-									aria-selected={i === page}
+									aria-hidden="true"
 									className={`h-1.5 rounded-full transition-all duration-300 ${
 										i === page ? "bg-foreground w-6" : "bg-muted-foreground/40 w-1.5"
 									}`}
@@ -259,7 +258,7 @@ export function Showcase(): ReactNode {
 							type="button"
 							onClick={() => scrollByCards(1)}
 							disabled={page >= pageCount - 1}
-							aria-label="Next card"
+							aria-label="Proyecto siguiente"
 							className="focus-ring bg-muted text-foreground inline-flex h-8 w-8 items-center justify-center rounded-full transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-30"
 						>
 							<ChevronRight className="h-4 w-4" />
@@ -289,11 +288,13 @@ function CardPreview({
 	title,
 	image,
 	className,
+	priority,
 }: {
 	id: string
 	title: string
 	image?: string | undefined
 	className?: string
+	priority?: boolean
 }): ReactNode {
 	const Hero = getProjectMockup(id)?.hero
 	return (
@@ -306,7 +307,12 @@ function CardPreview({
 					src={image}
 					alt=""
 					fill
-					sizes="(max-width: 640px) 90vw, 360px"
+					sizes={
+						priority
+							? "(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 360px"
+							: "(max-width: 640px) 90vw, 360px"
+					}
+					priority={priority ?? false}
 					className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
 				/>
 			) : (
@@ -324,10 +330,12 @@ function Card({
 	card,
 	hidden,
 	onClick,
+	isFirst,
 }: {
 	card: ShowcaseCard
 	hidden: boolean
 	onClick: () => void
+	isFirst?: boolean
 }): ReactNode {
 	const { Icon } = card
 	return (
@@ -347,7 +355,7 @@ function Card({
 			>
 				<Icon className="h-4 w-4" strokeWidth={1.5} />
 			</motion.div>
-			<CardPreview id={card.id} title={card.title} image={card.image} />
+			<CardPreview id={card.id} title={card.title} image={card.image} priority={isFirst ?? false} />
 			<div className="space-y-5">
 				<motion.h3
 					layoutId={`card-title-${card.id}`}
@@ -381,7 +389,7 @@ function ExpandedCard({ card, onClose }: { card: ShowcaseCard; onClose: () => vo
 		<div className="fixed inset-0 z-50 flex items-center justify-center p-6 sm:p-10">
 			<motion.button
 				type="button"
-				aria-label="Close"
+				aria-label="Cerrar"
 				onClick={onClose}
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
@@ -479,7 +487,7 @@ function ExpandedCard({ card, onClose }: { card: ShowcaseCard; onClose: () => vo
 							onClick={onClose}
 							layoutId={`card-plus-${card.id}`}
 							transition={MORPH_TRANSITION}
-							aria-label="Close card"
+							aria-label="Cerrar"
 							className="focus-ring bg-background/60 text-foreground inline-flex h-9 w-9 items-center justify-center rounded-full transition-opacity hover:opacity-80"
 						>
 							<motion.span

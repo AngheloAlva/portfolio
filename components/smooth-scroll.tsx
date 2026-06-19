@@ -25,11 +25,26 @@ export function SmoothScroll({ children }: { children: ReactNode }): ReactNode {
 
 		const lenis = new Lenis(LENIS_OPTIONS)
 
-		function raf(time: number): void {
+		let rafId = 0
+		let paused = false
+
+		function tick(time: number): void {
+			if (paused) return
 			lenis.raf(time)
-			requestAnimationFrame(raf)
+			rafId = requestAnimationFrame(tick)
 		}
-		requestAnimationFrame(raf)
+		rafId = requestAnimationFrame(tick)
+
+		const handleVisibility = (): void => {
+			if (document.hidden) {
+				paused = true
+				cancelAnimationFrame(rafId)
+			} else {
+				paused = false
+				rafId = requestAnimationFrame(tick)
+			}
+		}
+		document.addEventListener("visibilitychange", handleVisibility)
 
 		function handleAnchorClick(event: MouseEvent): void {
 			const target = event.target
@@ -46,6 +61,8 @@ export function SmoothScroll({ children }: { children: ReactNode }): ReactNode {
 
 		document.addEventListener("click", handleAnchorClick)
 		return () => {
+			document.removeEventListener("visibilitychange", handleVisibility)
+			cancelAnimationFrame(rafId)
 			document.removeEventListener("click", handleAnchorClick)
 			lenis.destroy()
 		}

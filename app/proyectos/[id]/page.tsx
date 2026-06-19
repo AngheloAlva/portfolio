@@ -1,7 +1,7 @@
 import { CaseStudyView } from "@/components/case-study"
 import { Footer } from "@/components/footer"
 import { Header } from "@/components/header"
-import { createMetadata } from "@/lib/metadata"
+import { createMetadata, siteConfig } from "@/lib/metadata"
 import { portfolioProjects } from "@/lib/portfolio-data"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
@@ -40,8 +40,50 @@ export default async function ProjectCaseStudyPage({
 	const project = portfolioProjects.find((p) => p.id === id && p.caseStudy)
 	if (!project) notFound()
 
+	const projectUrl = `${siteConfig.url}/proyectos/${project.id}`
+	const hasRealImage = project.imageUrl?.startsWith("/projects/")
+
+	const breadcrumbSchema = {
+		"@context": "https://schema.org",
+		"@type": "BreadcrumbList",
+		itemListElement: [
+			{
+				"@type": "ListItem",
+				position: 1,
+				name: "Inicio",
+				item: siteConfig.url,
+			},
+			{
+				"@type": "ListItem",
+				position: 2,
+				name: project.title,
+				item: projectUrl,
+			},
+		],
+	}
+
+	const creativeWorkSchema = {
+		"@context": "https://schema.org",
+		"@type": "CreativeWork",
+		name: project.title,
+		description: project.caseStudy?.pitch ?? project.shortDescription,
+		url: projectUrl,
+		author: { "@id": `${siteConfig.url}/#person` },
+		...(hasRealImage && {
+			image: `${siteConfig.url}${project.imageUrl}`,
+		}),
+	}
+
 	return (
 		<>
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+			/>
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkSchema) }}
+			/>
 			<Header />
 			<CaseStudyView project={project} />
 			<Footer />
