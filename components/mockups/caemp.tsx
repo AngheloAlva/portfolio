@@ -19,7 +19,7 @@ function BrowserBar({ tone = "soft" }: { tone?: "mid" | "soft" }): ReactNode {
 		<div className="border-border flex items-center gap-1.5 rounded-md border px-2 py-1.5">
 			<span className="bg-border h-1.5 w-1.5 shrink-0 rounded-full" />
 			<span className="bg-foreground/35 h-3 w-3 shrink-0 rounded-sm" />
-			<div className="border-border bg-muted/40 flex-1 rounded-full px-2 py-1">
+			<div className="border-border bg-foreground/[0.06] flex-1 rounded-full px-2 py-1">
 				<WFBar w="70%" h={3} tone={tone} />
 			</div>
 		</div>
@@ -58,7 +58,7 @@ function MultiDominioGlyph({ className }: { className?: string }): ReactNode {
 				<div className="border-border bg-background/60 flex flex-1 flex-col overflow-hidden rounded-lg border">
 					<span className="bg-foreground/60 h-1.5 w-full shrink-0" />
 					<div className="flex flex-1 gap-2 p-2.5">
-						<div className="bg-muted w-1/5 shrink-0 rounded" />
+						<div className="bg-foreground/10 w-1/5 shrink-0 rounded" />
 						<div className="flex flex-1 flex-col gap-2">
 							<div className="flex items-center gap-2">
 								<span className="bg-foreground/55 h-6 w-6 shrink-0 rounded-md" />
@@ -100,7 +100,7 @@ function TresLineasGlyph({ className }: { className?: string }): ReactNode {
 							}`}
 						/>
 						<div className="flex flex-1 flex-col items-center justify-center gap-2 p-2">
-							<span className="bg-muted h-7 w-7 rounded-md" />
+							<span className="bg-foreground/10 h-7 w-7 rounded-md" />
 							<WFBar w="70%" h={4} tone="mid" />
 							<WFBar w="50%" h={3} tone="soft" />
 						</div>
@@ -125,7 +125,7 @@ function SeoPorDominioGlyph({ className }: { className?: string }): ReactNode {
 						<WFBar w="90%" h={3} tone="soft" />
 						<WFBar w="55%" h={3} tone="soft" />
 					</div>
-					<span className="bg-muted h-full w-12 shrink-0 rounded" />
+					<span className="bg-foreground/10 h-full w-12 shrink-0 rounded" />
 				</div>
 			</div>
 		</WFGlyphCard>
@@ -146,14 +146,14 @@ function CatalogosGlyph({ className }: { className?: string }): ReactNode {
 								i === 0 ? "bg-foreground/10" : ""
 							}`}
 						>
-							<span className="bg-muted h-4 w-4 shrink-0 rounded-sm" />
+							<span className="bg-foreground/10 h-4 w-4 shrink-0 rounded-sm" />
 							<WFBar w={`${50 + ((i * 9) % 30)}%`} h={3} tone={i === 0 ? "mid" : "soft"} />
 						</div>
 					))}
 				</div>
 				{/* Detail */}
 				<div className="border-border flex flex-1 flex-col gap-2 rounded-md border p-2">
-					<span className="bg-muted h-10 w-full rounded" />
+					<span className="bg-foreground/10 h-10 w-full rounded" />
 					<WFBar w="70%" h={4} tone="mid" />
 					<WFBar w="100%" h={3} tone="soft" />
 					<WFBar w="85%" h={3} tone="soft" />
@@ -180,7 +180,7 @@ function ContenidoGlyph({ className }: { className?: string }): ReactNode {
 							key={i}
 							className="border-border flex flex-col items-center justify-center gap-1.5 rounded-md border border-dashed"
 						>
-							<span className="bg-muted h-4 w-4 rounded-sm" />
+							<span className="bg-foreground/10 h-4 w-4 rounded-sm" />
 							<WFBar w="60%" h={3} tone="soft" />
 						</div>
 					))}
@@ -214,7 +214,7 @@ function ContactoGlyph({ className }: { className?: string }): ReactNode {
 					<span className="bg-border h-px w-full" />
 					<WFBar w="100%" h={3} tone="soft" />
 					<WFBar w="80%" h={3} tone="soft" />
-					<span className="bg-muted mt-auto h-4 w-12 self-end rounded" />
+					<span className="bg-foreground/10 mt-auto h-4 w-12 self-end rounded" />
 				</div>
 			</div>
 		</WFGlyphCard>

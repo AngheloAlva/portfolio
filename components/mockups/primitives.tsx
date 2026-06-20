@@ -11,7 +11,7 @@ import type { ReactNode } from "react"
  * Ink scale (one consistent language across every mockup):
  *   - `strong` → bg-foreground/70  (numbers, headings, active state)
  *   - `mid`    → bg-foreground/45  (secondary emphasis)
- *   - `soft`   → bg-muted          (placeholder / empty)
+ *   - `soft`   → bg-foreground/10          (placeholder / empty)
  */
 
 type Tone = "strong" | "mid" | "soft"
@@ -19,7 +19,7 @@ type Tone = "strong" | "mid" | "soft"
 const TONE: Record<Tone, string> = {
 	strong: "bg-foreground/70",
 	mid: "bg-foreground/45",
-	soft: "bg-muted",
+	soft: "bg-foreground/10",
 }
 
 /** A rounded bar standing in for a run of text. */
@@ -61,7 +61,7 @@ export function WFPill({ w = 36 }: { w?: number }): ReactNode {
 			style={{ width: w }}
 		>
 			<span className="bg-foreground/50 h-1.5 w-1.5 shrink-0 rounded-full" />
-			<span className="bg-muted h-1 flex-1 rounded" />
+			<span className="bg-foreground/10 h-1 flex-1 rounded" />
 		</span>
 	)
 }
@@ -77,7 +77,7 @@ export function WFStatCard({ accent = true }: { accent?: boolean }): ReactNode {
 			<div className="flex flex-1 flex-col gap-2 p-2.5">
 				<div className="flex items-center justify-between">
 					<WFBar w={40} h={5} tone="soft" />
-					<span className="bg-muted h-3 w-3 rounded" />
+					<span className="bg-foreground/10 h-3 w-3 rounded" />
 				</div>
 				<WFBar w={55} h={11} tone="strong" />
 				<WFBar w={70} h={4} tone="soft" />
@@ -127,7 +127,7 @@ export function WFHBars({
 		<div className={`flex flex-col justify-center gap-2 ${className ?? ""}`}>
 			{bars.map((w, i) => (
 				<div key={i} className="flex items-center gap-2">
-					<span className="bg-muted h-3 w-8 shrink-0 rounded" />
+					<span className="bg-foreground/10 h-3 w-8 shrink-0 rounded" />
 					<div className="bg-foreground/60 h-2.5 rounded" style={{ width: `${w}%` }} />
 				</div>
 			))}
@@ -222,7 +222,7 @@ export function WFTable({
 		<div
 			className={`border-border flex flex-col overflow-hidden rounded-md border ${className ?? ""}`}
 		>
-			<div className="border-border bg-muted/40 flex items-center gap-2 border-b px-2 py-1.5">
+			<div className="border-border bg-foreground/[0.06] flex items-center gap-2 border-b px-2 py-1.5">
 				{cols.map((flex, c) => (
 					<div key={c} style={{ flex }}>
 						<WFBar w="70%" h={4} tone="mid" />

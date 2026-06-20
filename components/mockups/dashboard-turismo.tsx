@@ -30,7 +30,7 @@ function Toggle({ on }: { on?: boolean }): ReactNode {
 	return (
 		<span
 			className={`flex h-3.5 w-6 shrink-0 items-center rounded-full p-0.5 ${
-				on ? "bg-foreground/70 justify-end" : "bg-muted justify-start"
+				on ? "bg-foreground/70 justify-end" : "bg-foreground/10 justify-start"
 			}`}
 		>
 			<span className="bg-background h-2.5 w-2.5 rounded-full" />
@@ -60,7 +60,7 @@ function KpiCard(): ReactNode {
 		<div className="border-border bg-background flex flex-col gap-1.5 rounded-xl border p-2.5">
 			<div className="flex items-start justify-between gap-2">
 				<WFBar w={62} h={4} tone="soft" />
-				<span className="bg-muted h-5 w-5 shrink-0 rounded-full" />
+				<span className="bg-foreground/10 h-5 w-5 shrink-0 rounded-full" />
 			</div>
 			<WFBar w={48} h={12} tone="strong" />
 			<WFBar w={78} h={3} tone="soft" />
@@ -144,7 +144,7 @@ export function DashboardTurismoHero({ label }: { label?: string }): ReactNode {
 						>
 							<span
 								className={`h-3 w-3 shrink-0 rounded ${
-									item.active ? "bg-foreground/70" : "bg-muted"
+									item.active ? "bg-foreground/70" : "bg-foreground/10"
 								}`}
 							/>
 							<WFBar w={`${52 + ((i * 13) % 30)}%`} h={4} tone={item.active ? "strong" : "soft"} />
@@ -158,7 +158,7 @@ export function DashboardTurismoHero({ label }: { label?: string }): ReactNode {
 				<nav className="flex flex-col gap-0.5">
 					{adminNav.map((w, i) => (
 						<div key={i} className="flex items-center gap-2 px-2 py-1.5">
-							<span className="bg-muted h-3 w-3 shrink-0 rounded" />
+							<span className="bg-foreground/10 h-3 w-3 shrink-0 rounded" />
 							<WFBar w={`${w}%`} h={4} tone="soft" />
 						</div>
 					))}
@@ -188,14 +188,14 @@ export function DashboardTurismoHero({ label }: { label?: string }): ReactNode {
 							{label}
 						</span>
 					) : null}
-					<span className="bg-muted ml-auto h-4 w-4 rounded-full" />
+					<span className="bg-foreground/10 ml-auto h-4 w-4 rounded-full" />
 				</div>
 
 				{/* Content */}
 				<div className="flex flex-1 flex-col gap-3 p-3">
 					{/* Tutorial button */}
 					<span className="border-border ml-auto flex h-5 items-center gap-1 rounded-md border px-2">
-						<span className="bg-muted h-2 w-2 rounded-full" />
+						<span className="bg-foreground/10 h-2 w-2 rounded-full" />
 						<WFBar w={40} h={3} tone="soft" />
 					</span>
 
@@ -250,7 +250,7 @@ export function DashboardTurismoHero({ label }: { label?: string }): ReactNode {
 											<WFBar w={`${40 + ((i * 5) % 18)}%`} h={3} tone="soft" />
 										</div>
 										<div className="flex shrink-0 items-center gap-1">
-											<span className="bg-muted h-2.5 w-2.5 rounded-full" />
+											<span className="bg-foreground/10 h-2.5 w-2.5 rounded-full" />
 											<WFBar w={8} h={3} tone="soft" />
 										</div>
 									</div>
@@ -327,7 +327,7 @@ function CalendarioGlyph({ className }: { className?: string }): ReactNode {
 					<Toggle on />
 					<SelectChip w={56} />
 					<span className="border-border flex h-5 items-center gap-1 rounded-md border px-2">
-						<span className="bg-muted h-2 w-2 rounded" />
+						<span className="bg-foreground/10 h-2 w-2 rounded" />
 						<WFBar w={20} h={3} tone="soft" />
 					</span>
 				</div>
@@ -342,7 +342,7 @@ function CalendarioGlyph({ className }: { className?: string }): ReactNode {
 					>
 						<div className="flex items-center justify-between">
 							<WFBar w={52} h={3} tone="soft" />
-							<span className="bg-muted h-3 w-3 rounded-full" />
+							<span className="bg-foreground/10 h-3 w-3 rounded-full" />
 						</div>
 						<WFBar w={42} h={9} tone="strong" />
 						<WFBar w={72} h={2} tone="soft" />
@@ -360,7 +360,7 @@ function CalendarioGlyph({ className }: { className?: string }): ReactNode {
 						{[0, 1, 2, 3].map((i) => (
 							<span
 								key={i}
-								className={`h-3 w-5 rounded ${i === 2 ? "bg-foreground/70" : "bg-muted"}`}
+								className={`h-3 w-5 rounded ${i === 2 ? "bg-foreground/70" : "bg-foreground/10"}`}
 							/>
 						))}
 					</div>
@@ -383,7 +383,7 @@ function CalendarioGlyph({ className }: { className?: string }): ReactNode {
 
 			{/* month grid */}
 			<div className="border-border mt-1.5 flex flex-1 flex-col overflow-hidden rounded-md border">
-				<div className="border-border bg-muted/40 grid grid-cols-7 border-b">
+				<div className="border-border bg-foreground/[0.06] grid grid-cols-7 border-b">
 					{Array.from({ length: 7 }).map((_, i) => (
 						<div key={i} className="flex justify-center py-1">
 							<WFBar w={40} h={3} tone="mid" />
@@ -397,7 +397,7 @@ function CalendarioGlyph({ className }: { className?: string }): ReactNode {
 							className="border-border/60 flex flex-col gap-0.5 border-r border-b p-0.5 [&:nth-child(7n)]:border-r-0"
 						>
 							<div className="flex items-center justify-between px-0.5">
-								<span className="bg-muted h-1.5 w-1.5 rounded-full" />
+								<span className="bg-foreground/10 h-1.5 w-1.5 rounded-full" />
 								{i === 1 ? (
 									<span className="bg-foreground/70 flex h-3 w-3 items-center justify-center rounded-full">
 										<span className="bg-background h-1 w-1 rounded-full" />
@@ -449,7 +449,7 @@ function AnalisisGlyph({ className }: { className?: string }): ReactNode {
 			<div className="relative mt-2 flex-1">
 				<div className="border-border absolute top-0 right-0 z-10 flex items-center gap-0.5 rounded-md border p-0.5">
 					<span className="bg-foreground/70 h-3 w-7 rounded" />
-					<span className="bg-muted h-3 w-7 rounded" />
+					<span className="bg-foreground/10 h-3 w-7 rounded" />
 				</div>
 				<AreaChart points={SPIKY} className="absolute inset-x-0 top-5 bottom-0 w-full" />
 			</div>
@@ -487,7 +487,7 @@ function FacturacionGlyph({ className }: { className?: string }): ReactNode {
 
 			{/* selectable sales table */}
 			<div className="border-border mt-2 flex flex-1 flex-col overflow-hidden rounded-md border">
-				<div className="border-border bg-muted/40 flex items-center gap-2 border-b px-2 py-1.5">
+				<div className="border-border bg-foreground/[0.06] flex items-center gap-2 border-b px-2 py-1.5">
 					<span className="border-border h-3 w-3 shrink-0 rounded-[3px] border" />
 					<div className="flex-[1.3]">
 						<WFBar w="60%" h={3} tone="mid" />
@@ -576,12 +576,12 @@ function RecepcionesGlyph({ className }: { className?: string }): ReactNode {
 						key={r}
 						className="border-border/60 flex flex-1 items-center gap-1.5 border-b px-2 last:border-b-0"
 					>
-						<span className="bg-muted h-4 w-4 shrink-0 rounded" />
+						<span className="bg-foreground/10 h-4 w-4 shrink-0 rounded" />
 						<WFBar w={40} h={4} tone="soft" />
 						<FlowArrow />
 						<span className="bg-foreground/55 h-4 w-4 shrink-0 rounded" />
 						<WFBar w={40} h={4} tone="soft" />
-						<span className="bg-muted ml-2 h-3 w-7 shrink-0 rounded" />
+						<span className="bg-foreground/10 ml-2 h-3 w-7 shrink-0 rounded" />
 						<span className="ml-auto">
 							<WFPill w={36} />
 						</span>
@@ -605,7 +605,7 @@ function MigracionGlyph({ className }: { className?: string }): ReactNode {
 			<div className="flex items-center gap-2">
 				<WFBar w={56} h={9} tone="strong" />
 				<span className="border-border ml-auto flex h-5 items-center gap-1 rounded-md border px-2">
-					<span className="bg-muted h-2 w-2 rounded-full" />
+					<span className="bg-foreground/10 h-2 w-2 rounded-full" />
 					<WFBar w={36} h={3} tone="soft" />
 				</span>
 			</div>
@@ -621,7 +621,7 @@ function MigracionGlyph({ className }: { className?: string }): ReactNode {
 								}`}
 							>
 								<span
-									className={`h-3 w-3 rounded-sm ${i === 3 ? "bg-background/70" : "bg-muted"}`}
+									className={`h-3 w-3 rounded-sm ${i === 3 ? "bg-background/70" : "bg-foreground/10"}`}
 								/>
 							</span>
 							<WFBar w={26} h={3} tone="soft" />
@@ -649,8 +649,8 @@ function MigracionGlyph({ className }: { className?: string }): ReactNode {
 			<div className="mt-2 flex flex-1 flex-col justify-between gap-1.5">
 				{batches.map((w, i) => (
 					<div key={i} className="flex items-center gap-2">
-						<span className="bg-muted h-2.5 w-10 shrink-0 rounded" />
-						<div className="bg-muted h-2 flex-1 overflow-hidden rounded-full">
+						<span className="bg-foreground/10 h-2.5 w-10 shrink-0 rounded" />
+						<div className="bg-foreground/10 h-2 flex-1 overflow-hidden rounded-full">
 							<div className="bg-foreground/55 h-full rounded-full" style={{ width: `${w}%` }} />
 						</div>
 						<span

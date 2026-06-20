@@ -21,11 +21,11 @@ function Stepper({ steps, done }: { steps: number; done: number }): ReactNode {
 				<Fragment key={i}>
 					<span
 						className={`h-2 w-2 shrink-0 rounded-full ${
-							i < done ? "bg-foreground/60" : "bg-muted"
+							i < done ? "bg-foreground/60" : "bg-foreground/10"
 						}`}
 					/>
 					{i < steps - 1 ? (
-						<span className={`h-px flex-1 ${i < done - 1 ? "bg-foreground/40" : "bg-muted"}`} />
+						<span className={`h-px flex-1 ${i < done - 1 ? "bg-foreground/40" : "bg-foreground/10"}`} />
 					) : null}
 				</Fragment>
 			))}
@@ -51,7 +51,7 @@ export function BusancHero({ label }: { label?: string }): ReactNode {
 				<div className="border-border flex items-center gap-2 rounded-md border px-2 py-1.5">
 					<span className="border-border h-2.5 w-2.5 rounded-full border" />
 					<WFBar w={40} h={4} tone="soft" />
-					<span className="bg-muted ml-auto h-3 w-5 rounded" />
+					<span className="bg-foreground/10 ml-auto h-3 w-5 rounded" />
 				</div>
 				<WFBar w={36} h={3} tone="soft" />
 				<nav className="flex flex-col gap-1">
@@ -66,7 +66,7 @@ export function BusancHero({ label }: { label?: string }): ReactNode {
 							</div>
 						) : (
 							<div key={i} className="flex items-center gap-2 px-2 py-1">
-								<span className="bg-muted h-2.5 w-2.5 rounded" />
+								<span className="bg-foreground/10 h-2.5 w-2.5 rounded" />
 								<WFBar w={`${48 + ((i * 9) % 34)}%`} h={4} tone="soft" />
 								{i < 6 ? (
 									<span className="border-border ml-auto h-2.5 w-2.5 rounded-sm border" />
@@ -76,7 +76,7 @@ export function BusancHero({ label }: { label?: string }): ReactNode {
 					)}
 				</nav>
 				<div className="border-border mt-auto flex items-center gap-2 rounded-md border p-2">
-					<span className="bg-muted h-6 w-6 rounded-full" />
+					<span className="bg-foreground/10 h-6 w-6 rounded-full" />
 					<div className="flex flex-1 flex-col gap-1">
 						<WFBar w={55} h={4} tone="mid" />
 						<WFBar w={80} h={3} tone="soft" />
@@ -88,7 +88,7 @@ export function BusancHero({ label }: { label?: string }): ReactNode {
 			<div className="flex min-w-0 flex-1 flex-col">
 				{/* Topbar */}
 				<div className="border-border flex items-center gap-2 border-b px-3 py-2.5">
-					<span className="bg-muted h-4 w-4 rounded" />
+					<span className="bg-foreground/10 h-4 w-4 rounded" />
 					<WFBar w={44} h={4} tone="soft" />
 					<span className="bg-border h-2 w-2 rounded-full" />
 					<WFBar w={28} h={4} tone="mid" />
@@ -99,8 +99,8 @@ export function BusancHero({ label }: { label?: string }): ReactNode {
 					) : null}
 					<div className="ml-auto flex items-center gap-2">
 						<span className="border-border hidden h-5 w-28 rounded-md border md:block" />
-						<span className="bg-muted h-3.5 w-3.5 rounded-full" />
-						<span className="bg-muted h-3.5 w-3.5 rounded-full" />
+						<span className="bg-foreground/10 h-3.5 w-3.5 rounded-full" />
+						<span className="bg-foreground/10 h-3.5 w-3.5 rounded-full" />
 					</div>
 				</div>
 
@@ -149,7 +149,7 @@ export function BusancHero({ label }: { label?: string }): ReactNode {
 									className="border-border flex items-center gap-2 rounded-md border p-1.5"
 								>
 									<WFBar w={50} h={4} tone="soft" />
-									<span className="bg-muted ml-auto h-4 w-4 rounded" />
+									<span className="bg-foreground/10 ml-auto h-4 w-4 rounded" />
 								</div>
 							))}
 						</div>
@@ -181,7 +181,7 @@ function FlujoGlyph({ className }: { className?: string }): ReactNode {
 			</div>
 			{/* table with two status-pill columns */}
 			<div className="border-border mt-2.5 flex flex-1 flex-col overflow-hidden rounded-md border">
-				<div className="border-border bg-muted/40 flex items-center gap-2 border-b px-2 py-1.5">
+				<div className="border-border bg-foreground/[0.06] flex items-center gap-2 border-b px-2 py-1.5">
 					{cols.map((flex, c) => (
 						<div key={c} style={{ flex }}>
 							<WFBar w="70%" h={4} tone="mid" />
@@ -227,7 +227,7 @@ function ParaleloGlyph({ className }: { className?: string }): ReactNode {
 				{/* parent + sub rows */}
 				{[{ indent: false }, { indent: true }, { indent: true }].map((row, i) => (
 					<div key={i} className="flex items-center gap-2">
-						<span className={`h-3 ${row.indent ? "ml-3 w-10" : "w-12"} bg-muted rounded`} />
+						<span className={`h-3 ${row.indent ? "ml-3 w-10" : "w-12"} bg-foreground/10 rounded`} />
 						<WFBar w={row.indent ? "30%" : "40%"} h={4} tone="soft" />
 						<span className="bg-foreground/40 ml-auto h-3 w-8 rounded" />
 					</div>
@@ -274,10 +274,10 @@ function ActivityGlyph({ className }: { className?: string }): ReactNode {
 			<div className="mt-2 flex flex-1 flex-col justify-center gap-2">
 				{Array.from({ length: 4 }).map((_, i) => (
 					<div key={i} className="flex items-center gap-2">
-						<span className="bg-muted h-2.5 w-10 shrink-0 rounded" />
+						<span className="bg-foreground/10 h-2.5 w-10 shrink-0 rounded" />
 						<span className="border-border h-3.5 w-12 shrink-0 rounded-full border" />
 						<WFBar w={`${40 + ((i * 13) % 28)}%`} h={4} tone="soft" />
-						<span className="bg-muted ml-auto h-3 w-3 rounded-full" />
+						<span className="bg-foreground/10 ml-auto h-3 w-3 rounded-full" />
 					</div>
 				))}
 			</div>
@@ -308,8 +308,8 @@ function CapacityGlyph({ className }: { className?: string }): ReactNode {
 				<div className="mt-1 flex flex-col gap-1.5">
 					{[80, 55].map((w, i) => (
 						<div key={i} className="flex items-center gap-2">
-							<span className="bg-muted h-2 w-8 shrink-0 rounded" />
-							<div className="bg-muted h-2 flex-1 overflow-hidden rounded-full">
+							<span className="bg-foreground/10 h-2 w-8 shrink-0 rounded" />
+							<div className="bg-foreground/10 h-2 flex-1 overflow-hidden rounded-full">
 								<div className="bg-foreground/50 h-full rounded-full" style={{ width: `${w}%` }} />
 							</div>
 						</div>

@@ -53,14 +53,14 @@ export function Otc360Hero({ label }: { label?: string }): ReactNode {
 							</div>
 						) : (
 							<div key={i} className="flex items-center gap-2 px-2 py-1">
-								<span className="bg-muted h-2.5 w-2.5 rounded" />
+								<span className="bg-foreground/10 h-2.5 w-2.5 rounded" />
 								<WFBar w={`${50 + ((i * 7) % 35)}%`} h={4} tone="soft" />
 							</div>
 						)
 					)}
 				</nav>
 				<div className="border-border mt-auto flex items-center gap-2 rounded-md border p-2">
-					<span className="bg-muted h-6 w-6 rounded-full" />
+					<span className="bg-foreground/10 h-6 w-6 rounded-full" />
 					<div className="flex flex-1 flex-col gap-1">
 						<WFBar w={50} h={4} tone="mid" />
 						<WFBar w={75} h={3} tone="soft" />
@@ -72,14 +72,14 @@ export function Otc360Hero({ label }: { label?: string }): ReactNode {
 			<div className="flex flex-1 flex-col">
 				{/* Topbar */}
 				<div className="border-border flex items-center gap-2 border-b px-3 py-2.5">
-					<span className="bg-muted h-4 w-4 rounded" />
+					<span className="bg-foreground/10 h-4 w-4 rounded" />
 					<WFBar w={64} h={5} tone="mid" />
 					{label ? (
 						<span className="text-muted-foreground ml-3 hidden truncate font-mono text-[0.625rem] tracking-[0.14em] uppercase md:inline">
 							{label}
 						</span>
 					) : null}
-					<span className="bg-muted ml-auto h-3.5 w-3.5 rounded-full" />
+					<span className="bg-foreground/10 ml-auto h-3.5 w-3.5 rounded-full" />
 				</div>
 
 				{/* Content */}
@@ -157,7 +157,7 @@ function CarpetasGlyph({ className }: { className?: string }): ReactNode {
 			<div className="mt-2 flex flex-1 flex-col justify-center gap-2">
 				{Array.from({ length: 3 }).map((_, i) => (
 					<div key={i} className="flex items-center gap-2">
-						<span className="bg-muted h-4 w-4 shrink-0 rounded-sm" />
+						<span className="bg-foreground/10 h-4 w-4 shrink-0 rounded-sm" />
 						<WFBar w="40%" h={4} tone="soft" />
 						<div className="ml-auto flex gap-1">
 							{Array.from({ length: 3 }).map((__, j) => (
@@ -218,9 +218,9 @@ function PlanesGlyph({ className }: { className?: string }): ReactNode {
 			<div className="mt-2 flex flex-1 flex-col justify-center gap-2.5">
 				{[78, 54, 90].map((pct, i) => (
 					<div key={i} className="flex items-center gap-2">
-						<span className="bg-muted h-3.5 w-3.5 shrink-0 rounded" />
+						<span className="bg-foreground/10 h-3.5 w-3.5 shrink-0 rounded" />
 						<WFBar w="28%" h={4} tone="soft" />
-						<div className="bg-muted ml-auto h-2 w-1/3 overflow-hidden rounded-full">
+						<div className="bg-foreground/10 ml-auto h-2 w-1/3 overflow-hidden rounded-full">
 							<div className="bg-foreground/55 h-full rounded-full" style={{ width: `${pct}%` }} />
 						</div>
 						<WFBar w={16} h={4} tone="mid" />

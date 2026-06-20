@@ -23,7 +23,7 @@ export function AiepHero({ label }: { label?: string }): ReactNode {
 			<div className="flex items-center gap-2 px-4 py-3">
 				<span className="bg-foreground/70 h-5 w-9 rounded-sm" />
 				<span className="bg-border h-4 w-px" />
-				<span className="bg-muted h-5 w-7 rounded-sm" />
+				<span className="bg-foreground/10 h-5 w-7 rounded-sm" />
 				{label ? (
 					<span className="text-muted-foreground ml-3 hidden truncate font-mono text-[0.625rem] tracking-[0.14em] uppercase md:inline">
 						{label}
@@ -120,7 +120,7 @@ function PollingGlyph({ className }: { className?: string }): ReactNode {
 				<div className="flex justify-between gap-2">
 					{clients.map((_, i) => (
 						<div key={i} className="border-border flex-1 rounded-md border py-1.5">
-							<span className="bg-muted mx-auto block h-1.5 w-3/5 rounded" />
+							<span className="bg-foreground/10 mx-auto block h-1.5 w-3/5 rounded" />
 						</div>
 					))}
 				</div>
@@ -145,7 +145,7 @@ function AdminGlyph({ className }: { className?: string }): ReactNode {
 					{[70, 38, 92].map((h, i) => (
 						<div key={i} className="flex flex-1 flex-col items-center gap-1">
 							<div className="bg-foreground/55 w-full rounded-t" style={{ height: `${h}%` }} />
-							<span className="bg-muted h-1.5 w-3 rounded" />
+							<span className="bg-foreground/10 h-1.5 w-3 rounded" />
 						</div>
 					))}
 				</div>
@@ -164,7 +164,7 @@ function QuestionGlyph({ className }: { className?: string }): ReactNode {
 				<WFBar w={14} h={4} tone="mid" />
 			</div>
 			{/* progress */}
-			<div className="bg-muted mt-2 h-1.5 w-full overflow-hidden rounded-full">
+			<div className="bg-foreground/10 mt-2 h-1.5 w-full overflow-hidden rounded-full">
 				<div className="bg-foreground/55 h-full w-1/3 rounded-full" />
 			</div>
 			<WFBar w="85%" h={6} tone="strong" className="mt-2.5" />
@@ -237,8 +237,8 @@ function RankingGlyph({ className }: { className?: string }): ReactNode {
 								i === 0 ? "bg-foreground/60" : "border-border border"
 							}`}
 						/>
-						<span className="bg-muted h-2 w-10 shrink-0 rounded" />
-						<div className="bg-muted h-2.5 flex-1 overflow-hidden rounded-full">
+						<span className="bg-foreground/10 h-2 w-10 shrink-0 rounded" />
+						<div className="bg-foreground/10 h-2.5 flex-1 overflow-hidden rounded-full">
 							<div className="bg-foreground/50 h-full rounded-full" style={{ width: `${w}%` }} />
 						</div>
 						<span className="bg-foreground/40 h-2 w-5 shrink-0 rounded" />

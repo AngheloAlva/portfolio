@@ -35,7 +35,7 @@ function CatalogoGlyph({ className }: { className?: string }): ReactNode {
 							key={i}
 							className="border-border flex flex-col overflow-hidden rounded-lg border"
 						>
-							<div className="bg-muted flex-1" />
+							<div className="bg-foreground/10 flex-1" />
 							<div className="flex flex-col gap-1 p-1.5">
 								<WFBar w="72%" h={4} tone="mid" />
 								<div className="flex items-center gap-1">
@@ -80,7 +80,7 @@ function CheckoutGlyph({ className }: { className?: string }): ReactNode {
 				<div className="mt-2 flex flex-1 flex-col justify-center gap-2">
 					{Array.from({ length: 3 }, (_, i) => (
 						<div key={i} className="flex items-center gap-2">
-							<span className="bg-muted h-5 w-5 shrink-0 rounded" />
+							<span className="bg-foreground/10 h-5 w-5 shrink-0 rounded" />
 							<WFBar w={`${38 + ((i * 9) % 22)}%`} h={4} tone="soft" />
 							<WFBar w={28} h={4} tone="mid" className="ml-auto" />
 						</div>
@@ -116,7 +116,7 @@ function PasarelasGlyph({ className }: { className?: string }): ReactNode {
 						>
 							{i === 0 ? <span className="bg-foreground/70 h-2 w-2 rounded-full" /> : null}
 						</span>
-						<span className="bg-muted h-6 w-10 shrink-0 rounded" />
+						<span className="bg-foreground/10 h-6 w-10 shrink-0 rounded" />
 						<WFBar w={`${42 + ((i * 11) % 24)}%`} h={4} tone={i === 0 ? "mid" : "soft"} />
 					</div>
 				))}
@@ -138,7 +138,7 @@ function TraduccionesGlyph({ className }: { className?: string }): ReactNode {
 							className={`flex h-6 items-center justify-center rounded-t-md border ${
 								i === 0
 									? "border-border bg-background border-b-transparent"
-									: "border-transparent bg-muted"
+									: "border-transparent bg-foreground/10"
 							}`}
 							style={{ width: "22%" }}
 						>

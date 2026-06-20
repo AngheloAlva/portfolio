@@ -69,7 +69,7 @@ function NoticiasGlyph({ className }: { className?: string }): ReactNode {
 				<WFBar w={50} h={6} tone="mid" />
 				<span className="border-border ml-auto flex h-5 items-center gap-1 rounded-full border px-1.5">
 					<span className="bg-foreground/50 h-1.5 w-1.5 rounded-full" />
-					<span className="bg-muted h-1.5 w-6 rounded" />
+					<span className="bg-foreground/10 h-1.5 w-6 rounded" />
 				</span>
 			</div>
 			<div className="mt-2 flex flex-1 flex-col">
@@ -80,7 +80,7 @@ function NoticiasGlyph({ className }: { className?: string }): ReactNode {
 							i < 2 ? "border-border border-b" : ""
 						}`}
 					>
-						<span className="bg-muted h-9 w-12 shrink-0 rounded" />
+						<span className="bg-foreground/10 h-9 w-12 shrink-0 rounded" />
 						<div className="flex flex-1 flex-col gap-1.5">
 							<WFBar w={`${65 + ((i * 9) % 25)}%`} h={4} tone="mid" />
 							<WFBar w="32%" h={3} tone="soft" />
@@ -167,7 +167,7 @@ function SeoGlyph({ className }: { className?: string }): ReactNode {
 							key={i}
 							className="border-border flex flex-1 items-center justify-center rounded-full border py-1"
 						>
-							<span className="bg-muted h-1.5 w-8 rounded" />
+							<span className="bg-foreground/10 h-1.5 w-8 rounded" />
 						</span>
 					))}
 				</div>

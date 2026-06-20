@@ -32,7 +32,7 @@ function CatalogoGlyph({ className }: { className?: string }): ReactNode {
 						key={i}
 						className="border-border flex flex-col overflow-hidden rounded-lg border"
 					>
-						<div className="bg-muted flex-1" />
+						<div className="bg-foreground/10 flex-1" />
 						<div className="flex flex-col gap-1.5 p-2">
 							<WFBar w={`${60 + ((i * 9) % 25)}%`} h={5} tone="mid" />
 							<div className="flex items-center gap-2">
@@ -54,7 +54,7 @@ function FichasGlyph({ className }: { className?: string }): ReactNode {
 	return (
 		<WFGlyphCard className={className}>
 			{/* Hero image with title overlay */}
-			<div className="bg-muted relative flex-1 overflow-hidden rounded-lg">
+			<div className="bg-foreground/10 relative flex-1 overflow-hidden rounded-lg">
 				<div className="absolute bottom-2 left-2 flex flex-col gap-1.5">
 					<WFBar w="6rem" h={8} tone="strong" />
 					<WFBar w="4rem" h={4} tone="mid" />
@@ -69,7 +69,7 @@ function FichasGlyph({ className }: { className?: string }): ReactNode {
 						className="border-border flex items-center gap-1 rounded-full border px-2 py-1"
 					>
 						<span className="bg-foreground/40 h-1.5 w-1.5 rounded-full" />
-						<span className="bg-muted h-1.5 w-7 rounded" />
+						<span className="bg-foreground/10 h-1.5 w-7 rounded" />
 					</span>
 				))}
 			</div>
@@ -107,7 +107,7 @@ function MultilingueGlyph({ className }: { className?: string }): ReactNode {
 					>
 						<span
 							className={`h-3.5 w-5 shrink-0 rounded-sm ${
-								i === 0 ? "bg-foreground/40" : "bg-muted"
+								i === 0 ? "bg-foreground/40" : "bg-foreground/10"
 							}`}
 						/>
 						<WFBar
