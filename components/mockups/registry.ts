@@ -1,5 +1,7 @@
 import { AiepHero, aiepFeatureGlyphs } from "@/components/mockups/aiep-pei"
 import { BusancHero, busancFeatureGlyphs } from "@/components/mockups/busanc"
+import { bzConsultingFeatureGlyphs } from "@/components/mockups/bz-consulting"
+import { caempFeatureGlyphs } from "@/components/mockups/caemp"
 import {
 	DashboardTurismoHero,
 	dashboardTurismoFeatureGlyphs,
@@ -40,6 +42,12 @@ const PROJECT_MOCKUPS: Record<string, ProjectMockup> = {
 	"dashboard-turismo": {
 		hero: DashboardTurismoHero,
 		features: dashboardTurismoFeatureGlyphs,
+	},
+	"bz-consulting": {
+		features: bzConsultingFeatureGlyphs,
+	},
+	"caemp": {
+		features: caempFeatureGlyphs,
 	},
 	"turismochiletours": {
 		features: turismochiletoursFeatureGlyphs,
