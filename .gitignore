@@ -46,3 +46,5 @@ next-env.d.ts
 
 # local planning docs
 /Estructura_Portafolio_Anghelo.md
+# Local AI runtime state
+.atl/
