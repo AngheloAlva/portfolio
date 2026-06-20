@@ -5,6 +5,8 @@ import {
 	dashboardTurismoFeatureGlyphs,
 } from "@/components/mockups/dashboard-turismo"
 import { Otc360Hero, otc360FeatureGlyphs } from "@/components/mockups/otc-360"
+import { turismochiletoursFeatureGlyphs } from "@/components/mockups/turismochiletours"
+import { toursanpedroatacamaFeatureGlyphs } from "@/components/mockups/toursanpedroatacama"
 import type { ReactNode } from "react"
 
 /**
@@ -38,6 +40,12 @@ const PROJECT_MOCKUPS: Record<string, ProjectMockup> = {
 	"dashboard-turismo": {
 		hero: DashboardTurismoHero,
 		features: dashboardTurismoFeatureGlyphs,
+	},
+	"turismochiletours": {
+		features: turismochiletoursFeatureGlyphs,
+	},
+	"toursanpedroatacama": {
+		features: toursanpedroatacamaFeatureGlyphs,
 	},
 }
 
