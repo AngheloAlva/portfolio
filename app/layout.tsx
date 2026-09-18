@@ -1,10 +1,15 @@
-import { Providers } from "@/components/providers"
+import { Geist, Geist_Mono } from "next/font/google"
+import { Analytics } from "@vercel/analytics/next"
+
+import { baseMetadata, siteConfig } from "@/lib/metadata"
+
 import { SkipToContent } from "@/components/skip-to-content"
 import { ThemeSwitch } from "@/components/theme-switch"
-import { baseMetadata, siteConfig } from "@/lib/metadata"
+import { Providers } from "@/components/providers"
+
 import type { Metadata, Viewport } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
 import type { ReactNode } from "react"
+
 import "./globals.css"
 
 const personWebSiteSchema = {
@@ -13,25 +18,22 @@ const personWebSiteSchema = {
 		{
 			"@type": "Person",
 			"@id": `${siteConfig.url}/#person`,
-			name: "Anghelo Alva",
-			url: siteConfig.url,
-			jobTitle: "Desarrollador Full Stack",
-			description: siteConfig.description,
-			sameAs: [
-				"https://www.linkedin.com/in/anghelo-alva/",
-				"https://github.com/AngheloAlva",
-			],
-			address: {
+			"name": "Anghelo Alva",
+			"url": siteConfig.url,
+			"jobTitle": "Desarrollador Full Stack",
+			"description": siteConfig.description,
+			"sameAs": ["https://www.linkedin.com/in/anghelo-alva/", "https://github.com/AngheloAlva"],
+			"address": {
 				"@type": "PostalAddress",
-				addressCountry: "CL",
+				"addressCountry": "CL",
 			},
 		},
 		{
 			"@type": "WebSite",
 			"@id": `${siteConfig.url}/#website`,
-			url: siteConfig.url,
-			name: siteConfig.name,
-			author: { "@id": `${siteConfig.url}/#person` },
+			"url": siteConfig.url,
+			"name": siteConfig.name,
+			"author": { "@id": `${siteConfig.url}/#person` },
 		},
 	],
 }
@@ -76,11 +78,13 @@ export default function RootLayout({
 				/>
 				<Providers>
 					<SkipToContent />
-					<div className="border-border mx-auto flex min-h-screen w-[calc(100%-1.5rem)] max-w-[1440px] flex-col border-x sm:w-[calc(100%-2.5rem)] lg:w-[calc(100%-3rem)]">
+					<div className="border-border mx-auto flex min-h-screen w-[calc(100%-1.5rem)] max-w-360 flex-col border-x sm:w-[calc(100%-2.5rem)] lg:w-[calc(100%-3rem)]">
 						{children}
 					</div>
 					<ThemeSwitch />
 				</Providers>
+
+				<Analytics />
 			</body>
 		</html>
 	)
