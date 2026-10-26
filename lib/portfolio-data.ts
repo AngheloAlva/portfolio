@@ -437,7 +437,7 @@ export const portfolioProjects: ProjectData[] = [
 		],
 		liveUrl: "https://turismochiletours.com/es",
 		gradientColor: "#D97706",
-		isFlagship: true,
+		isFlagship: false,
 		isProduction: true,
 		clientLogo: "/img/logos/turismochiletours.svg",
 		caseStudy: {
@@ -594,7 +594,7 @@ export const portfolioProjects: ProjectData[] = [
 		],
 		liveUrl: "https://toursanpedroatacama.com/",
 		gradientColor: "#D97706",
-		isFlagship: true,
+		isFlagship: false,
 		isProduction: true,
 		clientLogo: "/img/logos/turismochiletours.svg",
 		caseStudy: {
@@ -926,7 +926,7 @@ export const portfolioProjects: ProjectData[] = [
 		],
 		liveUrl: "https://bzconsulting.cl",
 		gradientColor: "#ea580c",
-		isFlagship: true,
+		isFlagship: false,
 		isProduction: true,
 		clientLogo: "/img/logos/bzconsulting.png",
 		caseStudy: {
@@ -1084,7 +1084,7 @@ export const portfolioProjects: ProjectData[] = [
 		],
 		liveUrl: "https://grupocaemp.cl",
 		gradientColor: "#0066b3",
-		isFlagship: true,
+		isFlagship: false,
 		isProduction: true,
 		clientLogo: "/img/logos/caemp.png",
 		caseStudy: {

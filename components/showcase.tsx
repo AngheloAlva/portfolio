@@ -54,6 +54,20 @@ const CARDS: ReadonlyArray<ShowcaseCard> = [
 		tags: ["Next.js 16", "NestJS", "Drizzle", "Turborepo"],
 	},
 	{
+		id: "dashboard-turismo",
+		title: "Dashboard\nTurismoChileTours",
+		Icon: LayoutDashboard,
+		body: "Dashboard interno multi-rol que reemplazó una Power Apps heredada: ventas, calendario operativo, caja, comisiones y migración de 3 años de datos.",
+		tags: ["Next.js 16", "Prisma", "Neon", "TanStack"],
+	},
+	{
+		id: "aiep-pei",
+		title: "Desafío PEI\nAIEP · tiempo real",
+		Icon: Gamepad2,
+		body: "Juego tipo Kahoot en tiempo real para evaluar el nuevo plan educativo de AIEP en un evento en vivo nacional, con 600-700 participantes simultáneos vía polling.",
+		tags: ["Next.js 15", "PostgreSQL", "Polling", "Vercel"],
+	},
+	{
 		id: "turismochiletours",
 		title: "TurismoChileTours\nSitio multilingüe",
 		Icon: Globe,
@@ -74,13 +88,6 @@ const CARDS: ReadonlyArray<ShowcaseCard> = [
 		image: "/projects/san-pedro-de-atacama.png",
 	},
 	{
-		id: "dashboard-turismo",
-		title: "Dashboard\nTurismoChileTours",
-		Icon: LayoutDashboard,
-		body: "Dashboard interno multi-rol que reemplazó una Power Apps heredada: ventas, calendario operativo, caja, comisiones y migración de 3 años de datos.",
-		tags: ["Next.js 16", "Prisma", "Neon", "TanStack"],
-	},
-	{
 		id: "bz-consulting",
 		title: "BZ Consulting\nSitio institucional",
 		Icon: Building2,
@@ -89,13 +96,6 @@ const CARDS: ReadonlyArray<ShowcaseCard> = [
 		href: "https://bzconsulting.cl",
 		hrefLabel: "Visitar sitio",
 		image: "/projects/bz-consulting.png",
-	},
-	{
-		id: "aiep-pei",
-		title: "Desafío PEI\nAIEP · tiempo real",
-		Icon: Gamepad2,
-		body: "Juego tipo Kahoot en tiempo real para evaluar el nuevo plan educativo de AIEP en un evento en vivo nacional, con 600-700 participantes simultáneos vía polling.",
-		tags: ["Next.js 15", "PostgreSQL", "Polling", "Vercel"],
 	},
 	{
 		id: "caemp",
@@ -109,12 +109,20 @@ const CARDS: ReadonlyArray<ShowcaseCard> = [
 	},
 ]
 
-export function Showcase(): ReactNode {
+export function Showcase({
+	flagshipIds,
+}: {
+	/** Projects with a full case study, shown in the main carousel. The rest render as compact cards. */
+	flagshipIds: ReadonlyArray<string>
+}): ReactNode {
+	const featured = CARDS.filter((card) => flagshipIds.includes(card.id))
+	const secondary = CARDS.filter((card) => !flagshipIds.includes(card.id))
 	const [activeId, setActiveId] = useState<string | null>(null)
 	const trackRef = useRef<HTMLDivElement | null>(null)
 	const [page, setPage] = useState(0)
 	const [pageCount, setPageCount] = useState(1)
 	const headingId = useId()
+	const secondaryHeadingId = useId()
 
 	const recompute = useCallback(() => {
 		const track = trackRef.current
@@ -216,7 +224,7 @@ export function Showcase(): ReactNode {
 						ref={trackRef}
 						className="flex snap-x snap-mandatory scroll-pl-6 scrollbar-none items-stretch gap-4 overflow-x-auto scroll-smooth px-6 py-16 [-ms-overflow-style:none] sm:scroll-pl-10 sm:gap-6 sm:px-10 sm:py-20 lg:scroll-pl-14 lg:px-14 lg:py-24 [&::-webkit-scrollbar]:hidden"
 					>
-						{CARDS.map((card, index) => (
+						{featured.map((card, index) => (
 							<Card
 								key={card.id}
 								card={card}
@@ -264,6 +272,26 @@ export function Showcase(): ReactNode {
 					</div>
 				</div>
 			</div>
+
+			{secondary.length > 0 ? (
+				<div
+					aria-labelledby={secondaryHeadingId}
+					role="region"
+					className="border-border border-t px-6 py-12 sm:px-10 sm:py-14 lg:px-14 lg:py-16"
+				>
+					<h3
+						id={secondaryHeadingId}
+						className="text-muted-foreground font-mono text-xs font-medium tracking-[0.16em] uppercase"
+					>
+						Sitios web para clientes
+					</h3>
+					<ul className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
+						{secondary.map((card) => (
+							<CompactCard key={card.id} card={card} />
+						))}
+					</ul>
+				</div>
+			) : null}
 
 			<AnimatePresence>
 				{activeCard ? (
@@ -378,6 +406,47 @@ function Card({
 				</motion.span>
 			</div>
 		</motion.button>
+	)
+}
+
+/** Shorter card for projects outside the main carousel: preview, two-line title, summary and links. */
+function CompactCard({ card }: { card: ShowcaseCard }): ReactNode {
+	const [name, kind] = card.title.split("\n")
+	return (
+		<li className="bg-muted flex flex-col rounded-2xl p-5 sm:p-6">
+			<CardPreview id={card.id} title={card.title} image={card.image} />
+			<div className="mt-5 flex flex-1 flex-col">
+				{kind ? (
+					<p className="text-muted-foreground font-mono text-[0.6875rem] font-medium tracking-[0.16em] uppercase">
+						{kind}
+					</p>
+				) : null}
+				<h4 className="text-foreground mt-2 text-lg leading-tight font-medium tracking-tight">
+					{name}
+				</h4>
+				<p className="text-muted-foreground mt-3 text-sm leading-relaxed">{card.body}</p>
+				<div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 pt-6">
+					<Link
+						href={`/proyectos/${card.id}`}
+						className="focus-ring text-foreground inline-flex items-center gap-1.5 rounded-sm text-xs font-semibold tracking-[0.12em] uppercase underline-offset-4 hover:underline"
+					>
+						Ver caso
+						<span aria-hidden="true">→</span>
+					</Link>
+					{card.href ? (
+						<a
+							href={card.href}
+							target="_blank"
+							rel="noreferrer"
+							className="focus-ring text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 rounded-sm text-xs font-semibold tracking-[0.12em] uppercase transition-colors"
+						>
+							{card.hrefLabel ?? "Visitar"}
+							<span aria-hidden="true">↗</span>
+						</a>
+					) : null}
+				</div>
+			</div>
+		</li>
 	)
 }
 

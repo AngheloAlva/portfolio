@@ -12,6 +12,7 @@ import { Stack } from "@/components/stack"
 import { Reveal } from "@/components/reveal"
 import { SectionCorners } from "@/components/section-corners"
 import { Showcase } from "@/components/showcase"
+import { portfolioProjects } from "@/lib/portfolio-data"
 import { Download } from "lucide-react"
 import type { ReactNode } from "react"
 
@@ -133,7 +134,7 @@ export default function HomePage(): ReactNode {
 				</Reveal>
 
 				<Reveal>
-					<Showcase />
+					<Showcase flagshipIds={portfolioProjects.filter((p) => p.isFlagship).map((p) => p.id)} />
 				</Reveal>
 				<Reveal>
 					<Experience />
