@@ -7,6 +7,7 @@ import {
 	dashboardTurismoFeatureGlyphs,
 } from "@/components/mockups/dashboard-turismo"
 import { Otc360Hero, otc360FeatureGlyphs } from "@/components/mockups/otc-360"
+import { Otc360Flow } from "@/components/mockups/otc-360-flow"
 import { turismochiletoursFeatureGlyphs } from "@/components/mockups/turismochiletours"
 import { toursanpedroatacamaFeatureGlyphs } from "@/components/mockups/toursanpedroatacama"
 import type { ReactNode } from "react"
@@ -24,12 +25,20 @@ export interface ProjectMockup {
 	hero?: (props: { label?: string }) => ReactNode
 	/** Feature glyphs keyed by the exact `feature.title`. */
 	features?: Record<string, (props: { className?: string }) => ReactNode>
+	/** Optional walkthrough of how work moves through the system, shown after "La solución". */
+	flow?: { title: string; intro: string; Component: () => ReactNode }
 }
 
 const PROJECT_MOCKUPS: Record<string, ProjectMockup> = {
 	"otc-360": {
 		hero: Otc360Hero,
 		features: otc360FeatureGlyphs,
+		flow: {
+			title: "Cómo fluye una OT",
+			intro:
+				"OTC 360 conecta al equipo de OTC con las empresas contratistas en un mismo flujo. Así avanza una orden de trabajo, desde que nace hasta que se cierra.",
+			Component: Otc360Flow,
+		},
 	},
 	"aiep-pei": {
 		hero: AiepHero,

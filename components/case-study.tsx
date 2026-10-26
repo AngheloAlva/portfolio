@@ -238,6 +238,22 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
 				<ParagraphBlocks blocks={cs.solution} />
 			</EditorialSection>
 
+			{/* Flujo */}
+			{mockup?.flow ? (
+				<Reveal>
+					<section className="border-border relative border-b p-6 sm:p-10 lg:p-14">
+						<SectionHeading>{mockup.flow.title}</SectionHeading>
+						<p className="text-muted-foreground mt-6 max-w-2xl text-sm leading-relaxed sm:text-base">
+							{mockup.flow.intro}
+						</p>
+						<div className="mt-10">
+							<mockup.flow.Component />
+						</div>
+						<SectionCorners />
+					</section>
+				</Reveal>
+			) : null}
+
 			{/* Métricas */}
 			{cs.metrics.length > 0 ? (
 				<Reveal>
