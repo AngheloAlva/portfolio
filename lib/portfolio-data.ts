@@ -1,3 +1,11 @@
+/** Meses completos transcurridos desde una fecha (se calcula en cada build/deploy). */
+function monthsSince(year: number, month: number): number {
+	const now = new Date()
+	return (now.getFullYear() - year) * 12 + (now.getMonth() + 1 - month)
+}
+
+const OTC_MONTHS = monthsSince(2025, 4)
+
 export interface CaseStudyMetric {
 	value: string
 	label: string
@@ -104,8 +112,6 @@ export const portfolioProjects: ProjectData[] = [
 			"React PDF",
 			"Zod",
 		],
-		liveUrl: "https://is-360.vercel.app/",
-		liveUrlLabel: "Ver demo",
 		gradientColor: "#0f766e",
 		isFlagship: true,
 		isProduction: true,
@@ -126,16 +132,11 @@ export const portfolioProjects: ProjectData[] = [
 			solution: [
 				"OTC 360 unifica el ciclo completo de trabajo en una sola plataforma web, accesible tanto para el equipo interno como para las empresas contratistas externas. Cada solicitud, orden, permiso y plan de mantenimiento vive en el mismo sistema, con la documentación de respaldo asociada y los actores correctamente identificados.",
 				"La plataforma integra cerca de 20 módulos que cubren toda la operación end-to-end: gestión de equipos y ubicaciones con jerarquía, órdenes de trabajo, permisos, planes de mantenimiento preventivo, programación visual tipo Gantt, control de contratistas, indicadores y reportería, auditoría y trazabilidad, entre otros. Todo conectado nativamente — sin integraciones frágiles, sin planillas paralelas, sin exportar datos para analizarlos afuera.",
-				"Hoy la plataforma la usan en promedio decenas de personas al día, con peaks de ~80 usuarios en una jornada alta, mezclando staff de OTC y contratistas externos en el mismo flujo.",
+				"Hoy la usan a diario el equipo de OTC y las empresas contratistas en el mismo flujo, y en las semanas de mayor actividad ha llegado a 96 usuarios en un solo día.",
 			],
 			architectureDescription:
 				"Frontend en Next.js con TypeScript estricto, autenticación por sesión con Better Auth, persistencia en PostgreSQL vía Prisma, almacenamiento de documentos en Azure Blob Storage —aprovechando el tenant Microsoft que el cliente ya tenía— y generación de PDFs server-side para reportes y permisos. El módulo de indicadores se construye con Recharts a partir de queries SQL que cruzan OTs, planes y solicitudes en vivo.",
 			techStackDetailed: [
-				{
-					name: "Next.js + TypeScript",
-					reason:
-						"App Router para mezclar páginas server-rendered (listados grandes, dashboards) con interacciones cliente, y tipos estrictos en cada capa para reducir bugs en una operación crítica.",
-				},
 				{
 					name: "Prisma + PostgreSQL",
 					reason:
@@ -152,24 +153,9 @@ export const portfolioProjects: ProjectData[] = [
 						"OTC ya operaba sobre tenant Microsoft, así que la documentación de carpetas de arranque queda dentro del mismo dominio de seguridad y respaldo del cliente.",
 				},
 				{
-					name: "TanStack Query",
-					reason:
-						"Cache, revalidación e invalidaciones quirúrgicas para tablas grandes de OTs y permisos que se editan concurrentemente entre internos y contratistas.",
-				},
-				{
-					name: "Recharts",
-					reason:
-						"Gráficos componibles para el módulo de indicadores, que se arma dinámicamente cruzando OTs, planes de mantenimiento y solicitudes.",
-				},
-				{
 					name: "React PDF + Zod",
 					reason:
 						"Permisos y reportes oficiales generados server-side a partir de datos validados extremo a extremo, listos para imprimir o adjuntar.",
-				},
-				{
-					name: "Zustand",
-					reason:
-						"Estado UI ligero (filtros activos, vistas, drawers) sin acoplar a la capa de datos remota.",
 				},
 			],
 			features: [
@@ -206,14 +192,14 @@ export const portfolioProjects: ProjectData[] = [
 			],
 			metrics: [
 				{
-					value: "~80",
-					label: "usuarios en día pico",
-					caption: "Equipo interno + contratistas externos",
+					value: "96",
+					label: "usuarios en un día peak",
+					caption: "Máximo registrado (octubre 2026), entre equipo interno y contratistas.",
 				},
 				{
 					value: "100+",
 					label: "OTs por mes",
-					caption: "Promedio reciente (enero–abril 2026)",
+					caption: "Promedio de los meses recientes.",
 				},
 				{
 					value: "20",
@@ -221,7 +207,7 @@ export const portfolioProjects: ProjectData[] = [
 					caption: "OTs, carpetas, permisos, planes, solicitudes, indicadores",
 				},
 				{
-					value: "13+ meses",
+					value: `${OTC_MONTHS} meses`,
 					label: "en producción continua",
 					caption: "Operación desde abril 2025",
 				},
@@ -257,7 +243,7 @@ export const portfolioProjects: ProjectData[] = [
 				},
 				{
 					date: "Hoy",
-					title: "13+ meses en operación",
+					title: `${OTC_MONTHS} meses en operación`,
 					description:
 						"Soporte continuo, iteración de funcionalidades y crecimiento gradual de usuarios y módulos en uso.",
 					icon: "current",
@@ -292,16 +278,15 @@ export const portfolioProjects: ProjectData[] = [
 		],
 		gradientColor: "#1447e6",
 		isFlagship: true,
-		isProduction: true,
+		isProduction: false,
 		clientLogo: "/img/logos/busanc.avif",
 		caseStudy: {
 			visualPrivacy: "confidential-ui",
 			pitch:
 				"Una plataforma a medida que digitaliza y orquesta el flujo end-to-end de una empresa industrial: desde que Comercial recibe el requerimiento del cliente hasta que Despacho genera la guía. Reemplaza un ecosistema fragmentado de Excel, correos y una intranet legada por un único sistema con trazabilidad, paralelismo entre áreas y visibilidad operativa real.",
 			duration:
-				"≈8 meses de desarrollo activo (kickoff octubre 2025 → marcha blanca abril 2026), con levantamiento en terreno en las instalaciones de Busanc en Chile durante toda la fase de descubrimiento.",
-			inProductionSince:
-				"En marcha blanca desde abril 2026 (segundo mes) con un usuario activo por área validando flujos. Salida a producción real estimada: junio 2026.",
+				"≈8 meses de desarrollo (octubre 2025 – mayo 2026), con levantamiento en terreno en las instalaciones de Busanc durante toda la fase de descubrimiento.",
+			inProductionSince: "Junio 2026",
 			clientName: "Busanc",
 			clientIndustry:
 				"Industria minera — fabricación de productos antidesgaste para procesos de extracción y obtención de minerales.",
@@ -315,16 +300,11 @@ export const portfolioProjects: ProjectData[] = [
 				"La plataforma unifica el flujo completo con un modelo componente-céntrico: cada componente comprado de un proyecto avanza independientemente por sus etapas productivas, con su propia Orden de Trabajo, plantilla de proceso y métricas de tiempo. Esto reemplaza el flujo lineal antiguo que obligaba a esperar a que todo el proyecto pasara de un área a otra.",
 				'El cambio estructural más importante es el trabajo en paralelo entre Ingeniería, Hispana (proveedor metálico interno) y Evaluación & Costos: a medida que Ingeniería va guardando componentes, las áreas siguientes pueden ir trabajando sobre ellos sin esperar el cierre completo de la etapa anterior. Cada área tiene acciones explícitas de "Guardar" (avance parcial) y "Cerrar" (etapa terminada), con reglas de dependencia que impiden cierres prematuros. Esto reduce dramáticamente los tiempos de cotización y permite a Comercial dar fechas estimadas reales al cliente.',
 				'El sistema cubre 24+ módulos de negocio: SC y Solicitudes de Levantamiento, proyectos jerárquicos con códigos correlativos y versionamiento (R1, R2, …), catálogo de materiales y productos comerciales reutilizables, cotizaciones con descuentos y multimoneda (CLP/UF/USD), revisión de Orden de Compra en dos pasos, planificación con plantillas de proceso configurables, dashboard de capacidad por área, módulos productivos dedicados (Metálico, Goma, Pintura, Calidad, Bodega), guías de despacho con soporte parcial/consolidado e historial de proyectos para recotización. Una capa transversal de Activity Log inmutable registra cada acción del sistema — la regla operativa del proyecto es "lo que no está en el sistema, no existe".',
-				"Está dimensionado para escalar de los ~6 usuarios actuales en marcha blanca a ~32 usuarios concurrentes una vez en producción plena, con potencial de crecimiento conforme se integren más áreas operativas y dashboards gerenciales.",
+				"La plataforma pasó por una marcha blanca en abril y mayo de 2026, con un usuario por área validando los flujos contra la operación real, y salió a producción en junio de 2026.",
 			],
 			architectureDescription:
 				"Monorepo Turborepo con dos aplicaciones principales: frontend Next.js 16 (App Router, React 19) y backend NestJS 11 con arquitectura modular por dominio (cada módulo posee su propio schema.ts de Drizzle, service.ts, controller.ts y DTOs). Base de datos PostgreSQL en Azure, almacenamiento de planos y documentos en Azure Blob Storage (con planos en modo solo-visualización para prevenir fugas), autenticación JWT con Passport y triple guarda global a nivel backend: JwtAuthGuard + RolesGuard + PermissionsGuard para RBAC granular. Todas las fechas se persisten y muestran en horario de Chile (GMT-3). El frontend usa TanStack Query para estado servidor, TanStack Form + Zod para validación, TanStack Table para grids complejos, Jotai/Zustand para estado local atómico y @react-pdf/renderer para generar cotizaciones, guías y reportes en el navegador.",
 			techStackDetailed: [
-				{
-					name: "Next.js 16 (App Router)",
-					reason:
-						"Necesitábamos un framework que escalara a 24+ módulos manteniendo navegación rápida y server components donde tuviera sentido. App Router nos dio layouts anidados naturales para una app con sidebar persistente y muchos sub-flujos.",
-				},
 				{
 					name: "NestJS 11",
 					reason:
@@ -334,11 +314,6 @@ export const portfolioProjects: ProjectData[] = [
 					name: "Drizzle ORM + PostgreSQL",
 					reason:
 						"Drizzle nos dio tipado de extremo a extremo sin la pesadez de Prisma ni perder cercanía al SQL real. Cada módulo del backend define su propio schema.ts y Drizzle los glob-colecta — coherente con la arquitectura por dominio.",
-				},
-				{
-					name: "TanStack Query v5",
-					reason:
-						"El flujo entre áreas implica que el mismo dato cambia desde muchas pantallas (Comercial guarda, Ingeniería invalida, Hispana refetcha). El cache invalidation declarativo nos ahorró mucha gimnasia.",
 				},
 				{
 					name: "TanStack Form + Zod",
@@ -353,12 +328,7 @@ export const portfolioProjects: ProjectData[] = [
 				{
 					name: "Azure (Postgres + Blob Storage)",
 					reason:
-						"Recomendación nuestra para consolidar toda la app en un solo cloud y simplificar facturación, seguridad y soporte. Blob Storage encaja perfecto para planos pesados con control de acceso por URL firmada. El despliegue definitivo aún se está evaluando — podría quedar 100% en Azure o partir el frontend en Vercel.",
-				},
-				{
-					name: "shadcn/ui + Tailwind CSS 4",
-					reason:
-						"Necesitábamos un sistema de componentes accesible (Radix) que pudiéramos modificar sin pelear con una librería opinada. shadcn nos dio velocidad de partida y control total del diseño industrial sobrio que pide el rubro.",
+						"Recomendación nuestra para consolidar toda la app en un solo cloud y simplificar facturación, seguridad y soporte. Blob Storage encaja perfecto para planos pesados con control de acceso por URL firmada.",
 				},
 			],
 			features: [
@@ -395,24 +365,14 @@ export const portfolioProjects: ProjectData[] = [
 			],
 			metrics: [
 				{
-					value: "~32",
-					label: "usuarios concurrentes proyectados",
-					caption: "Producción plena (~6 activos hoy en marcha blanca). Estimado del cliente.",
-				},
-				{
 					value: "24+",
 					label: "módulos de negocio integrados",
 					caption: "Cubren desde SC hasta despacho y almacenamiento.",
 				},
 				{
 					value: "10",
-					label: "roles con RBAC granular",
+					label: "roles con permisos granulares",
 					caption: "Permisos por rol + por usuario, con guards globales en backend.",
-				},
-				{
-					value: "100%",
-					label: "trazabilidad de acciones",
-					caption: "Activity Log inmutable cubre cada cambio de estado, edición y transición.",
 				},
 			],
 			timeline: [
@@ -441,15 +401,14 @@ export const portfolioProjects: ProjectData[] = [
 					date: "Abril 2026",
 					title: "Marcha blanca",
 					description:
-						"Plataforma en uso por un usuario activo de cada área (~6 personas), validando flujos reales contra operación cotidiana. Iteración basada en feedback.",
+						"Un usuario activo por área validando los flujos contra la operación diaria, con iteraciones según su feedback.",
 					icon: "beta",
-					isCurrent: true,
 				},
 				{
 					date: "Junio 2026",
 					title: "Salida a producción",
 					description:
-						"Onboarding de los ~32 usuarios productivos y operación plena del sistema como reemplazo del flujo de Excel + correos. Estimado.",
+						"La plataforma reemplazó el flujo de Excel, correos e intranet en la operación del cliente.",
 					icon: "launch",
 				},
 			],
@@ -527,16 +486,6 @@ export const portfolioProjects: ProjectData[] = [
 					reason:
 						"Correos transaccionales bien renderizados sin montar SMTP propio. Las plantillas se escriben como componentes React, así que los emails comparten estilo con el sitio.",
 				},
-				{
-					name: "GSAP + Embla Carousel",
-					reason:
-						"Animaciones de scroll y carruseles performantes en móvil, controlados finamente desde React con @gsap/react.",
-				},
-				{
-					name: "Vercel",
-					reason:
-						"Despliegue inmediato, edge cache para audiencia internacional repartida y previews por PR; barato y suficiente para una web institucional sin backend pesado.",
-				},
 			],
 			features: [
 				{
@@ -575,16 +524,6 @@ export const portfolioProjects: ProjectData[] = [
 					value: "4",
 					label: "idiomas soportados",
 					caption: "Español, inglés, francés y portugués brasilero.",
-				},
-				{
-					value: "4",
-					label: "programas multi-día publicados",
-					caption: "3 días, 4 días, 5 días y luna de miel.",
-				},
-				{
-					value: "2",
-					label: "formularios calificados",
-					caption: "Tours privados y postulación laboral, con notificación por correo.",
 				},
 				{
 					value: "100%",
@@ -701,11 +640,6 @@ export const portfolioProjects: ProjectData[] = [
 						"Los textos de UI viven en next-intl, pero el contenido del catálogo (nombres, descripciones, itinerarios) vive en tablas dedicadas por idioma. Así el admin edita las cuatro versiones sin tocar archivos de mensajes.",
 				},
 				{
-					name: "TanStack Query + Table",
-					reason:
-						"El panel admin tiene mucho CRUD con filtros, paginación y mutaciones. Query maneja caché y estado de servidor sin boilerplate; Table cubre las grillas grandes (excursiones, reservas, blog).",
-				},
-				{
 					name: "Cloudinary",
 					reason:
 						"Las excursiones tienen galerías pesadas. Cloudinary entrega transformaciones (formato, tamaño, calidad) on-the-fly sin procesar imágenes en el deploy.",
@@ -714,11 +648,6 @@ export const portfolioProjects: ProjectData[] = [
 					name: "@react-pdf/renderer",
 					reason:
 						"Los vouchers se generan como PDF desde el mismo runtime, sin servicios externos, manteniendo el branding del sitio en el comprobante.",
-				},
-				{
-					name: "Jose (JWT) + middleware",
-					reason:
-						"Auth admin propio y simple — sin terceros, sin costos extra, suficiente para un panel de un solo equipo.",
 				},
 			],
 			features: [
@@ -763,11 +692,6 @@ export const portfolioProjects: ProjectData[] = [
 					value: "4",
 					label: "idiomas con traducción a nivel DB",
 					caption: "Español, inglés, francés y portugués brasilero.",
-				},
-				{
-					value: "17",
-					label: "excursiones publicadas",
-					caption: "Cifra de catálogo actual.",
 				},
 				{
 					value: "2",
@@ -845,20 +769,20 @@ export const portfolioProjects: ProjectData[] = [
 			duration:
 				"≈7 meses, octubre 2025 – mayo 2026, con scope creciente: surgieron mejoras durante el camino que extendieron el cronograma original.",
 			inProductionSince:
-				"Junio 2026 (previsto) — actualmente en UAT con el jefe y operadoras como usuarios reales.",
+				"Junio 2026 — reemplazó por completo a la Power Apps en la operación diaria.",
 			clientName: "TurismoChileTours",
 			clientIndustry: "Turismo · Tour operador en San Pedro de Atacama, Chile",
 			problem: [
 				"La empresa operaba sobre una Power Apps heredada usada por el jefe y las operadoras: cubría lo básico (ventas, cotizaciones, traspasos, pasajeros y tours), pero con controles nativos pensados para uso casual, no para un equipo que pasa horas adentro. La UX y la búsqueda eran tediosas, las validaciones débiles, sin auditoría real y con poca garantía de integridad referencial.",
 				"Encima, faltaban módulos clave que la operación ya necesitaba pero no tenía dónde vivir: calendario operativo visual, recepciones de pasajeros en hoteles, validaciones estrictas con auditoría, búsqueda y edición rápida con filtros server-side, permisos granulares por módulo y exportes operativos (hoja de ruta diaria, planillas administrativas).",
-				"La Power Apps además era 11 años de operación (2015–2026) viviendo sobre Microsoft Lists, con esquema inconsistente, columnas agregadas y renombradas a lo largo del tiempo, y referencias entre listas mantenidas a mano. Migrar al dominio normalizado de Postgres no era un volcado directo: requería un proceso explícito de extracción, limpieza y normalización por períodos.",
+				"La Power Apps además acumulaba 3 años de operación (2023–2026) sobre Microsoft Lists, con esquema inconsistente, columnas agregadas y renombradas a lo largo del tiempo, y referencias entre listas mantenidas a mano. Migrar al dominio normalizado de Postgres no era un volcado directo: requería un proceso explícito de extracción, limpieza y normalización por períodos.",
 			],
 			solution: [
 				"La nueva web cubre todos los flujos que estaban atrapados (ventas, pasajeros, traspasos, tours, asignación de operadores) con UX moderna, tablas virtualizadas, filtros server-side y formularios reactivos con validación Zod compartida cliente/servidor.",
 				"Suma flujos nuevos que la Power Apps no soportaba: calendario de eventos con drag-and-drop y validación de conflictos en servidor, módulo de recepciones, facturación mayorista, comisiones, flujo de caja con múltiples divisas (CLP/USD), analytics y alertas, aprobaciones y exportes PDF/Excel por día / rango / selección.",
 				"El dashboard es un sistema independiente del sitio corporativo y del ecommerce de San Pedro: repos y bases de datos completamente separados. Es la tercera pieza del ecosistema digital del cliente, pero no comparte modelo de datos con las otras dos — cada plataforma tiene su propia responsabilidad y su propio ciclo de vida.",
 				"Sistema de roles con permisos por módulo (RoleModulePermission). Perfiles típicos: administración (jefe), operadoras (ventas, cotizaciones, recepciones, traspasos, asignación de operadores). Cada rol ve solo los módulos que necesita.",
-				"Migración de 11 años de data en tres pasos: extracción de las Microsoft Lists conectadas a la Power Apps a un Excel maestro, limpieza y normalización en un segundo Excel derivado (tipos, referencias reconciliadas, mapeo a Prisma) e importación por períodos con un script Node que validó cada lote contra el schema Zod compartido.",
+				"Migración de 3 años de data en tres pasos: extracción de las Microsoft Lists conectadas a la Power Apps a un Excel maestro, limpieza y normalización en un segundo Excel derivado (tipos, referencias reconciliadas, mapeo a Prisma) e importación por períodos con un script Node que validó cada lote contra el schema Zod compartido.",
 			],
 			architectureDescription:
 				'Aplicación Next.js 16 con App Router, Server Actions como capa de mutación (sin API routes salvo casos puntuales) y React Server Components por defecto. La organización sigue clean architecture por feature ("screaming architecture"): cada dominio vive en src/project/{domain}/ con su actions/, components/, schemas/, types/ y columns/. 22 módulos de dominio (ventas, eventos, calendario, caja, comisiones, proveedores, etc.) y 40+ modelos Prisma con 49+ migraciones. Persistencia en PostgreSQL (Neon) vía Prisma 7. Auth con Better Auth 1.4 (email + password) y permisos granulares por módulo modelados en DB. Tablas y filtros server-side con TanStack Table + paginación cursor-based; formularios con TanStack Form + Zod; estado de servidor con TanStack Query. Archivos (vouchers, PDFs, imágenes) en Vercel Blob; emails transaccionales con Resend + React Email. Exportes generados client-side con @react-pdf/renderer y ExcelJS, importados dinámicamente para no inflar el bundle. Deploy en Vercel con Turbopack y React Compiler. Workflow de desarrollo con SDD (Spec-Driven Development).',
@@ -867,11 +791,6 @@ export const portfolioProjects: ProjectData[] = [
 					name: "Next.js 16 (App Router + Server Actions)",
 					reason:
 						"Necesitábamos formularios pesados con validación server-side y mutaciones transaccionales (venta + pasajeros + eventos en un solo flujo). Server Actions evitan armar una API REST paralela y mantienen todo type-safe end-to-end.",
-				},
-				{
-					name: "React 19 + React Compiler",
-					reason:
-						"El dashboard tiene tablas grandes y filtros reactivos; el compiler memoiza automáticamente sin tener que ensuciar el código con useMemo/useCallback en cada handler.",
 				},
 				{
 					name: "Prisma 7 + PostgreSQL (Neon)",
@@ -884,21 +803,6 @@ export const portfolioProjects: ProjectData[] = [
 						"Necesitaba permisos por módulo, no solo roles. Better Auth es lo bastante flexible para modelar RoleModulePermission sin pelearse con un provider rígido tipo NextAuth.",
 				},
 				{
-					name: "TanStack Table + Virtual",
-					reason:
-						"Listados de ventas/pasajeros con cientos de filas y filtros combinados. Virtualización + columnas tipadas + paginación server-side fueron requisito desde el día uno.",
-				},
-				{
-					name: "TanStack Form + Zod 4",
-					reason:
-						"Formularios largos (venta multicanal, evento con N pasajeros) con validación compartida cliente/servidor. Un solo schema Zod corre en ambos lados.",
-				},
-				{
-					name: "shadcn/ui + Tailwind 4 + Radix",
-					reason:
-						"Control total sobre los componentes (los copiamos al repo), accesibilidad de Radix y Tailwind 4 con theming vía CSS vars para soporte oscuro/claro sin librería de themes.",
-				},
-				{
 					name: "DnD Kit",
 					reason:
 						"Calendario de eventos con drag-and-drop accesible por teclado y un único DndContext compartido entre las vistas mes / semana / día.",
@@ -907,21 +811,6 @@ export const portfolioProjects: ProjectData[] = [
 					name: "@react-pdf/renderer + ExcelJS",
 					reason:
 						"Exportes operativos (hojas de ruta del día, planillas para administración) generados client-side y descargables al toque. Dynamic import para no cargar las libs hasta que el usuario abre el menú de exportar.",
-				},
-				{
-					name: "MapLibre GL",
-					reason:
-						"Visualización geográfica de rutas/tours sin lock-in con Mapbox ni costos por load.",
-				},
-				{
-					name: "Resend + React Email",
-					reason:
-						"Emails transaccionales (vouchers, confirmaciones) con templates en JSX, deliverability decente y SDK Node simple.",
-				},
-				{
-					name: "Vercel Blob + Vercel hosting",
-					reason:
-						"Vouchers PDF y fotos de tours sin infra extra; deploys por PR con preview URLs e integración nativa con Neon branching.",
 				},
 			],
 			features: [
@@ -946,9 +835,9 @@ export const portfolioProjects: ProjectData[] = [
 						"San Pedro funciona como un ecosistema chico de agencias que se pasan pasajeros entre sí. Dos módulos hermanos resuelven el flujo: Recepciones registra pasajeros recibidos de otras agencias y los inserta en el calendario operativo como cualquier venta (voucher, evento, hoja de ruta); Traspasos manda pasajeros propios a otra agencia con voucher de traspaso, dejando rastro de qué venta original derivó qué pasajero a qué destino. Antes vivía en WhatsApp y Excel — ahora es un canal B2B operable con auditoría.",
 				},
 				{
-					title: "Migración de 11 años de data",
+					title: "Migración de 3 años de data",
 					description:
-						"Extracción de Microsoft Lists (2015–2026) a Excel maestro, normalización y reconciliación de referencias en un Excel derivado, y carga por períodos con un script Node que valida cada lote contra el schema Zod compartido con la app antes de tocar producción.",
+						"Extracción de Microsoft Lists (2023–2026) a Excel maestro, normalización y reconciliación de referencias en un Excel derivado, y carga por períodos con un script Node que valida cada lote contra el schema Zod compartido con la app antes de tocar producción.",
 				},
 			],
 			metrics: [
@@ -958,14 +847,15 @@ export const portfolioProjects: ProjectData[] = [
 					caption: "Carpetas en src/project/ (ventas, eventos, caja, comisiones, …).",
 				},
 				{
-					value: "11 años",
+					value: "3 años",
 					label: "de data histórica migrada",
-					caption: "2015–2026 desde Microsoft Lists a Postgres por períodos.",
+					caption: "2023–2026, desde Microsoft Lists a Postgres por períodos.",
 				},
 				{
 					value: "~3 min → ~45 s",
 					label: "registrar una venta multicanal",
-					caption: "Estimación UAT vs Power Apps — menos pantallazos, validación inline.",
+					caption:
+						"Estimación medida en UAT frente a la Power Apps: menos pantallas y validación en línea.",
 				},
 				{
 					value: "3 → 1",
@@ -992,15 +882,23 @@ export const portfolioProjects: ProjectData[] = [
 					date: "Mayo 2026",
 					title: "UAT con usuarios reales",
 					description:
-						"En curso con el jefe y operadoras. Migración de data histórica 2015–2026 desde Microsoft Lists corriendo en paralelo.",
-					icon: "current",
-					isCurrent: true,
+						"Pruebas con el jefe y las operadoras, con la migración de la data histórica 2023–2026 corriendo en paralelo.",
+					icon: "beta",
 				},
 				{
 					date: "Junio 2026",
-					title: "Lanzamiento previsto",
-					description: "Salida a producción tras cierre de UAT y carga final de data histórica.",
+					title: "Lanzamiento a producción",
+					description:
+						"Cierre de UAT, carga final de la data histórica y reemplazo de la Power Apps.",
 					icon: "launch",
+				},
+				{
+					date: "Hoy",
+					title: "En producción",
+					description:
+						"Sistema de uso diario para ventas, operaciones y administración, con soporte y mejoras continuas.",
+					icon: "current",
+					isCurrent: true,
 				},
 			],
 		},
@@ -1072,16 +970,6 @@ export const portfolioProjects: ProjectData[] = [
 						"Multilenguaje con URLs traducidas por locale (/empresa ↔ /company, /noticias ↔ /news), routing transparente y soporte para contenido bilingüe a nivel collection. SEO limpio en ambos idiomas sin duplicar páginas a mano.",
 				},
 				{
-					name: "React 18 (solo en islas)",
-					reason:
-						"Astro permite hidratar React solo donde hace falta. En este sitio, React se carga únicamente para el formulario de contacto, el selector de idioma y el carrusel — el resto es HTML puro. Menos JS shipped, mejor performance.",
-				},
-				{
-					name: "Tailwind CSS + Radix UI",
-					reason:
-						"Patrón shadcn-like: Radix aporta accesibilidad por defecto (foco, ARIA, teclado) y Tailwind da control total del estilo. Sistema reutilizable que después aplicamos en proyectos posteriores de IngSimple.",
-				},
-				{
 					name: "Cloudflare Pages",
 					reason:
 						"Hosting estático con CDN global, auto-deploy desde main y tier gratuito generoso. Cada commit dispara una build y un nuevo deploy con preview URL. Para un sitio con publicación semanal, el flujo git → deploy automático es la mitad del producto.",
@@ -1090,11 +978,6 @@ export const portfolioProjects: ProjectData[] = [
 					name: "Cloudflare Worker + Resend",
 					reason:
 						"El formulario de contacto reenvía a un Worker que hace el POST a Resend. Sin servidor propio, sin SMTP, sin costos fijos. Resend maneja deliverability y el Worker queda como capa fina de validación y CORS.",
-				},
-				{
-					name: "Embla Carousel",
-					reason:
-						"Carrusel headless, accesible por teclado y muy liviano. Control completo del markup y los estilos, sin la carga de una librería opinada.",
 				},
 				{
 					name: "Imágenes AVIF + WebP",
@@ -1144,11 +1027,6 @@ export const portfolioProjects: ProjectData[] = [
 					value: "2+ años",
 					label: "en producción",
 					caption: "Desde mayo 2024, con mantenimiento y publicación semanal sostenida.",
-				},
-				{
-					value: "2",
-					label: "idiomas con URLs traducidas",
-					caption: "Español e inglés vía @astrolicious/i18n, SEO limpio en ambos.",
 				},
 			],
 			timeline: [
@@ -1281,21 +1159,6 @@ export const portfolioProjects: ProjectData[] = [
 						"Servidor SSR universal que despliega los cuatro dominios como un único build en Vercel.",
 					tag: "Performance",
 				},
-				{
-					name: "TanStack Form + Zod",
-					reason:
-						"Formularios de contacto y cotización por marca con validación de esquema tipada de extremo a extremo.",
-				},
-				{
-					name: "Resend + React Email",
-					reason:
-						"Correo transaccional con plantillas en React, canalizado por API routes alojadas en el dominio del grupo.",
-				},
-				{
-					name: "TypeScript estricto",
-					reason:
-						"strict, noUnusedLocals y noUncheckedSideEffectImports activos para sostener la lógica de tenant sin regresiones.",
-				},
 			],
 			features: [
 				{
@@ -1333,22 +1196,13 @@ export const portfolioProjects: ProjectData[] = [
 				{
 					value: "4",
 					label: "dominios servidos",
-					caption: "grupocaemp.cl más las tres marcas, desde un mismo proyecto",
-				},
-				{
-					value: "1",
-					label: "base de código",
-					caption: "sin sitios separados que mantener en paralelo",
+					caption:
+						"grupocaemp.cl y las tres marcas, desde una sola base de código y un solo despliegue.",
 				},
 				{
 					value: "3",
 					label: "marcas con identidad propia",
 					caption: "color, logo y dominio diferenciados por línea de negocio",
-				},
-				{
-					value: "1",
-					label: "despliegue único",
-					caption: "un solo build en Vercel atiende los cuatro dominios",
 				},
 			],
 			timeline: [
@@ -1417,11 +1271,10 @@ export const portfolioProjects: ProjectData[] = [
 		caseStudy: {
 			visualPrivacy: "confidential-ui",
 			pitch:
-				'"Desafío PEI" es un juego tipo Kahoot construido a medida para que AIEP evaluara —en vivo, simultáneamente y en todo Chile— el entendimiento de su nuevo Plan Educativo Institucional. Soportó 600-700 trabajadores conectados desde 26 sedes en un único evento, sin caídas, sin WebSockets, y con un admin que orquestaba el flujo desde una pantalla.',
+				'"Desafío PEI" es un juego tipo Kahoot construido a medida para que AIEP evaluara —en vivo, simultáneamente y en todo Chile— el entendimiento de su nuevo Plan Educativo Institucional. Llegó a 600-700 trabajadores conectados al mismo tiempo desde 26 sedes, sin WebSockets y con un admin que orquestaba el flujo desde una pantalla.',
 			duration:
 				"≈2 meses entre kickoff y evento oficial (octubre–diciembre 2025), con teaser previo de validación en noviembre. Proyecto cerrado tras el evento.",
-			inProductionSince:
-				"17 de diciembre 2025 — fecha del evento oficial nacional, con dos sesiones (mañana y tarde) y sets de preguntas distintos para cada una.",
+			inProductionSince: "17 de diciembre 2025 — evento oficial en vivo a nivel nacional.",
 			clientName: "AIEP — Instituto Profesional",
 			clientIndustry:
 				"Educación superior técnico-profesional · 26 sedes en Chile · ~6.000 trabajadores y miles de estudiantes",
@@ -1435,7 +1288,7 @@ export const portfolioProjects: ProjectData[] = [
 				},
 				{
 					headline: "Un evento corporativo nacional pide una sola toma sin segunda oportunidad.",
-					body: "La activación se planeó como un evento en vivo único, transmitido a todas las sedes en paralelo, en dos sesiones (mañana y tarde). Sin retries: si el sistema fallaba durante el evento, no había ventana para arreglarlo. La capacidad esperada era de 600 a 700 personas concurrentes, pero el techo había que dejarlo más alto.",
+					body: "La activación se planeó como un evento en vivo único, transmitido a todas las sedes en paralelo, en dos sesiones (mañana y tarde). Sin repeticiones: si algo fallaba durante una sesión, esa sesión no se podía volver a hacer. La capacidad esperada era de 600 a 700 personas concurrentes, pero el techo había que dejarlo más alto.",
 				},
 				{
 					headline: "Kahoot resolvía el formato, pero no el control.",
@@ -1464,8 +1317,12 @@ export const portfolioProjects: ProjectData[] = [
 					body: "El evento se hizo en dos turnos (mañana y tarde) con sets de preguntas distintos para evitar contaminación entre sesiones. El sistema soporta múltiples GameSession activas en paralelo, cada una con su questionSet (AM/PM) y su propio flujo de control, sin lógica especial.",
 				},
 				{
-					headline: "El día del evento: cero incidentes técnicos.",
-					body: "El 17 de diciembre 2025 corrieron las dos sesiones con 600-700 conectados cada una. El sistema operó sin caídas, sin glitches de sincronización, sin tener que tocar el código en vivo. El admin manejó todo el evento desde un único panel.",
+					headline: "El día del evento: lo que falló y lo que aprendí.",
+					body: "La sesión de la mañana no pudo partir: el firewall de la red bloqueó el acceso de los participantes a la plataforma. No había validado con anticipación que la red del cliente permitiera la conexión. Resuelto el acceso, la sesión de la tarde corrió con normalidad, con 600-700 personas conectadas y sin problemas de sincronización, y el admin manejó el evento completo desde un único panel.",
+				},
+				{
+					headline: "El load test validó la capacidad, no la red.",
+					body: "La prueba con k6 confirmó que el sistema aguantaba la carga, pero se corrió desde fuera de la red de AIEP. Desde entonces, antes de cualquier evento en vivo hago una prueba de conexión desde la red real del cliente y reviso los accesos con su equipo de TI.",
 				},
 			],
 			architectureDescription:
@@ -1496,7 +1353,7 @@ export const portfolioProjects: ProjectData[] = [
 						decision:
 							"Polling con `setInterval` cada 2-4 segundos contra Server Actions. Cero servidores de WebSockets, cero servicio de tiempo real externo, cero estado en memoria que pueda perderse.",
 						outcome:
-							"Sistema operó sin caídas durante las dos sesiones del evento. Costo operacional cercano a cero. Validado bajo carga con k6 antes del evento.",
+							"Con el acceso habilitado, la sincronización funcionó sin problemas con 600-700 personas conectadas. Costo operacional cercano a cero y capacidad validada con k6 antes del evento.",
 					},
 				},
 				{
@@ -1524,30 +1381,6 @@ export const portfolioProjects: ProjectData[] = [
 					tag: "Validación previa",
 					reason:
 						"Antes del evento corrimos un load test simulando 1.000 VUs durante 10 minutos contra los endpoints críticos. Validó que el polling escalaba sin sobrecargar Postgres y que el p(95) quedaba bajo 500ms. Sin ese test, el polling era una apuesta — con ese test, fue una decisión informada.",
-				},
-				{
-					name: "TanStack Form + Zod 4",
-					tag: "Validación compartida",
-					reason:
-						"Mismo schema Zod en el formulario de registro del participante y en la Server Action que lo procesa. Nada llega a la DB sin validar dos veces con la misma fuente de verdad.",
-				},
-				{
-					name: "shadcn/ui + Tailwind 4 + Motion",
-					tag: "UI",
-					reason:
-						"Componentes accesibles con control total del estilo. Motion para transiciones entre estados (pregunta → pausa → resultados), React Confetti para el momento del ganador. UX cuidada en cada transición — esto se proyectaba en vivo a 26 sedes.",
-				},
-				{
-					name: "Recharts",
-					tag: "Stats en vivo",
-					reason:
-						"Gráficos de barras con la distribución de respuestas por opción y el ranking de sedes, actualizados en el dashboard del admin durante las pausas de revisión.",
-				},
-				{
-					name: "Vercel",
-					tag: "Deploy",
-					reason:
-						"Auto-deploy desde main, preview por PR, integración nativa con Vercel Analytics. Para un evento con fecha fija, la tranquilidad de saber que cada push está deployado en segundos vale oro.",
 				},
 			],
 			techStackIntro:
@@ -1588,22 +1421,12 @@ export const portfolioProjects: ProjectData[] = [
 				{
 					value: "600-700",
 					label: "participantes en vivo",
-					caption: "Conectados simultáneamente en cada sesión, desde 26 sedes en todo Chile.",
+					caption: "Conectados simultáneamente desde 26 sedes en todo Chile.",
 				},
 				{
 					value: "1.000 VUs",
 					label: "validados con load test",
 					caption: "k6 simuló 1.000 usuarios concurrentes con p(95) < 500ms antes del evento.",
-				},
-				{
-					value: "0",
-					label: "incidentes durante el evento",
-					caption: "Las dos sesiones del 17/dic/2025 corrieron sin caídas ni glitches.",
-				},
-				{
-					value: "2 + 2",
-					label: "sesiones / sets de preguntas",
-					caption: "Mañana y tarde con preguntas distintas, mismo sistema, sin lógica especial.",
 				},
 			],
 			timeline: [
@@ -1630,9 +1453,9 @@ export const portfolioProjects: ProjectData[] = [
 				},
 				{
 					date: "17 Dic 2025",
-					title: "Evento oficial — dos sesiones",
+					title: "Evento oficial en vivo",
 					description:
-						"Sesiones 11:00 y 16:00 con 600-700 trabajadores conectados desde 26 sedes. Sistema operó sin caídas durante el evento en vivo.",
+						"La sesión de la mañana se vio bloqueada por el firewall de la red. Resuelto el acceso, la sesión de la tarde corrió con normalidad, con 600-700 trabajadores conectados desde 26 sedes.",
 					icon: "launch",
 					isCurrent: true,
 				},
@@ -1900,7 +1723,7 @@ export const workExperience: WorkExperience[] = [
 			},
 		],
 		highlights: [
-			"Construí y mantengo en producción OTC 360, plataforma de gestión de mantenimiento de OTC (Oleoducto Trasandino Chile), con 13+ meses en operación.",
+			`Construí y mantengo en producción OTC 360, plataforma de gestión de mantenimiento de OTC (Oleoducto Trasandino Chile), con ${OTC_MONTHS} meses en operación.`,
 			"Levantamiento de requerimientos directo en planta (OTC, Busanc), trabajando con usuarios y áreas reales.",
 			"Rol full stack end-to-end: frontend, backend, base de datos y despliegue en cada proyecto.",
 		],

@@ -45,8 +45,6 @@ const CARDS: ReadonlyArray<ShowcaseCard> = [
 		Icon: Factory,
 		body: "Plataforma que reemplazó papel, correos y Excel por un único sistema de órdenes de trabajo, permisos y planes de mantenimiento, con indicadores en vivo. Para OTC — Oleoducto Trasandino Chile.",
 		tags: ["Next.js", "PostgreSQL", "Prisma", "Azure"],
-		href: "https://is-360.vercel.app/",
-		hrefLabel: "Ver demo",
 	},
 	{
 		id: "busanc",
@@ -79,7 +77,7 @@ const CARDS: ReadonlyArray<ShowcaseCard> = [
 		id: "dashboard-turismo",
 		title: "Dashboard\nTurismoChileTours",
 		Icon: LayoutDashboard,
-		body: "Dashboard interno multi-rol que reemplazó una Power Apps heredada: ventas, calendario operativo, caja, comisiones y migración de 11 años de datos.",
+		body: "Dashboard interno multi-rol que reemplazó una Power Apps heredada: ventas, calendario operativo, caja, comisiones y migración de 3 años de datos.",
 		tags: ["Next.js 16", "Prisma", "Neon", "TanStack"],
 	},
 	{

@@ -85,8 +85,8 @@ export default function HomePage(): ReactNode {
 						</div>
 						<div className="grid grid-cols-3 px-6 py-10 sm:px-10 lg:px-14">
 							{[
-								{ label: "En producción", value: "7+" },
-								{ label: "Rubros", value: "4" },
+								{ label: "Proyectos entregados", value: "8" },
+								{ label: "Rubros", value: "5" },
 								{ label: "Ciclo completo", value: "E2E" },
 							].map((stat, i) => (
 								<div
@@ -115,8 +115,8 @@ export default function HomePage(): ReactNode {
 									<span className="text-muted-foreground">Con quiénes</span> trabajé
 								</h2>
 								<p className="text-muted-foreground mt-12 max-w-md text-sm leading-relaxed sm:text-base">
-									Trabajé en energía, minería, turismo, educación, salud y retail, con sus equipos y
-									operaciones reales —de forma directa o a través de Ingeniería Simple.
+									Trabajé en energía, minería, turismo, educación y capacitación laboral, con sus
+									equipos y operaciones reales —de forma directa o a través de Ingeniería Simple.
 								</p>
 							</article>
 							<div className="bg-muted relative min-h-90 overflow-hidden rounded-2xl lg:min-h-120">
