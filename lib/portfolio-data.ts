@@ -121,7 +121,7 @@ export const portfolioProjects: ProjectData[] = [
 			pitch:
 				"Plataforma de control operacional que reemplazó papel, correos y Excel por un único sistema para gestionar órdenes de trabajo, permisos, planes de mantenimiento y carpetas de contratistas, con indicadores en vivo.",
 			duration: "≈3 meses de desarrollo, con visitas en planta en Concepción",
-			inProductionSince: "Desde abril 2025",
+			inProductionSince: "Abril 2025",
 			clientName: "OTC — Oleoducto Trasandino Chile",
 			clientIndustry: "Recepción, almacenamiento y transporte de petróleo",
 			problem: [

@@ -4,6 +4,7 @@ import { Reveal } from "@/components/reveal"
 import { SectionCorners } from "@/components/section-corners"
 import {
 	type CaseStudyMilestoneIcon,
+	type CaseStudyTechItemDetail,
 	type ParagraphBlock,
 	type ProjectData,
 } from "@/lib/portfolio-data"
@@ -27,6 +28,12 @@ const MILESTONE_ICONS: Record<CaseStudyMilestoneIcon, LucideIcon> = {
 	launch: Rocket,
 	current: CircleDot,
 }
+
+const TECH_DETAIL_FIELDS: ReadonlyArray<{ key: keyof CaseStudyTechItemDetail; label: string }> = [
+	{ key: "constraint", label: "Restricción" },
+	{ key: "decision", label: "Decisión" },
+	{ key: "outcome", label: "Resultado" },
+]
 
 function hasHeadline(block: ParagraphBlock): block is { headline: string; body: string } {
 	return typeof block !== "string"
@@ -98,7 +105,7 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
 	const meta = [
 		{ label: "Cliente", value: cs.clientName },
 		{ label: "Duración", value: cs.duration },
-		{ label: "En producción", value: cs.inProductionSince },
+		{ label: "Lanzamiento", value: cs.inProductionSince },
 		...(cs.team ? [{ label: "Mi rol", value: cs.team }] : []),
 	]
 	const metaColsClass = meta.length >= 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"
@@ -281,7 +288,7 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
 									key={item.name}
 									className="border-border grid grid-cols-1 gap-x-14 gap-y-3 border-b px-6 py-7 sm:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] sm:px-10 sm:py-8 lg:px-14"
 								>
-									<div className="flex flex-wrap items-start gap-2">
+									<div className="flex flex-wrap content-start items-start gap-2">
 										<h3 className="text-foreground text-lg leading-tight font-semibold tracking-tight">
 											{item.name}
 										</h3>
@@ -291,9 +298,25 @@ export function CaseStudyView({ project }: { project: ProjectData }): ReactNode 
 											</span>
 										) : null}
 									</div>
-									<p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
-										{item.reason}
-									</p>
+									<div>
+										<p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
+											{item.reason}
+										</p>
+										{item.detail ? (
+											<dl className="mt-6 grid grid-cols-1 gap-x-8 gap-y-5 xl:grid-cols-3">
+												{TECH_DETAIL_FIELDS.map(({ key, label }) => (
+													<div key={key} className="border-border border-t pt-4">
+														<dt className="text-muted-foreground font-mono text-[0.6875rem] font-medium tracking-[0.16em] uppercase">
+															{label}
+														</dt>
+														<dd className="text-foreground/90 mt-2 text-sm leading-relaxed">
+															{item.detail?.[key]}
+														</dd>
+													</div>
+												))}
+											</dl>
+										) : null}
+									</div>
 								</div>
 							))}
 						</div>
