@@ -48,7 +48,7 @@ Idea: ilustraciones técnicas hechas con `/dimensional-drawing` o `/anatomy`, ub
 ## 7. Otros — HECHO (26-10-2026)
 
 - La pregunta del FAQ pasó a "¿Por qué algunos casos no tienen capturas reales?", porque la anterior ("la mayoría son demos") contradecía la home.
-- "Más proyectos" se mantiene con el título "Proyectos personales y prototipos". Todos los links responden, salvo el repo de `algorithm-systems-playground`, que es privado (404 para visitantes).
+- "Más proyectos" se mantiene con el título "Proyectos personales y prototipos". Los 16 links responden (el repo de `algorithm-systems-playground` se hizo público el 26-10-2026).
 - `monthsSince` en OTC: se resuelve con un redeploy periódico, sin cambios de código.
 
 ## 4. Sección "Qué salió mal / qué aprendí" — PENDIENTE
