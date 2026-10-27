@@ -1,5 +1,6 @@
 import { AiepHero, aiepFeatureGlyphs } from "@/components/mockups/aiep-pei"
 import { BusancHero, busancFeatureGlyphs } from "@/components/mockups/busanc"
+import { BusancFlow } from "@/components/mockups/busanc-flow"
 import { bzConsultingFeatureGlyphs } from "@/components/mockups/bz-consulting"
 import { caempFeatureGlyphs } from "@/components/mockups/caemp"
 import {
@@ -47,6 +48,12 @@ const PROJECT_MOCKUPS: Record<string, ProjectMockup> = {
 	"busanc": {
 		hero: BusancHero,
 		features: busancFeatureGlyphs,
+		flow: {
+			title: "Cómo avanza un proyecto",
+			intro:
+				"Antes, cada área esperaba a que la anterior terminara y todo se coordinaba por correo. Ahora un proyecto avanza por componente y las áreas trabajan en paralelo. Así llega un pedido desde Comercial hasta el despacho.",
+			Component: BusancFlow,
+		},
 	},
 	"dashboard-turismo": {
 		hero: DashboardTurismoHero,
