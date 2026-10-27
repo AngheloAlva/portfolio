@@ -593,7 +593,7 @@ function RecepcionesGlyph({ className }: { className?: string }): ReactNode {
 }
 
 /**
- * Migración de 11 años — ETL pipeline (Microsoft Lists → Excel maestro → Excel
+ * Migración de 3 años — ETL pipeline (Microsoft Lists → Excel maestro → Excel
  * derivado → Postgres) with per-period import batches validated against the
  * shared schema.
  */
@@ -676,5 +676,5 @@ export const dashboardTurismoFeatureGlyphs: Record<
 	"Análisis y reportes con filtros": AnalisisGlyph,
 	"Facturación mayorista con exportes": FacturacionGlyph,
 	"Recepciones y traspasos entre agencias": RecepcionesGlyph,
-	"Migración de 11 años de data": MigracionGlyph,
+	"Migración de 3 años de data": MigracionGlyph,
 }
