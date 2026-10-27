@@ -2,9 +2,15 @@
 
 import { otc360FeatureGlyphs } from "@/components/mockups/otc-360"
 import { WFBar, WFGlyphCard, WFPill } from "@/components/mockups/primitives"
-import { motion, useInView, useReducedMotion } from "motion/react"
-import { Pause, Play, ChevronLeft, ChevronRight } from "lucide-react"
-import { useEffect, useRef, useState, type ReactNode } from "react"
+import {
+	SwimlaneFlow,
+	swimlaneGeometry,
+	type FlowEdge,
+	type FlowLane,
+	type FlowNode,
+	type FlowScenario,
+} from "@/components/mockups/swimlane-flow"
+import type { ReactNode } from "react"
 
 /**
  * Swimlane walkthrough of how a work order (OT) moves through OTC 360 between
@@ -12,18 +18,9 @@ import { useEffect, useRef, useState, type ReactNode } from "react"
  * process described by the client project; nothing here is real client data.
  */
 
-// Diagram coordinate system (viewBox units). Nodes and connectors share it.
-const W = 1200
-const H = 480
-const LABEL_W = 170
-const LANE_H = H / 4
-const COL_W = (W - LABEL_W) / 6
-const NODE_W = 144
-const NODE_H = 96
-
 type LaneId = "operator" | "maintenance" | "contractor" | "safety"
 
-const LANES: ReadonlyArray<{ id: LaneId; label: string; detail: string }> = [
+const LANES: ReadonlyArray<FlowLane> = [
 	{ id: "operator", label: "Operador OTC", detail: "Equipo de planta" },
 	{
 		id: "maintenance",
@@ -34,6 +31,7 @@ const LANES: ReadonlyArray<{ id: LaneId; label: string; detail: string }> = [
 		id: "contractor",
 		label: "Contratista",
 		detail: "Empresa externa, con sus requisitos aprobados",
+		highlight: true,
 	},
 	{ id: "safety", label: "Seguridad", detail: "Prevención de riesgos" },
 ]
@@ -47,14 +45,6 @@ type NodeId =
 	| "inspection"
 	| "review"
 	| "closed"
-
-interface FlowNode {
-	id: NodeId
-	title: string
-	lane: LaneId
-	col: number
-	Glyph: (props: { className?: string }) => ReactNode
-}
 
 function LogbookGlyph({ className }: { className?: string }): ReactNode {
 	return (
@@ -132,88 +122,53 @@ function ClosedGlyph({ className }: { className?: string }): ReactNode {
 	)
 }
 
-const NODES: Record<NodeId, FlowNode> = {
+const NODES: Record<NodeId, FlowNode<LaneId>> = {
 	request: {
-		id: "request",
 		title: "Solicitud de trabajo",
 		lane: "operator",
 		col: 1,
 		Glyph: otc360FeatureGlyphs["Solicitudes de Trabajo"]!,
 	},
 	plan: {
-		id: "plan",
 		title: "Plan de mantenimiento",
 		lane: "maintenance",
 		col: 1,
 		Glyph: otc360FeatureGlyphs["Planes de Mantenimiento"]!,
 	},
 	approve: {
-		id: "approve",
 		title: "Aprobación y OT",
 		lane: "maintenance",
 		col: 2,
 		Glyph: otc360FeatureGlyphs["Órdenes de Trabajo"]!,
 	},
 	logbook: {
-		id: "logbook",
 		title: "Libro de obras",
 		lane: "contractor",
 		col: 3,
 		Glyph: LogbookGlyph,
 	},
 	permit: {
-		id: "permit",
 		title: "Permiso de trabajo",
 		lane: "contractor",
 		col: 4,
 		Glyph: otc360FeatureGlyphs["Permisos de Trabajo"]!,
 	},
 	inspection: {
-		id: "inspection",
 		title: "Inspección",
 		lane: "safety",
 		col: 4,
 		Glyph: InspectionGlyph,
 	},
 	review: {
-		id: "review",
 		title: "Aprobación de hitos",
 		lane: "maintenance",
 		col: 5,
 		Glyph: ReviewGlyph,
 	},
-	closed: { id: "closed", title: "OT cerrada", lane: "maintenance", col: 6, Glyph: ClosedGlyph },
+	closed: { title: "OT cerrada", lane: "maintenance", col: 6, Glyph: ClosedGlyph },
 }
 
-const laneIndex = (lane: LaneId): number => LANES.findIndex((l) => l.id === lane)
-const centerOf = (id: NodeId): [number, number] => {
-	const node = NODES[id]
-	return [LABEL_W + (node.col - 0.5) * COL_W, (laneIndex(node.lane) + 0.5) * LANE_H]
-}
-const right = (id: NodeId): [number, number] => {
-	const [x, y] = centerOf(id)
-	return [x + NODE_W / 2, y]
-}
-const left = (id: NodeId): [number, number] => {
-	const [x, y] = centerOf(id)
-	return [x - NODE_W / 2, y]
-}
-const top = (id: NodeId): [number, number] => {
-	const [x, y] = centerOf(id)
-	return [x, y - NODE_H / 2]
-}
-const bottom = (id: NodeId): [number, number] => {
-	const [x, y] = centerOf(id)
-	return [x, y + NODE_H / 2]
-}
-
-type Point = [number, number]
-
-/** Orthogonal connector: horizontal, vertical at `mx`, horizontal. */
-function elbow(a: Point, b: Point, mx = (a[0] + b[0]) / 2): Point[] {
-	if (a[1] === b[1]) return [a, b]
-	return [a, [mx, a[1]], [mx, b[1]], b]
-}
+const { right, left, top, bottom, elbow, gap: GAP } = swimlaneGeometry(LANES, NODES)
 
 type EdgeId =
 	| "request-approve"
@@ -227,9 +182,7 @@ type EdgeId =
 	| "review-logbook"
 	| "review-closed"
 
-const GAP = (COL_W - NODE_W) / 2
-
-const EDGES: Record<EdgeId, { points: Point[]; dashed?: boolean }> = {
+const EDGES: Record<EdgeId, FlowEdge> = {
 	"request-approve": { points: elbow(right("request"), left("approve")) },
 	"approve-logbook": { points: elbow(right("approve"), left("logbook")) },
 	"plan-logbook": { points: elbow(right("plan"), left("logbook"), right("plan")[0] + GAP) },
@@ -250,34 +203,7 @@ const EDGES: Record<EdgeId, { points: Point[]; dashed?: boolean }> = {
 	"review-closed": { points: [right("review"), left("closed")] },
 }
 
-interface Step {
-	node: NodeId
-	via?: EdgeId
-	actor: string
-	text: string
-	/** Result shown on the node for approval steps. */
-	outcome?: "approved" | "rejected"
-}
-
-function OutcomeBadge({ outcome }: { outcome: NonNullable<Step["outcome"]> }): ReactNode {
-	return outcome === "approved" ? (
-		<span className="bg-foreground text-background rounded-full px-2 py-0.5 text-[0.625rem] font-semibold tracking-[0.06em] uppercase">
-			Aprobado
-		</span>
-	) : (
-		<span className="border-foreground text-foreground bg-background rounded-full border border-dashed px-2 py-0.5 text-[0.625rem] font-semibold tracking-[0.06em] uppercase">
-			Rechazado
-		</span>
-	)
-}
-
-interface Scenario {
-	id: string
-	label: string
-	steps: ReadonlyArray<Step>
-}
-
-const SCENARIOS: ReadonlyArray<Scenario> = [
+const SCENARIOS: ReadonlyArray<FlowScenario<NodeId, EdgeId>> = [
 	{
 		id: "request",
 		label: "Desde una solicitud",
@@ -374,21 +300,6 @@ const SCENARIOS: ReadonlyArray<Scenario> = [
 	},
 ]
 
-const STEP_MS = 3200
-const pathOf = (points: Point[]): string =>
-	points.map(([x, y], i) => `${i ? "L" : "M"}${x} ${y}`).join(" ")
-const pct = (value: number, total: number): string => `${(value / total) * 100}%`
-
-/** Times (0–1) at which a token reaches each vertex, proportional to segment length. */
-function vertexTimes(points: Point[]): number[] {
-	const lengths = points
-		.slice(1)
-		.map(([x, y], i) => Math.hypot(x - points[i]![0], y - points[i]![1]))
-	const total = lengths.reduce((sum, l) => sum + l, 0) || 1
-	let run = 0
-	return [0, ...lengths.map((l) => (run += l) / total)]
-}
-
 function TalkGlyph({ className }: { className?: string }): ReactNode {
 	return (
 		<WFGlyphCard className={className}>
@@ -465,244 +376,18 @@ function Prerequisites(): ReactNode {
 }
 
 export function Otc360Flow(): ReactNode {
-	const [scenarioIndex, setScenarioIndex] = useState(0)
-	const [stepIndex, setStepIndex] = useState(0)
-	const reduceMotion = useReducedMotion()
-	const [playing, setPlaying] = useState(true)
-	const rootRef = useRef<HTMLDivElement | null>(null)
-	const inView = useInView(rootRef, { amount: 0.4 })
-
-	const scenario = SCENARIOS[scenarioIndex]!
-	const step = scenario.steps[stepIndex]!
-	const autoplay = playing && !reduceMotion && inView
-
-	useEffect(() => {
-		if (!autoplay) return
-		const id = setTimeout(() => {
-			setStepIndex((i) => (i + 1) % scenario.steps.length)
-		}, STEP_MS)
-		return () => clearTimeout(id)
-	}, [autoplay, stepIndex, scenario.steps.length])
-
-	const visitedNodes = new Set(scenario.steps.slice(0, stepIndex + 1).map((s) => s.node))
-	const visitedEdges = new Set(
-		scenario.steps.slice(0, stepIndex).flatMap((s) => (s.via ? [s.via] : []))
-	)
-	const scenarioNodes = new Set(scenario.steps.map((s) => s.node))
-	const scenarioEdges = new Set(scenario.steps.flatMap((s) => (s.via ? [s.via] : [])))
-
-	const go = (delta: number): void => {
-		setPlaying(false)
-		setStepIndex((i) => (i + delta + scenario.steps.length) % scenario.steps.length)
-	}
-	const pickScenario = (index: number): void => {
-		setScenarioIndex(index)
-		setStepIndex(0)
-	}
-
-	const activeEdge = step.via ? EDGES[step.via] : null
-
 	return (
-		<div ref={rootRef}>
+		<SwimlaneFlow
+			config={{
+				lanes: LANES,
+				columns: 6,
+				nodes: NODES,
+				edges: EDGES,
+				scenarios: SCENARIOS,
+				scenarioLabel: "Cómo empieza la OT",
+			}}
+		>
 			<Prerequisites />
-
-			{/* Scenario tabs */}
-			<div className="flex flex-wrap gap-2" role="group" aria-label="Cómo empieza la OT">
-				{SCENARIOS.map((s, i) => (
-					<button
-						key={s.id}
-						type="button"
-						aria-pressed={i === scenarioIndex}
-						onClick={() => pickScenario(i)}
-						className={`focus-ring rounded-full px-4 py-2 text-xs font-semibold tracking-[0.08em] uppercase transition-colors ${
-							i === scenarioIndex
-								? "bg-foreground text-background"
-								: "border-border text-muted-foreground hover:text-foreground border"
-						}`}
-					>
-						{s.label}
-					</button>
-				))}
-			</div>
-
-			{/* Desktop swimlanes */}
-			<div
-				aria-hidden="true"
-				className="border-border bg-background relative mt-8 hidden overflow-hidden rounded-2xl border lg:block"
-				style={{ aspectRatio: `${W} / ${H}` }}
-			>
-				{LANES.map((lane, i) => (
-					<div
-						key={lane.id}
-						className={`absolute inset-x-0 flex items-center ${i > 0 ? "border-border border-t" : ""} ${
-							lane.id === "contractor" ? "bg-muted/60" : ""
-						}`}
-						style={{ top: pct(i * LANE_H, H), height: pct(LANE_H, H) }}
-					>
-						<div
-							className="border-border flex h-full flex-col justify-center border-r px-5"
-							style={{ width: pct(LABEL_W, W) }}
-						>
-							<p className="text-foreground text-sm leading-tight font-semibold">{lane.label}</p>
-							<p className="text-muted-foreground mt-1 text-xs leading-snug">{lane.detail}</p>
-						</div>
-					</div>
-				))}
-
-				<svg viewBox={`0 0 ${W} ${H}`} className="absolute inset-0 h-full w-full" fill="none">
-					{(Object.keys(EDGES) as EdgeId[]).map((id) => {
-						const edge = EDGES[id]
-						if (!scenarioEdges.has(id)) return null
-						return (
-							<path
-								key={id}
-								d={pathOf(edge.points)}
-								className={visitedEdges.has(id) ? "stroke-foreground/45" : "stroke-foreground/15"}
-								strokeWidth={1.5}
-								strokeDasharray={edge.dashed ? "5 5" : undefined}
-							/>
-						)
-					})}
-					{activeEdge ? (
-						<g key={`${scenario.id}-${stepIndex}`}>
-							<motion.path
-								d={pathOf(activeEdge.points)}
-								className="stroke-foreground"
-								strokeWidth={2}
-								strokeDasharray={activeEdge.dashed ? "5 5" : undefined}
-								// pathLength drives stroke-dasharray, so a dashed edge fades in instead of drawing.
-								initial={
-									activeEdge.dashed
-										? { opacity: reduceMotion ? 1 : 0 }
-										: { pathLength: reduceMotion ? 1 : 0 }
-								}
-								animate={activeEdge.dashed ? { opacity: 1 } : { pathLength: 1 }}
-								transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-							/>
-							{reduceMotion ? null : (
-								<motion.circle
-									r={5}
-									className="fill-foreground"
-									initial={{ cx: activeEdge.points[0]![0], cy: activeEdge.points[0]![1] }}
-									animate={{
-										cx: activeEdge.points.map((p) => p[0]),
-										cy: activeEdge.points.map((p) => p[1]),
-									}}
-									transition={{
-										duration: 0.9,
-										ease: "easeInOut",
-										times: vertexTimes(activeEdge.points),
-									}}
-								/>
-							)}
-						</g>
-					) : null}
-				</svg>
-
-				{(Object.keys(NODES) as NodeId[]).map((id) => {
-					const node = NODES[id]
-					const [cx, cy] = centerOf(id)
-					const isActive = step.node === id
-					const inScenario = scenarioNodes.has(id)
-					return (
-						<div
-							key={id}
-							className={`bg-background absolute flex flex-col overflow-hidden rounded-xl border p-2 transition-all duration-500 ${
-								isActive
-									? `border-foreground shadow-lg ${step.outcome === "rejected" ? "border-dashed" : ""}`
-									: visitedNodes.has(id)
-										? "border-foreground/40"
-										: "border-border"
-							} ${inScenario ? "opacity-100" : "opacity-30"}`}
-							style={{
-								left: pct(cx - NODE_W / 2, W),
-								top: pct(cy - NODE_H / 2, H),
-								width: pct(NODE_W, W),
-								height: pct(NODE_H, H),
-							}}
-						>
-							<div className="relative min-h-0 flex-1 overflow-hidden rounded-md">
-								<div className="absolute top-0 left-0 h-[300%] w-[300%] origin-top-left scale-[0.3333]">
-									<node.Glyph className="h-full" />
-								</div>
-							</div>
-							<p className="text-foreground mt-1.5 truncate text-[0.6875rem] leading-tight font-semibold">
-								{node.title}
-							</p>
-							{isActive && step.outcome ? (
-								<span className="absolute top-1.5 right-1.5">
-									<OutcomeBadge outcome={step.outcome} />
-								</span>
-							) : null}
-						</div>
-					)
-				})}
-			</div>
-
-			{/* Mobile: the same steps as a list */}
-			<ol className="mt-8 space-y-2 lg:hidden">
-				{scenario.steps.map((s, i) => (
-					<li
-						key={`${s.node}-${i}`}
-						aria-current={i === stepIndex ? "step" : undefined}
-						className={`rounded-xl border px-4 py-3 transition-colors ${
-							i === stepIndex ? "border-foreground bg-muted" : "border-border"
-						}`}
-					>
-						<p className="text-muted-foreground font-mono text-[0.6875rem] tracking-[0.12em] uppercase">
-							{i + 1}. {s.actor}
-						</p>
-						<div className="mt-1 flex items-center gap-2">
-							<p className="text-foreground text-sm font-semibold">{NODES[s.node].title}</p>
-							{s.outcome ? <OutcomeBadge outcome={s.outcome} /> : null}
-						</div>
-						{i === stepIndex ? (
-							<p className="text-muted-foreground mt-1 text-sm leading-relaxed">{s.text}</p>
-						) : null}
-					</li>
-				))}
-			</ol>
-
-			{/* Caption + controls */}
-			<div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-				{/* Below lg the active list item shows this text, so it stays for screen readers only. */}
-				<div aria-live="polite" className="sr-only max-w-2xl lg:not-sr-only">
-					<p className="text-muted-foreground font-mono text-xs tracking-[0.12em] uppercase">
-						Paso {stepIndex + 1} de {scenario.steps.length} · {step.actor}
-					</p>
-					<p className="text-foreground mt-2 text-base leading-relaxed">{step.text}</p>
-				</div>
-				<div className="flex shrink-0 items-center gap-2">
-					<button
-						type="button"
-						onClick={() => go(-1)}
-						aria-label="Paso anterior"
-						className="focus-ring bg-muted text-foreground inline-flex h-9 w-9 items-center justify-center rounded-full transition-opacity hover:opacity-80"
-					>
-						<ChevronLeft className="h-4 w-4" />
-					</button>
-					<button
-						type="button"
-						onClick={() => setPlaying((p) => !p)}
-						aria-label={playing ? "Pausar" : "Reproducir"}
-						className="focus-ring bg-muted text-foreground inline-flex h-9 w-9 items-center justify-center rounded-full transition-opacity hover:opacity-80"
-					>
-						{playing && !reduceMotion ? (
-							<Pause className="h-4 w-4" />
-						) : (
-							<Play className="h-4 w-4" />
-						)}
-					</button>
-					<button
-						type="button"
-						onClick={() => go(1)}
-						aria-label="Paso siguiente"
-						className="focus-ring bg-muted text-foreground inline-flex h-9 w-9 items-center justify-center rounded-full transition-opacity hover:opacity-80"
-					>
-						<ChevronRight className="h-4 w-4" />
-					</button>
-				</div>
-			</div>
-		</div>
+		</SwimlaneFlow>
 	)
 }
