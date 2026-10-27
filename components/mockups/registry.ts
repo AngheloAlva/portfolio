@@ -1,4 +1,5 @@
 import { AiepHero, aiepFeatureGlyphs } from "@/components/mockups/aiep-pei"
+import { AiepPeiFlow } from "@/components/mockups/aiep-pei-flow"
 import { BusancHero, busancFeatureGlyphs } from "@/components/mockups/busanc"
 import { BusancFlow } from "@/components/mockups/busanc-flow"
 import { bzConsultingFeatureGlyphs } from "@/components/mockups/bz-consulting"
@@ -7,6 +8,7 @@ import {
 	DashboardTurismoHero,
 	dashboardTurismoFeatureGlyphs,
 } from "@/components/mockups/dashboard-turismo"
+import { DashboardTurismoFlow } from "@/components/mockups/dashboard-turismo-flow"
 import { Otc360Hero, otc360FeatureGlyphs } from "@/components/mockups/otc-360"
 import { Otc360Flow } from "@/components/mockups/otc-360-flow"
 import { turismochiletoursFeatureGlyphs } from "@/components/mockups/turismochiletours"
@@ -44,6 +46,12 @@ const PROJECT_MOCKUPS: Record<string, ProjectMockup> = {
 	"aiep-pei": {
 		hero: AiepHero,
 		features: aiepFeatureGlyphs,
+		flow: {
+			title: "Cómo corre el evento",
+			intro:
+				"Un solo administrador dirige el evento y cientos de pantallas lo siguen consultando el estado cada pocos segundos. Así avanza una sesión del Desafío PEI.",
+			Component: AiepPeiFlow,
+		},
 	},
 	"busanc": {
 		hero: BusancHero,
@@ -58,6 +66,12 @@ const PROJECT_MOCKUPS: Record<string, ProjectMockup> = {
 	"dashboard-turismo": {
 		hero: DashboardTurismoHero,
 		features: dashboardTurismoFeatureGlyphs,
+		flow: {
+			title: "Cómo se mueve la operación",
+			intro:
+				"Ventas, operación y administración trabajan sobre los mismos datos. Así pasa una venta por el sistema, qué ocurre cuando se cancela y cómo se comparten pasajeros con otras agencias.",
+			Component: DashboardTurismoFlow,
+		},
 	},
 	"bz-consulting": {
 		features: bzConsultingFeatureGlyphs,
