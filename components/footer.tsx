@@ -40,7 +40,7 @@ const linkColumns: ReadonlyArray<{
 		items: [
 			{ label: "Sobre mí", href: "/#sobre-mi" },
 			{ label: "Proyectos", href: "/#proyectos" },
-			{ label: "Más proyectos", href: "/#mas-proyectos" },
+			{ label: "Proyectos personales", href: "/#mas-proyectos" },
 			{ label: "Stack", href: "/#stack" },
 			{ label: "Preguntas frecuentes", href: "/#faq" },
 			{ label: "Contacto", href: "/#contacto" },

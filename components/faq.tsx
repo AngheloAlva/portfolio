@@ -28,10 +28,10 @@ const FAQS: ReadonlyArray<FAQ> = [
 		],
 	},
 	{
-		q: "¿Por qué la mayoría de los proyectos son demos y no los sistemas reales?",
+		q: "¿Por qué algunos casos no tienen capturas reales?",
 		a: [
-			"Casi todos mis sistemas son privados por acuerdo con el cliente. Para mostrarlos sin comprometer datos sensibles trabajo con copias de diseño modificado y datos ficticios, y mantengo los repositorios de esos demos públicos en mi GitHub.",
-			"Así quien me evalúa ve el código real y limpio, y el sistema productivo del cliente queda protegido.",
+			"La mayoría de los sistemas que construyo son internos y privados por acuerdo con el cliente. En esos casos muestro wireframes inspirados en su interfaz, sin datos reales, y explico cómo funcionan: el problema, las decisiones técnicas y cómo fluye el trabajo.",
+			"Los sitios públicos tienen capturas y link al sitio en vivo. Y en «Proyectos personales y prototipos» está el código abierto en mi GitHub, para quien quiera revisarlo.",
 		],
 	},
 	{

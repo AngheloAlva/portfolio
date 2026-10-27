@@ -1465,7 +1465,7 @@ export const portfolioProjects: ProjectData[] = [
 ]
 
 // ─────────────────────────────────────────────────────────────
-// Mini projects ("Más proyectos") — prototypes, demos, smaller work.
+// Mini projects ("Proyectos personales y prototipos") — prototypes, demos, smaller work.
 // Distinct from `portfolioProjects` (real clients + case studies).
 // NOTE: `technologies` are inferred — VERIFY and correct them.
 //       `why` / `learnings` are optional content for YOU to fill in.

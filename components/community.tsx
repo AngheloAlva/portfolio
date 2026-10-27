@@ -40,11 +40,11 @@ export function Community(): ReactNode {
 						id="community-heading"
 						className="text-foreground text-2xl leading-[1.05] font-medium tracking-tighter sm:text-3xl lg:text-[2.5rem]"
 					>
-						Más proyectos
+						Proyectos personales y prototipos
 					</h2>
 					<p className="text-muted-foreground mt-3 max-w-lg text-sm leading-relaxed sm:text-base">
-						Prototipos, demos y trabajos más chicos. Abre una tarjeta para ver el detalle, las
-						tecnologías y la demo en vivo.
+						Demos, prototipos y proyectos propios, la mayoría con su código en GitHub. Abre una
+						tarjeta para ver el detalle, las tecnologías y la demo en vivo.
 					</p>
 				</div>
 

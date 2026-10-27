@@ -45,7 +45,12 @@ El meta del hero siempre usa la etiqueta "En producción". Para Busanc el valor 
 
 Idea: ilustraciones técnicas hechas con `/dimensional-drawing` o `/anatomy`, ubicadas **dentro del contenido** de cada caso completo (no en la home ni reemplazando el hero), que expliquen algo de valor (arquitectura, un flujo clave, una decisión). Los wireframes actuales del hero y de las funcionalidades están inspirados en la UI real de cada proyecto; reemplazarlos solo si la alternativa se evalúa y aporta más.
 
-## 7. Otros
+## 7. Otros — HECHO (26-10-2026)
 
-- "Más proyectos" (mini proyectos) tiene botones "Ver demo" y el FAQ "¿Por qué la mayoría de los proyectos son demos…?". Decidir si se mantienen.
-- Los meses de OTC se calculan con `monthsSince(2025, 4)` en cada build. Si el sitio pasa mucho tiempo sin desplegarse, el número queda congelado hasta el siguiente deploy.
+- La pregunta del FAQ pasó a "¿Por qué algunos casos no tienen capturas reales?", porque la anterior ("la mayoría son demos") contradecía la home.
+- "Más proyectos" se mantiene con el título "Proyectos personales y prototipos". Todos los links responden, salvo el repo de `algorithm-systems-playground`, que es privado (404 para visitantes).
+- `monthsSince` en OTC: se resuelve con un redeploy periódico, sin cambios de código.
+
+## 4. Sección "Qué salió mal / qué aprendí" — PENDIENTE
+
+Queda en espera hasta tener el contenido de OTC y del Dashboard.
