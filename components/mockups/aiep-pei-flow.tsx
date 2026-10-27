@@ -102,10 +102,9 @@ const NODES: Record<NodeId, FlowNode<LaneId>> = {
 	bonus: { title: "Pregunta bonus", lane: "participants", col: 6, Glyph: BonusGlyph },
 }
 
-const { right, left, top, bottom, elbow, gap: GAP } = swimlaneGeometry(LANES, NODES)
+const { right, left, top, bottom, elbow } = swimlaneGeometry(LANES, NODES)
 
 type EdgeId =
-	| "login-state"
 	| "activate-state"
 	| "state-answer"
 	| "answer-ranking"
@@ -113,7 +112,6 @@ type EdgeId =
 	| "raffle-bonus"
 
 const EDGES: Record<EdgeId, FlowEdge> = {
-	"login-state": { points: elbow(right("login"), left("state"), right("login")[0] + GAP) },
 	"activate-state": { points: elbow(right("activate"), left("state")) },
 	"state-answer": { points: elbow(right("state"), left("answer")) },
 	"answer-ranking": { points: elbow(right("answer"), left("ranking")) },
@@ -165,35 +163,6 @@ const SCENARIOS: ReadonlyArray<FlowScenario<NodeId, EdgeId>> = [
 				via: "raffle-bonus",
 				actor: "Participantes",
 				text: "El resto recibe una pregunta bonus, para que el juego no termine en derrota.",
-			},
-		],
-	},
-	{
-		id: "late",
-		label: "Llegada tardía",
-		steps: [
-			{
-				node: "login",
-				actor: "Participante",
-				text: "Se conecta cuando ya va la pregunta 5.",
-			},
-			{
-				node: "state",
-				via: "login-state",
-				actor: "Plataforma",
-				text: "El estado del juego le indica cuál es la pregunta activa.",
-			},
-			{
-				node: "answer",
-				via: "state-answer",
-				actor: "Participante",
-				text: "Responde de la 1 a la 5 y queda al día con el resto.",
-			},
-			{
-				node: "ranking",
-				via: "answer-ranking",
-				actor: "Administrador",
-				text: "Sus respuestas cuentan para el ranking de su sede como las de cualquiera.",
 			},
 		],
 	},

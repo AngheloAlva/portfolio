@@ -297,7 +297,7 @@ export function SwimlaneFlow<N extends string, E extends string>({
 									<node.Glyph className="h-full" />
 								</div>
 							</div>
-							<p className="text-foreground mt-1.5 truncate text-[0.6875rem] leading-tight font-semibold">
+							<p className="text-foreground mt-1.5 line-clamp-2 text-[0.6875rem] leading-tight font-semibold">
 								{node.title}
 							</p>
 							{isActive && step.outcome ? (

@@ -69,7 +69,7 @@ const PROJECT_MOCKUPS: Record<string, ProjectMockup> = {
 		flow: {
 			title: "Cómo se mueve la operación",
 			intro:
-				"Ventas, operación y administración trabajan sobre los mismos datos. Así pasa una venta por el sistema, qué ocurre cuando se cancela y cómo se comparten pasajeros con otras agencias.",
+				"Ventas, operación y administración trabajan sobre los mismos datos. Así pasa una venta por el sistema, qué ocurre cuando se cancela y cómo se trabaja con mayoristas y con otras agencias.",
 			Component: DashboardTurismoFlow,
 		},
 	},
