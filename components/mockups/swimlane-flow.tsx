@@ -1,6 +1,13 @@
 "use client"
 
-import { motion, useInView, useReducedMotion } from "motion/react"
+import {
+	animate,
+	motion,
+	useInView,
+	useMotionValue,
+	useReducedMotion,
+	useTransform,
+} from "motion/react"
 import { Pause, Play, ChevronLeft, ChevronRight } from "lucide-react"
 import { useEffect, useRef, useState, type ReactNode } from "react"
 
@@ -95,14 +102,23 @@ const pct = (value: number, total: number): string => `${(value / total) * 100}%
 const asList = <T,>(value: T | ReadonlyArray<T> | undefined): ReadonlyArray<T> =>
 	value === undefined ? [] : Array.isArray(value) ? (value as ReadonlyArray<T>) : [value as T]
 
-/** Times (0–1) at which a token reaches each vertex, proportional to segment length. */
-function vertexTimes(points: Point[]): number[] {
+/** Point at `progress` (0–1) of the polyline's total length. */
+function pointAt(points: Point[], progress: number): Point {
 	const lengths = points
 		.slice(1)
 		.map(([x, y], i) => Math.hypot(x - points[i]![0], y - points[i]![1]))
-	const total = lengths.reduce((sum, l) => sum + l, 0) || 1
-	let run = 0
-	return [0, ...lengths.map((l) => (run += l) / total)]
+	let remaining = progress * lengths.reduce((sum, l) => sum + l, 0)
+	for (let i = 0; i < lengths.length; i++) {
+		const length = lengths[i]!
+		if (remaining <= length || i === lengths.length - 1) {
+			const t = length ? Math.min(remaining / length, 1) : 1
+			const [ax, ay] = points[i]!
+			const [bx, by] = points[i + 1]!
+			return [ax + (bx - ax) * t, ay + (by - ay) * t]
+		}
+		remaining -= length
+	}
+	return points[0]!
 }
 
 function OutcomeBadge({ outcome }: { outcome: "approved" | "rejected" }): ReactNode {
@@ -118,6 +134,17 @@ function OutcomeBadge({ outcome }: { outcome: "approved" | "rejected" }): ReactN
 }
 
 function ActiveEdge({ edge, reduceMotion }: { edge: FlowEdge; reduceMotion: boolean }): ReactNode {
+	// One progress value drives both the stroke and the token, so they stay in step.
+	const progress = useMotionValue(reduceMotion ? 1 : 0)
+	const cx = useTransform(progress, (p) => pointAt(edge.points, p)[0])
+	const cy = useTransform(progress, (p) => pointAt(edge.points, p)[1])
+
+	useEffect(() => {
+		if (reduceMotion) return
+		const controls = animate(progress, 1, { duration: 0.9, ease: "easeInOut" })
+		return () => controls.stop()
+	}, [progress, reduceMotion])
+
 	return (
 		<g>
 			<motion.path
@@ -126,21 +153,9 @@ function ActiveEdge({ edge, reduceMotion }: { edge: FlowEdge; reduceMotion: bool
 				strokeWidth={2}
 				strokeDasharray={edge.dashed ? "5 5" : undefined}
 				// pathLength drives stroke-dasharray, so a dashed edge fades in instead of drawing.
-				initial={
-					edge.dashed ? { opacity: reduceMotion ? 1 : 0 } : { pathLength: reduceMotion ? 1 : 0 }
-				}
-				animate={edge.dashed ? { opacity: 1 } : { pathLength: 1 }}
-				transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+				style={edge.dashed ? { opacity: progress } : { pathLength: progress }}
 			/>
-			{reduceMotion ? null : (
-				<motion.circle
-					r={5}
-					className="fill-foreground"
-					initial={{ cx: edge.points[0]![0], cy: edge.points[0]![1] }}
-					animate={{ cx: edge.points.map((p) => p[0]), cy: edge.points.map((p) => p[1]) }}
-					transition={{ duration: 0.9, ease: "easeInOut", times: vertexTimes(edge.points) }}
-				/>
-			)}
+			{reduceMotion ? null : <motion.circle r={5} className="fill-foreground" cx={cx} cy={cy} />}
 		</g>
 	)
 }
